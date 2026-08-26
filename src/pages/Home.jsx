@@ -13,8 +13,8 @@ export default function Home() {
         <AngledTicker />
         <Stats />
         <HomePracticeSection />
-        <TestimonialsSection />
         <PhilosophySection />
+        <TestimonialsSection />
       </main>
     </div>
   );

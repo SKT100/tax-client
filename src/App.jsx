@@ -8,7 +8,7 @@ import LoadingScreen from './components/ui/LoadingScreen';
 
 const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
-const Practices = lazy(() => import('./pages/Practices'));
+const Services = lazy(() => import('./pages/Services'));
 const Schedule = lazy(() => import('./pages/Schedule'));
 
 function AppContent() {
@@ -122,7 +122,8 @@ function AppContent() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
-              <Route path="/practices" element={<Practices />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/practices" element={<Services />} />
               <Route path="/schedule" element={<Schedule />} />
             </Routes>
           </Suspense>

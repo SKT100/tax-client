@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 
 export function PracticeCard({ item, index }) {
-  const targetUrl = `/practices?area=${item.ref?.toLowerCase() || item.id}#practice-areas`;
+  const targetUrl = `/services#core-tax-pillars`;
 
   return (
     <div
@@ -48,10 +48,10 @@ export function PracticeCard({ item, index }) {
 
           <div className="mt-4 pt-3 border-t border-white/10">
             <span className="font-mono text-[10px] font-bold tracking-[0.2em] text-white/50 uppercase block mb-2.5">
-              KEY DOCKET COVERAGE
+              KEY COMPLIANCE COVERAGE
             </span>
             <ul className="flex flex-col border-t border-white/15">
-              {item.keyServices?.slice(0, 3).map((prec, i) => (
+              {(item.keyServices || [item.description]).slice(0, 3).map((prec, i) => (
                 <li
                   key={i}
                   className="py-1.5 border-b border-white/15 text-xs font-sans font-light text-white/70 transition-colors duration-300 group-hover:text-white"
@@ -66,15 +66,9 @@ export function PracticeCard({ item, index }) {
         {/* Right: Image Frame */}
         <Link
           to={targetUrl}
-          className="md:col-span-5 h-full min-h-[140px] md:min-h-[240px] border border-white/15 relative overflow-hidden bg-black shrink-0 block group-hover:border-white/40 transition-colors duration-500"
+          className="md:col-span-5 h-full min-h-[140px] md:min-h-[240px] border border-white/15 relative overflow-hidden bg-[#1A1A1A] shrink-0 block group-hover:border-white/40 transition-colors duration-500 flex items-center justify-center text-white/10 text-6xl font-light"
         >
-          <img
-            loading="lazy"
-            decoding="async"
-            src={item.image}
-            alt={item.title}
-            className="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-75 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out"
-          />
+          {String(index + 1).padStart(2, '0')}
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
         </Link>
 

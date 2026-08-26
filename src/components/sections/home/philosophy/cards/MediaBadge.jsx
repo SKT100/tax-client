@@ -13,8 +13,8 @@ export default function MediaBadge({ progress }) {
       <img
         loading="lazy"
         decoding="async"
-        src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80"
-        alt="Law library"
+        src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80"
+        alt="Tax Analysis & Calculation"
         className="w-full h-full object-cover filter brightness-75 contrast-110 group-hover:scale-110 transition-transform duration-700 ease-out"
       />
       <div className="absolute inset-0 bg-black/30 group-hover:bg-black/15 transition-colors" />
@@ -23,7 +23,7 @@ export default function MediaBadge({ progress }) {
           <Play size={20} className="text-white ml-1 fill-white" />
         </div>
         <span className="text-xs font-mono tracking-widest text-white uppercase mt-1">
-          Chambers Reel
+          Advisory Reel
         </span>
       </div>
     </motion.div>

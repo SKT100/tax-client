@@ -6,25 +6,25 @@ import PillButton from '../ui/PillButton';
 
 const MEGA_MENU_CONTENT = {
   about: {
-    title: "About the Practice",
-    description: "Over 25 years of precedent-setting advocacy, constitutional jurisprudence, and institutional trust at the Supreme Court of India.",
+    title: "About the Firm",
+    description: "Expert tax consultancy and statutory compliance solutions tailored for businesses and individuals.",
     links: [
-      { name: "Satyendra Agrawal", path: "/about" },
-      { name: "Academic Pedigree", path: "/about#pedigree" },
-      { name: "Empanelments Vault", path: "/about#empanelments" },
-      { name: "Chambers Network", path: "/about#chambers" },
-      { name: "Beyond the Bar", path: "/about#beyond-the-bar" }
+      { name: "Partha Pratim Halder", path: "/about" },
+      { name: "Professional Pedigree", path: "/about#pedigree" },
+      { name: "Compliance Vault", path: "/about#compliance-vault" },
+      { name: "Regional Network", path: "/about#locations" },
+      { name: "Beyond the Desk", path: "/about#beyond-the-desk" }
     ]
   },
-  practices: {
-    title: "Practice Areas",
-    description: "Comprehensive representation across apex judicial bodies, high courts, statutory tribunals, and corporate arbitrations.",
+  services: {
+    title: "Tax & Compliance",
+    description: "Comprehensive financial representation, tax filing, and statutory compliance management.",
     links: [
-      { name: "Constitutional & Writs", path: "/practices?area=constitutional#practice-areas" },
-      { name: "Appellate Litigation", path: "/practices?area=appellate#practice-areas" },
-      { name: "Commercial Arbitration", path: "/practices?area=commercial#practice-areas" },
-      { name: "Regulatory & Compliance", path: "/practices?area=regulatory#practice-areas" },
-      { name: "Civil & Property", path: "/practices?area=civil#practice-areas" }
+      { name: "Income Tax Services", path: "/services" },
+      { name: "GST Lifecycle Management", path: "/services" },
+      { name: "TDS / TCS Compliance", path: "/services" },
+      { name: "MSME & Business Licences", path: "/services" },
+      { name: "Accounting & Bookkeeping", path: "/services" }
     ]
   }
 };
@@ -98,8 +98,6 @@ export default function Navbar() {
     ? "text-primary-light dark:text-primary-dark"
     : "text-primary-dark";
 
-  const pillVariant = isSolid ? 'auto' : 'on-dark';
-
   return (
     <header 
       className="fixed top-0 w-full z-50"
@@ -112,6 +110,7 @@ export default function Navbar() {
       />
 
       <div className="relative flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-container-max-width mx-auto h-20">
+        {/* Navigation Links */}
         <ul className={`hidden md:flex gap-10 text-sm font-semibold uppercase tracking-widest transition-colors duration-300 ${textClasses}`}>
           {Object.keys(MEGA_MENU_CONTENT).map((item) => (
             <li 
@@ -120,8 +119,8 @@ export default function Navbar() {
               onMouseEnter={() => setActiveMenu(item)}
             >
               <Link 
-                to={item === 'about' ? '/about' : '/practices'} 
-                onClick={() => handleLinkClick(item === 'about' ? '/about' : '/practices')}
+                to={item === 'about' ? '/about' : '/services'} 
+                onClick={() => handleLinkClick(item === 'about' ? '/about' : '/services')}
                 className={`block py-4 transition-opacity duration-150 ${activeMenu === item ? 'opacity-100' : 'opacity-70 group-hover:opacity-100'}`}
               >
                 {item}
@@ -133,19 +132,27 @@ export default function Navbar() {
           ))}
         </ul>
         
+        {/* 🌟 Centered Logo Replacement (Responsive Theme Adaptability) */}
         <Link 
           to="/" 
           onClick={() => setActiveMenu(null)}
-          className={`font-serif text-xl md:text-2xl font-medium tracking-tight absolute left-1/2 -translate-x-1/2 transition-colors duration-300 ${textClasses}`}
+          className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center transition-transform hover:scale-105 duration-200"
         >
-          Satyendra Agrawal
+          <img
+            src="/images/Matrix-tax-logo.svg"
+            alt="Matrix Tax Solutions"
+            className={`h-8 sm:h-9 md:h-10 w-auto object-contain transition-all duration-300 ${
+              isSolid ? "invert dark:invert-0" : "invert-0"
+            }`}
+          />
         </Link>
         
+        {/* Actions */}
         <div className="flex items-center gap-6">
           <ThemeToggle onToggle={handleThemeToggle} />
           <Link to="/schedule" onClick={() => setActiveMenu(null)} className="hidden md:inline-flex">
-            <PillButton variant={pillVariant}>
-              SCHEDULE CONSULTATION
+            <PillButton variant="highlight" className="text-xs px-6 py-2.5 font-mono">
+              FILE RETURN NOW
             </PillButton>
           </Link>
         </div>

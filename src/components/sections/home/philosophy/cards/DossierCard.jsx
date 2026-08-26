@@ -10,10 +10,10 @@ export default function DossierCard({ progress }) {
   return (
     <motion.div style={{ opacity, scale, y }} className={className}>
       <h4 className="font-serif text-xl md:text-2xl text-primary-light dark:text-primary-dark font-normal">
-        Bench Advisory
+        Statutory Defense
       </h4>
       <p className="text-xs md:text-sm text-secondary-light dark:text-secondary-dark mt-2.5 font-light leading-relaxed">
-        Strategic counsel for appellate benches, writ petitions, and constitutional references.
+        Structured legal defense for Income Tax show-cause notices, Section 148 reassessments, and GST appellate reviews.
       </p>
     </motion.div>
   );

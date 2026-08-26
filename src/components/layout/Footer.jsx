@@ -1,6 +1,8 @@
+// src/components/layout/Footer.jsx
+
 import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import PillButton from "../ui/PillButton";
 
@@ -30,7 +32,11 @@ const staggerItem = {
 export default function Footer() {
   const footerRef = useRef(null);
 
-  // Subtle parallax that keeps the headline positioned safely without pushing it under the navbar
+  const isInView = useInView(footerRef, {
+    once: true,
+    margin: "0px 0px -150px 0px",
+  });
+
   const { scrollYProgress } = useScroll({
     target: footerRef,
     offset: ["start end", "start start"],
@@ -42,20 +48,31 @@ export default function Footer() {
       ref={footerRef}
       className="relative z-20 -mt-[25vh] md:-mt-[35vh] bg-[#0F0F12] rounded-t-[2.5rem] sm:rounded-t-[3rem] md:rounded-t-[4rem] overflow-hidden text-white shadow-2xl"
     >
-      {/* Background Graphic Layer */}
+      {/* 🌟 Background Graphic Layer (Explicit width/height prevents CLS layout shift) */}
       <motion.div
-        className="absolute right-0 top-0 bottom-0 w-full md:w-[70%] lg:w-[58%] pointer-events-none z-0 mix-blend-screen opacity-20"
-        initial={{ opacity: 0, x: 80, scale: 1.04 }}
-        whileInView={{ opacity: 0.22, x: 0, scale: 1 }}
-        viewport={{ once: true, amount: 0.2 }}
+        className="absolute right-0 top-0 bottom-0 w-full md:w-[75%] lg:w-[62%] pointer-events-none z-0 overflow-hidden flex items-center justify-end will-change-transform"
+        initial={{ opacity: 0, x: 220, scale: 1.04 }}
+        animate={
+          isInView
+            ? { opacity: 0.22, x: 0, scale: 1 }
+            : { opacity: 0, x: 220, scale: 1.04 }
+        }
         transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+        style={{
+          maskImage:
+            "radial-gradient(ellipse 85% 75% at 65% 50%, rgba(0,0,0,1) 10%, rgba(0,0,0,0.65) 40%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0) 78%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse 85% 75% at 65% 50%, rgba(0,0,0,1) 10%, rgba(0,0,0,0.65) 40%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0) 78%)",
+        }}
       >
         <img
+          width="600"
+          height="540"
           loading="lazy"
           decoding="async"
-          src="/images/lady-justice-footer.svg"
-          alt=""
-          className="w-full h-full object-cover object-[85%_25%] md:object-[90%_15%] filter grayscale contrast-125"
+          src="/images/footer-img.svg"
+          alt="Matrix Tax Solutions Background Emblem"
+          className="h-[88%] max-h-[540px] w-auto aspect-[10/9] object-contain object-right filter grayscale contrast-110 brightness-90 mix-blend-screen select-none"
         />
       </motion.div>
 
@@ -63,26 +80,24 @@ export default function Footer() {
         style={{ y: contentY }}
         className="relative z-10 max-w-container-max-width mx-auto px-margin-mobile md:px-margin-desktop"
       >
-        {/* Top CTA Section: Lowered naturally with no awkward line-wrapping on desktop */}
+        {/* Top CTA Section */}
         <motion.div
           className="flex flex-col items-center justify-center pt-20 sm:pt-24 md:pt-28 lg:pt-32 pb-12 sm:pb-16 text-center"
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          animate={isInView ? "visible" : "hidden"}
           variants={staggerContainer}
         >
-          {/* 🌟 Single-Line Title on Desktop with Scaled Typography */}
           <motion.h2
             variants={fadeUp}
             className="font-serif italic text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[4.25rem] font-light tracking-tight text-white mb-6 sm:mb-8 text-center leading-tight whitespace-normal sm:whitespace-nowrap"
           >
-            Secure Legal Representation
+            Excellence in Statutory Compliance.
           </motion.h2>
 
           <motion.div variants={fadeUp}>
             <Link to="/schedule">
               <PillButton
-                variant="on-dark"
+                variant="auto"
                 className="px-8 sm:px-11 py-3 sm:py-3.5 text-xs sm:text-sm font-mono tracking-widest uppercase shadow-2xl"
               >
                 Initiate Consultation
@@ -95,18 +110,25 @@ export default function Footer() {
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-12 lg:gap-8 pt-10 pb-16 md:pb-24 border-t border-white/10"
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.25 }}
+          animate={isInView ? "visible" : "hidden"}
           variants={staggerContainer}
         >
-          {/* Brand Column */}
+          {/* Brand Column: Large Standalone SVG Logo */}
           <motion.div variants={staggerItem} className="lg:col-span-1 pr-4">
-            <h3 className="font-serif text-2xl sm:text-3xl font-light leading-snug mb-3 text-white">
-              Satyendra Agrawal
-            </h3>
+            <Link to="/" className="inline-block mb-4">
+              <img
+                src="/images/Matrix-tax-logo.svg"
+                alt="Matrix Tax Solutions"
+                width="160"
+                height="56"
+                loading="lazy"
+                decoding="async"
+                className="h-10 sm:h-12 md:h-14 w-auto object-contain object-left opacity-95 hover:opacity-100 transition-opacity"
+              />
+            </Link>
             <p className="text-white/60 text-xs sm:text-sm font-sans leading-relaxed">
-              Advocate on Record, Supreme Court of India. Delivering
-              unparalleled legal expertise.
+              Partha Pratim Halder — GST & Tax Consultant. Delivering trusted
+              statutory compliance, ITR filing, and audit defense.
             </p>
           </motion.div>
 
@@ -118,18 +140,18 @@ export default function Footer() {
             <ul className="flex flex-col gap-3.5 text-white/60 text-xs sm:text-sm font-sans">
               <li>
                 <Link
-                  to="/practices#practice-areas"
+                  to="/services"
                   className="hover:text-white transition-colors"
                 >
-                  Practice Areas
+                  Services Directory
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/about#empanelments"
+                  to="/about#compliance-vault"
                   className="hover:text-white transition-colors"
                 >
-                  Empanelments Vault
+                  Compliance Vault
                 </Link>
               </li>
               <li>
@@ -145,7 +167,7 @@ export default function Footer() {
                   to="/schedule"
                   className="hover:text-white transition-colors"
                 >
-                  Schedule Consultation
+                  Schedule Advisory
                 </Link>
               </li>
             </ul>
@@ -167,6 +189,11 @@ export default function Footer() {
                   Privacy Policy
                 </a>
               </li>
+              <li>
+                <a href="#" className="hover:text-white transition-colors">
+                  Statutory Disclaimer
+                </a>
+              </li>
             </ul>
           </motion.div>
 
@@ -186,18 +213,20 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="https://wa.me/919007064088"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="hover:text-white transition-colors flex items-center gap-1.5"
                 >
-                  Twitter <ArrowUpRight size={13} />
+                  WhatsApp Direct <ArrowUpRight size={13} />
                 </a>
               </li>
               <li>
                 <a
-                  href="mailto:chambers@satyendraagrawal.in"
+                  href="mailto:tcparthahalder1984@gmail.com"
                   className="hover:text-white transition-colors flex items-center gap-1.5"
                 >
-                  Email <ArrowUpRight size={13} />
+                  Email Chambers <ArrowUpRight size={13} />
                 </a>
               </li>
             </ul>
@@ -208,12 +237,11 @@ export default function Footer() {
         <motion.div
           className="flex flex-col sm:flex-row items-center justify-between py-6 sm:py-8 border-t border-white/10 text-[10px] sm:text-xs font-mono text-white/50 uppercase tracking-[0.2em] gap-3 text-center sm:text-left"
           initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0.8 }}
-          transition={{ duration: 0.8, delay: 0.15 }}
+          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <span>© 2026 SATYENDRA AGRAWAL. ALL RIGHTS RESERVED.</span>
-          <span>DESIGNED FOR EXCELLENCE</span>
+          <span>© 2026 MATRIX TAX SOLUTIONS. ALL RIGHTS RESERVED.</span>
+          <span>ACCURACY • COMPLIANCE • GROWTH</span>
         </motion.div>
       </motion.div>
     </footer>

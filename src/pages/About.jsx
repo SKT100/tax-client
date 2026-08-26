@@ -1,9 +1,8 @@
 import AboutProfileHero from '../components/sections/about/AboutProfileHero';
 import Stats from '../components/sections/shared/Stats';
 import AngledTicker from '../components/sections/shared/AngledTicker';
-import EmpanelmentsVault from '../components/sections/about/EmpanelmentsVault';
-import BeyondTheBar from '../components/sections/about/BeyondTheBar';
-import ChambersNetwork from '../components/sections/about/ChambersNetwork';
+import ComplianceVault from '../components/sections/about/ComplianceVault';
+import RegionalReachMap from '../components/sections/contact/RegionalReachMap';
 
 export default function About() {
   return (
@@ -15,12 +14,11 @@ export default function About() {
         {/* 2. Stats */}
         <Stats />
 
-        {/* 3. Vault, Beyond the Bar, Ribbon & Chambers */}
+        {/* 3. Vault, Ribbon & Regional Network */}
         <div className="space-y-16 py-8">
-          <EmpanelmentsVault />
-          <BeyondTheBar />
+          <ComplianceVault />
           <AngledTicker />
-          <ChambersNetwork />
+          <RegionalReachMap />
         </div>
       </main>
     </div>

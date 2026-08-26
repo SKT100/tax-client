@@ -13,7 +13,7 @@ const fadeUp = {
 };
 
 export default function TestimonialsSection({
-  heading = "Endorsements of Precedent & Integrity",
+  heading = "Client Endorsements & Statutory Trust",
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const totalSlides = TESTIMONIALS.length;
@@ -51,7 +51,7 @@ export default function TestimonialsSection({
         <div className="glass-card border border-theme rounded-none overflow-hidden grid grid-cols-1 lg:grid-cols-12 shadow-2xl transition-all duration-300 h-auto sm:h-[460px] md:h-[420px] lg:h-[400px]">
           
           {/* ========================================================= */}
-          {/* 🌟 LEFT FIXED PANEL: Static Rating                        */}
+          {/* 🌟 LEFT FIXED PANEL: Static Rating & Verified Compliance  */}
           {/* ========================================================= */}
           <div className="lg:col-span-4 p-8 sm:p-10 md:p-12 flex flex-col justify-center items-center text-center border-b lg:border-b-0 lg:border-r border-theme bg-black/[0.02] dark:bg-surface-light/[0.02] h-full">
             <div className="w-full flex flex-col items-center">
@@ -60,7 +60,7 @@ export default function TestimonialsSection({
                 4.9
               </div>
 
-              {/* 5 Gold Stars */}
+              {/* 5 Stars */}
               <div className="flex items-center gap-1.5 mb-3 text-amber-500">
                 {[...Array(5)].map((_, i) => (
                   <Star
@@ -72,18 +72,18 @@ export default function TestimonialsSection({
 
               {/* Verified Count */}
               <div className="font-mono text-[10px] sm:text-xs font-bold tracking-[0.25em] uppercase mb-1">
-                500+ Dockets & Opinions
+                500+ Filings & Audits
               </div>
 
               {/* Subtitle */}
               <p className="font-mono text-xs tracking-wider uppercase text-secondary-light dark:text-secondary-dark">
-                Supreme Court • High Courts • PSUs
+                Direct Tax • GST • Scrutiny Defense • MSME
               </p>
             </div>
           </div>
 
           {/* ========================================================= */}
-          {/* 🌟 RIGHT SLIDING CAROUSEL: Level Baseline & Zero Layout Shift */}
+          {/* 🌟 RIGHT SLIDING CAROUSEL: Level Baseline & Zero Shift    */}
           {/* ========================================================= */}
           <div className="lg:col-span-8 p-6 sm:p-8 md:p-10 flex flex-col justify-between h-full overflow-hidden">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-stretch h-full">

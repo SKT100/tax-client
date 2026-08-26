@@ -1,30 +1,36 @@
 export const HERO_SLIDES = [
   {
     type: "video",
-    src: "/videos/lady-justice.mp4",
-    text: "Constitutional Law",
+    src: "/videos/calculator.mp4",
+    text: "Income Tax & ITR E-Filing",
   },
   {
     type: "image",
-    src: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1920&q=80",
-    text: "Supreme Court Bench Advisory",
+    src: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1920&q=80",
+    text: "GST Compliance & Periodic Returns",
   },
   {
     type: "video",
-    src: "/videos/legal-documents.mp4",
-    text: "Appellate Litigation",
+    src: "/videos/paper.mp4",
+    text: "Notice Defense & Scrutiny Appeals",
   },
   {
     type: "image",
-    src: "https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?auto=format&fit=crop&w=1920&q=80",
-    text: "High Court Appeal Representation",
+    src: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1920&q=80",
+    text: "TDS / TCS Advisory & Form 26AS",
   },
   {
     type: "video",
-    src: "/videos/advocate-window.mp4",
-    text: "Commercial Arbitration",
+    src: "/videos/laptop.mp4",
+    text: "Bookkeeping on Tally & Financial Statements",
+  },
+  {
+    type: "video",
+    src: "/videos/window.mp4",
+    text: "MSME, Trade Licences & Business Registrations",
   },
 ];
+
 export const ZONE = {
   OUTSIDE: "outside",
   INSIDE_CLEAR: "inside-clear",

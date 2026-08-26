@@ -10,10 +10,10 @@ export default function StatBadge({ progress }) {
   return (
     <motion.div style={{ opacity, scale, y }} className={className}>
       <div className="font-serif text-4xl md:text-5xl text-primary-light dark:text-primary-dark font-light leading-none">
-        98%
+        100%
       </div>
-      <div className="text-[10px] font-mono tracking-widest uppercase text-secondary-light dark:text-secondary-dark mt-2 max-w-[120px]">
-        Resolution Success Rate
+      <div className="text-[10px] font-mono tracking-widest uppercase text-secondary-light dark:text-secondary-dark mt-2 max-w-[130px]">
+        On-Time Statutory Compliance Rate
       </div>
     </motion.div>
   );

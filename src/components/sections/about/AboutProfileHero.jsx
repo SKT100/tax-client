@@ -5,8 +5,7 @@ import {
   useMotionTemplate,
   animate,
 } from "framer-motion";
-import { Award } from "lucide-react";
-import { HERO_CREDENTIALS } from "../../../data/aboutData";
+import { Award, ShieldCheck, FileCheck2, Sparkles } from "lucide-react";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -21,6 +20,13 @@ const staggerContainer = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
 };
+
+// Statutory standards & practice benchmarks (replacing redundant service lists)
+const PRACTICE_STANDARDS = [
+  "STATUTORY PRECISION",
+  "STRICT CONFIDENTIALITY",
+  "AUDIT-READY",
+];
 
 export default function AboutProfileHero() {
   const portraitRef = useRef(null);
@@ -56,18 +62,18 @@ export default function AboutProfileHero() {
 
   return (
     <section className="relative w-full bg-surface-light dark:bg-surface-dark text-primary-light dark:text-primary-dark transition-colors duration-300 overflow-hidden pt-12 md:pt-16 lg:pt-20 pb-12">
-      
+
       {/* 🌟 1. HIGH-CONTRAST MOBILE/TABLET BACKDROP PORTRAIT (< lg screens) */}
       <div className="absolute top-0 right-0 w-full sm:w-[85%] h-[560px] sm:h-[650px] lg:hidden pointer-events-none z-0 overflow-hidden">
         <img
           loading="eager"
           decoding="async"
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZqLAqmbMJopceJbPHX8Q7xaYObaUAuC6yopOEg3OOXo6SbxIBD6k_pDjKPSBudIOHs3rX3JzYGPJKrCMCrOhPQFNUfw0kt0wMXa9pjb-LhYQJurlqCtsZRtvCN2BY-BvcuD_OiQq43U80pCUCLn9ZAutDWppJ2R8IPcGM921bgnbH0ATxg_T0_CoiZ0VCD_2LHMZUM7Kls1pGVPmjaZB3SWF0X-G70CVCcx8yxWxeQJzl27iZmJNr"
-          alt="Satyendra Agrawal Backdrop"
+          src="/images/pritam-img.webp"
+          alt="Partha Pratim Halder Backdrop"
           className="w-full h-full object-cover object-[82%_top] filter grayscale contrast-125 brightness-95 opacity-75 dark:opacity-65 dark:brightness-90 transition-opacity duration-300"
         />
-        
-        {/* Calibrated Multi-Stop Fades for Text Legibility in Both Modes */}
+
+        {/* Calibrated Multi-Stop Fades for Text Legibility */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-surface-light/50 to-surface-light dark:via-surface-dark/50 dark:to-surface-dark" />
         <div className="absolute inset-0 bg-gradient-to-r from-surface-light/90 via-surface-light/40 to-transparent dark:from-surface-dark/90 dark:via-surface-dark/40" />
       </div>
@@ -81,14 +87,14 @@ export default function AboutProfileHero() {
       >
         {/* LEFT COLUMN: Narrative & Credentials */}
         <div className="w-full lg:w-[55%] flex flex-col justify-center gap-5 z-20">
-          
+
           {/* Main Headline */}
           <motion.h1
             variants={fadeUp}
             className="font-serif text-6xl sm:text-7xl lg:text-8xl leading-[0.92] sm:leading-[0.98] font-light tracking-tight text-primary-light dark:text-primary-dark"
           >
-            Satyendra <br />
-            <span className="italic font-light opacity-90">Agrawal</span>
+            Partha Pratim <br />
+            <span className="italic font-light opacity-90">Halder</span>
           </motion.h1>
 
           {/* Subhead Designation */}
@@ -97,7 +103,7 @@ export default function AboutProfileHero() {
             className="flex items-center gap-2 font-mono text-xs tracking-widest uppercase text-secondary-light dark:text-secondary-dark"
           >
             <Award className="w-4 h-4 text-primary-light dark:text-primary-dark shrink-0" />
-            <span>Advocate on Record — Supreme Court of India</span>
+            <span>GST & Tax Consultant — 10+ Years Experience</span>
           </motion.div>
 
           {/* Strategic Narrative */}
@@ -106,85 +112,94 @@ export default function AboutProfileHero() {
             className="font-body font-light text-base md:text-lg leading-relaxed text-secondary-light dark:text-secondary-dark space-y-3.5 max-w-2xl"
           >
             <p>
-              With over 25 years at the Bar, Satyendra Agrawal has cultivated a
-              practice defined by meticulous research and strategic foresight.
-              As an Advocate on Record at the Supreme Court of India, his
-              journey spans from the historic halls of the Calcutta High Court to
-              the apex judicial body of the nation.
+              With over a decade of hands-on practice in taxation, bookkeeping, and
+              statutory advisory, Partha Pratim Halder founded Matrix Tax Solutions
+              to deliver uncompromising accuracy, speed, and complete peace of mind.
             </p>
             <p>
-              His approach transcends mere litigation; it is an exercise in
-              legal architecture, building cases on the bedrock of
-              constitutional principles and evolving jurisprudence.
+              His practice focuses on end-to-end statutory defense—protecting businesses
+              and individuals from procedural non-compliance, securing legitimate input tax
+              credits, and optimizing tax liabilities within the letter of the law.
             </p>
           </motion.div>
 
-          {/* Academic Pedigree Anchor Container */}
+          {/* Practice Benchmarks / Standards Container */}
           <motion.div
             id="pedigree"
             variants={fadeUp}
             className="pt-4 border-t border-theme max-w-2xl scroll-mt-28"
           >
-            <span className="font-mono text-xs tracking-widest text-primary-light dark:text-primary-dark uppercase font-bold block mb-2.5">
-              ACADEMIC PEDIGREE
+            <span className="font-mono text-[11px] tracking-[0.2em] text-secondary-light dark:text-secondary-dark uppercase font-semibold block mb-2">
+              STATUTORY BENCHMARKS
             </span>
-            <div className="flex flex-wrap items-center gap-3">
-              {HERO_CREDENTIALS.map((cred, idx) => (
-                <span key={idx} className="flex items-center gap-3">
-                  <span className="font-mono text-xs font-semibold tracking-widest text-primary-light dark:text-primary-dark">
-                    {cred}
+            <div className="flex items-center gap-2.5 whitespace-nowrap overflow-hidden">
+              {PRACTICE_STANDARDS.map((standard, idx) => (
+                <span key={idx} className="flex items-center gap-2.5">
+                  <span className="font-mono text-[11px] font-semibold tracking-wider text-primary-light dark:text-primary-dark">
+                    {standard}
                   </span>
-                  {idx < HERO_CREDENTIALS.length - 1 && (
-                    <span className="w-1 h-1 rounded-full bg-obsidian/20 dark:bg-white/20" />
+                  {idx < PRACTICE_STANDARDS.length - 1 && (
+                    <span className="w-1 h-1 rounded-full bg-primary-light/30 dark:bg-primary-dark/30 shrink-0" />
                   )}
                 </span>
               ))}
             </div>
           </motion.div>
 
-          {/* Member Cards */}
+          {/* Statutory Alliance & Practice Badges */}
+          {/* Institutional Standing / Practice Badges */}
           <motion.div
             variants={fadeUp}
             className="grid grid-cols-2 gap-4 max-w-md pt-2"
           >
-            {/* Card 1: ICJ London */}
-            <div className="relative aspect-square p-6 rounded-xl glass-card border-theme flex flex-col justify-end overflow-hidden transition-all duration-300 hover:border-black/20 dark:hover:border-white/30 group">
-              <div className="absolute -right-6 -top-6 w-[143px] opacity-15 dark:opacity-25 pointer-events-none transition-transform duration-500 group-hover:scale-110">
+            {/* Card 1: GST Practitioner */}
+            <div className="relative aspect-square p-5 sm:p-6 rounded-xl glass-card border-theme flex flex-col justify-end overflow-hidden transition-all duration-300 hover:border-primary-light/30 dark:hover:border-primary-dark/30 group">
+              {/* Subtle Watermark Logo */}
+              <div className="absolute -right-4 -top-4 w-32 h-32 opacity-10 dark:opacity-15 pointer-events-none transition-transform duration-500 group-hover:scale-105">
                 <img
                   loading="lazy"
-                  decoding="async"
-                  src="/images/icj-logo.png"
-                  alt="International Council of Jurists Logo"
-                  className="w-full h-full object-contain filter mix-blend-multiply dark:mix-blend-screen dark:invert"
+                  src="/images/ashok-emblem-icon.svg"
+                  alt=""
+                  aria-hidden="true"
+                  className="w-full h-full object-contain filter grayscale invert dark:invert-0"
                 />
               </div>
+
               <div className="relative z-10">
-                <h3 className="font-mono text-xs md:text-sm font-bold tracking-widest uppercase text-primary-light dark:text-primary-dark mb-1">
-                  OFFICIAL MEMBER
+                <span className="font-mono text-[9px] sm:text-[10px] tracking-widest uppercase text-secondary-light dark:text-secondary-dark block mb-1">
+                  INDIRECT TAX STANDING
+                </span>
+                <h3 className="font-mono text-xs sm:text-sm font-bold tracking-wider uppercase text-primary-light dark:text-primary-dark mb-1">
+                  GST PRACTITIONER
                 </h3>
-                <p className="font-body font-light text-xs text-secondary-light dark:text-secondary-dark leading-snug">
-                  International Council of Jurists, London
+                <p className="font-body font-light text-[11px] sm:text-xs text-secondary-light dark:text-secondary-dark leading-tight">
+                  Authorized E-Filing & SCN Legal Defense
                 </p>
               </div>
             </div>
 
-            {/* Card 2: Calcutta High Court Bar */}
-            <div className="relative aspect-square p-6 rounded-xl glass-card border-theme flex flex-col justify-end overflow-hidden transition-all duration-300 hover:border-black/20 dark:hover:border-white/30 group">
-              <div className="absolute -right-6 -top-6 w-[157px] opacity-15 dark:opacity-25 pointer-events-none transition-transform duration-500 group-hover:scale-110">
+            {/* Card 2: Direct Tax Intermediary */}
+            <div className="relative aspect-square p-5 sm:p-6 rounded-xl glass-card border-theme flex flex-col justify-end overflow-hidden transition-all duration-300 hover:border-primary-light/30 dark:hover:border-primary-dark/30 group">
+              {/* Subtle Watermark Logo */}
+              <div className="absolute -right-4 -top-4 w-32 h-32 opacity-10 dark:opacity-15 pointer-events-none transition-transform duration-500 group-hover:scale-105">
                 <img
                   loading="lazy"
-                  decoding="async"
-                  src="/images/calcutta-high-court-logo.png"
-                  alt="Bar Association High Court at Calcutta Logo"
-                  className="w-full h-full object-contain filter mix-blend-multiply dark:mix-blend-screen dark:invert"
+                  src="/images/ashok-emblem-icon.svg"
+                  alt=""
+                  aria-hidden="true"
+                  className="w-full h-full object-contain filter grayscale invert dark:invert-0"
                 />
               </div>
+
               <div className="relative z-10">
-                <h3 className="font-mono text-xs md:text-sm font-bold tracking-widest uppercase text-primary-light dark:text-primary-dark mb-1">
-                  OFFICIAL MEMBER
+                <span className="font-mono text-[9px] sm:text-[10px] tracking-widest uppercase text-secondary-light dark:text-secondary-dark block mb-1">
+                  DIRECT TAX NETWORK
+                </span>
+                <h3 className="font-mono text-xs sm:text-sm font-bold tracking-wider uppercase text-primary-light dark:text-primary-dark mb-1">
+                  TAX PRACTITIONER
                 </h3>
-                <p className="font-body font-light text-xs text-secondary-light dark:text-secondary-dark leading-snug">
-                  Bar Association, High Court at Calcutta
+                <p className="font-body font-light text-[11px] sm:text-xs text-secondary-light dark:text-secondary-dark leading-tight">
+                  Income Tax E-Filing & Scrutiny Management
                 </p>
               </div>
             </div>
@@ -197,7 +212,7 @@ export default function AboutProfileHero() {
           >
             <Award className="w-4 h-4 text-primary-light dark:text-primary-dark mb-2" />
             <p className="font-serif italic text-xs sm:text-sm text-primary-light dark:text-primary-dark leading-snug">
-              "Legal precision is the foundation of institutional trust."
+              "Accurate Advice, Proper Compliance, Complete Peace of Mind."
             </p>
           </motion.div>
         </div>
@@ -216,8 +231,8 @@ export default function AboutProfileHero() {
             <img
               loading="lazy"
               decoding="async"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZqLAqmbMJopceJbPHX8Q7xaYObaUAuC6yopOEg3OOXo6SbxIBD6k_pDjKPSBudIOHs3rX3JzYGPJKrCMCrOhPQFNUfw0kt0wMXa9pjb-LhYQJurlqCtsZRtvCN2BY-BvcuD_OiQq43U80pCUCLn9ZAutDWppJ2R8IPcGM921bgnbH0ATxg_T0_CoiZ0VCD_2LHMZUM7Kls1pGVPmjaZB3SWF0X-G70CVCcx8yxWxeQJzl27iZmJNr"
-              alt="Satyendra Agrawal Grayscale"
+              src="/images/pritam-img.webp"
+              alt="Partha Pratim Halder Grayscale"
               className="w-full h-full object-cover object-top filter grayscale contrast-125 brightness-90"
             />
 
@@ -229,20 +244,20 @@ export default function AboutProfileHero() {
               <img
                 loading="lazy"
                 decoding="async"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZqLAqmbMJopceJbPHX8Q7xaYObaUAuC6yopOEg3OOXo6SbxIBD6k_pDjKPSBudIOHs3rX3JzYGPJKrCMCrOhPQFNUfw0kt0wMXa9pjb-LhYQJurlqCtsZRtvCN2BY-BvcuD_OiQq43U80pCUCLn9ZAutDWppJ2R8IPcGM921bgnbH0ATxg_T0_CoiZ0VCD_2LHMZUM7Kls1pGVPmjaZB3SWF0X-G70CVCcx8yxWxeQJzl27iZmJNr"
-                alt="Satyendra Agrawal Color Lens"
+                src="/images/pritam-img.webp"
+                alt="Partha Pratim Halder Color Lens"
                 className="w-full h-full object-cover object-top filter-none brightness-100 contrast-100"
               />
             </motion.div>
 
-            {/* Subtle Gradient Overlays */}
+            {/* Dark Mode Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-r from-surface-dark/90 via-surface-dark/30 to-transparent hidden dark:block pointer-events-none z-10" />
 
             {/* Desktop Quote Badge */}
-            <div className="absolute bottom-6 right-6 glass-card p-6 rounded-theme max-w-xs shadow-2xl z-20 pointer-events-auto">
+            <div className="absolute bottom-6 right-6 glass-card p-6 rounded-theme max-w-xs shadow-2xl z-20 pointer-events-auto border border-theme">
               <Award className="w-5 h-5 text-primary-light dark:text-primary-dark mb-2" />
               <p className="font-serif italic text-sm text-primary-light dark:text-primary-dark leading-snug">
-                "Legal precision is the foundation of institutional trust."
+                "Accurate Advice, Proper Compliance, Complete Peace of Mind."
               </p>
             </div>
           </motion.div>

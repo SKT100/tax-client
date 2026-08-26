@@ -1,58 +1,67 @@
-import {
-  Ribbon,
-  DEFAULT_LATIN_MAXIMS,
-  DEFAULT_LEGAL_TERMS,
-} from "../../ui/ribbon";
+import { Ribbon } from "../../ui/ribbon";
+
+const TAX_MAXIMS = [
+  "ACCURATE ADVICE",
+  "PROPER COMPLIANCE",
+  "COMPLETE PEACE OF MIND",
+  "WE CARE, YOU GROW",
+  "STATUTORY EXCELLENCE",
+  "ZERO-PENALTY TARGETING",
+];
+
+const TAX_SERVICES = [
+  "INCOME TAX (ITR 1-7)",
+  "GST REGISTRATION & RETURNS",
+  "TDS/TCS CORRECTIONS",
+  "MSME (UDYAM) REGISTRATION",
+  "TRADE LICENCE & PERMITS",
+  "BOOKKEEPING ON TALLY",
+  "SHOW CAUSE NOTICE DEFENSE",
+];
+
 export default function AngledTicker({
   ribbons,
-  sectionPadding = "pt-24 md:pt-36 lg:pt-44 pb-20 md:pb-28",
-  minHeight = "min-h-[380px] xl:min-h-[460px]",
+  sectionPadding = "py-32 sm:py-44 md:py-56 lg:py-64",
+  minHeight = "min-h-[500px] sm:min-h-[600px] md:min-h-[700px]",
 }) {
   const activeRibbons = ribbons || [
     {
-      items: DEFAULT_LATIN_MAXIMS,
-      velocity: -0.2,
-      rotation: "-rotate-[6deg] md:-rotate-[3.2deg]",
-      bgClass: "bg-surface-light",
-      textClass: "text-slate-950 font-serif",
+      items: TAX_MAXIMS,
+      velocity: -0.22,
+      rotation: "-rotate-[4.5deg] md:-rotate-[3deg]",
+      bgClass: "bg-[#FBFBF9] dark:bg-[#F2F1ED] text-slate-950",
       borderClass: "border-y border-black/15",
-      separator: (
-        <img
-          loading="lazy"
-          decoding="async"
-          src="/images/ashok-emblem-icon.svg"
-          alt="Emblem"
-          className="h-[1.5em] w-auto opacity-80 mx-2 inline-block"
-        />
-      ),
-      separatorClass:
-        "text-amber-700/80 text-xl md:text-2xl lg:text-3xl xl:text-4xl",
+      paddingClass: "py-6 sm:py-8 md:py-10 lg:py-12",
+      textClass: "text-slate-950 font-serif font-light tracking-tight",
+      textStyle: "text-4xl sm:text-6xl md:text-7xl lg:text-8xl leading-none uppercase",
+      separator: "✦",
+      separatorClass: "text-amber-700 text-3xl sm:text-5xl md:text-6xl lg:text-7xl leading-none",
       zIndex: "z-20",
     },
     {
-      items: DEFAULT_LEGAL_TERMS,
-      velocity: 0.2,
-      rotation: "rotate-[6deg] md:rotate-[3.2deg]",
-      bgClass: "bg-[#0D0D0F]",
-      textClass: "text-primary-dark font-serif",
-      borderClass: "border-y border-theme",
-      separator: "✪",
-      separatorClass:
-        "text-amber-400/80 text-xl md:text-2xl lg:text-3xl xl:text-4xl",
+      items: TAX_SERVICES,
+      velocity: 0.22,
+      rotation: "rotate-[4.5deg] md:rotate-[3deg]",
+      bgClass: "bg-[#09090C] text-slate-100",
+      borderClass: "border-y border-white/15",
+      paddingClass: "py-6 sm:py-8 md:py-10 lg:py-12",
+      textClass: "text-slate-100 font-serif font-light tracking-wide",
+      textStyle: "text-4xl sm:text-6xl md:text-7xl lg:text-8xl leading-none uppercase",
+      separator: "★",
+      separatorClass: "text-amber-400 text-3xl sm:text-5xl md:text-6xl lg:text-7xl leading-none",
       zIndex: "z-10",
     },
   ];
+
   return (
     <section
-      className={`relative ${sectionPadding} select-none my-4 flex items-center justify-center ${minHeight}`}
+      className={`relative w-full ${sectionPadding} select-none flex items-center justify-center overflow-hidden ${minHeight}`}
     >
-      {" "}
-      <div className="relative w-full flex items-center justify-center">
-        {" "}
+      <div className="relative w-full h-full flex items-center justify-center pointer-events-none">
         {activeRibbons.map((ribbonProps, index) => (
           <Ribbon key={index} {...ribbonProps} />
-        ))}{" "}
-      </div>{" "}
+        ))}
+      </div>
     </section>
   );
 }

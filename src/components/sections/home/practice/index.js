@@ -1,3 +1,3 @@
-export * from "../../../../data/practiceData";
+export * from "../../../../data/taxData";
 export * from "./PracticeHeader";
 export * from "./PracticeCard";

@@ -1,65 +1,59 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, MapPin, Phone, Mail } from "lucide-react";
-import { CHAMBERS } from "../../data/aboutData";
+import { CONTACT_INFO } from "../../data/taxData";
 
 export default function ChamberMapCard() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const chambersList = [
     {
-      id: "high-court",
+      id: "baidyabati-ho",
       number: "01",
-      tabLabel: "High Court",
-      title: "High Court Chamber",
+      tabLabel: "Head Office",
+      title: "Baidyabati Head Office",
       description:
-        "Principal litigation chamber managing appellate filings, writ petitions, and division bench matters at the High Court at Calcutta.",
-      locationName: "Calcutta High Court",
-      locationAddress:
-        CHAMBERS?.[0]?.address?.join(", ") ||
-        "Bar Association Room No. 18, High Court, Kolkata - 700001",
-      directLine: "+91 (033) 2248-0000",
-      email: "highcourt@satyendraagrawal.in",
+        "Principal tax and advisory office managing direct tax e-filing, GST periodic compliance, business licensing, and statutory notice defense.",
+      locationName: "Matrix Tax Solutions HQ",
+      locationAddress: "Baidyabati, Hooghly, West Bengal — 712222",
+      directLine: CONTACT_INFO?.phone || "+91 9007064088",
+      email: CONTACT_INFO?.email || "tcparthahalder1984@gmail.com",
       mapEmbedUrl:
-        "https://maps.google.com/maps?q=Calcutta%20High%20Court%20Bar%20Association%20Room%2018&t=&z=16&ie=UTF8&iwloc=&output=embed",
+        "https://maps.google.com/maps?q=Baidyabati%20Hooghly%20West%20Bengal%20712222&t=&z=14&ie=UTF8&iwloc=&output=embed",
       mapDirectLink:
-        "https://maps.google.com/?q=Calcutta+High+Court+Bar+Association+Room+18+Kolkata",
+        "https://maps.google.com/?q=Baidyabati+Hooghly+West+Bengal+712222",
     },
     {
-      id: "city-office",
+      id: "digital-desk",
       number: "02",
-      tabLabel: "City Office",
-      title: "City Office & Secretariat",
+      tabLabel: "Digital Desk",
+      title: "Digital Consultation & E-Filing",
       description:
-        "Corporate arbitration chamber and private client consultation center for infrastructure, corporate, and statutory claims.",
-      locationName: "Kolkata Central Office",
-      locationAddress:
-        CHAMBERS?.[1]?.address?.join(", ") ||
-        "23A N.S. Road, 4th Floor, Kolkata - 700001",
-      directLine: "+91 98300 00000",
-      email: "cityoffice@satyendraagrawal.in",
+        "Remote advisory and virtual filing desk providing dedicated consultation to individuals and businesses across Kolkata, Howrah, Nadia, and 24 Parganas.",
+      locationName: "Online Video & Document Desk",
+      locationAddress: "Virtual Advisory & Remote Compliance Portal",
+      directLine: CONTACT_INFO?.phone || "+91 9007064088",
+      email: CONTACT_INFO?.email || "tcparthahalder1984@gmail.com",
       mapEmbedUrl:
-        "https://maps.google.com/maps?q=23A%20NS%20Road%20Kolkata%20700001&t=&z=16&ie=UTF8&iwloc=&output=embed",
+        "https://maps.google.com/maps?q=Kolkata%20West%20Bengal&t=&z=11&ie=UTF8&iwloc=&output=embed",
       mapDirectLink:
-        "https://maps.google.com/?q=23A+NS+Road+Kolkata+700001",
+        "https://maps.google.com/?q=Kolkata+West+Bengal",
     },
     {
-      id: "howrah-chamber",
+      id: "regional-hub",
       number: "03",
-      tabLabel: "Howrah Chamber",
-      title: "Howrah Chamber",
+      tabLabel: "Regional Reach",
+      title: "Hooghly & Kolkata Network",
       description:
-        "Private evening chamber dedicated to strategic pre-trial conferences, case briefs, and confidential client deliberations.",
-      locationName: "Liluah Chamber",
-      locationAddress:
-        CHAMBERS?.[2]?.address?.join(", ") ||
-        "Laxmi Sadan, 112 Girish Ghosh Road, Liluah, Howrah - 711204",
-      directLine: "+91 98311 00000",
-      email: "chambers@satyendraagrawal.in",
+        "Local client assistance and on-ground compliance support covering municipal trade licences, PF/ESI registrations, and audit documentation.",
+      locationName: "Hooghly & Greater Kolkata Belt",
+      locationAddress: "Active Service Across 6 Target Districts",
+      directLine: CONTACT_INFO?.phone || "+91 9007064088",
+      email: CONTACT_INFO?.email || "tcparthahalder1984@gmail.com",
       mapEmbedUrl:
-        "https://maps.google.com/maps?q=112%20Girish%20Ghosh%20Road%20Liluah%20Howrah&t=&z=16&ie=UTF8&iwloc=&output=embed",
+        "https://maps.google.com/maps?q=Serampore%20Hooghly%20West%20Bengal&t=&z=13&ie=UTF8&iwloc=&output=embed",
       mapDirectLink:
-        "https://maps.google.com/?q=Laxmi+Sadan+112+Girish+Ghosh+Road+Liluah+Howrah",
+        "https://maps.google.com/?q=Serampore+Hooghly+West+Bengal",
     },
   ];
 
@@ -68,10 +62,10 @@ export default function ChamberMapCard() {
   return (
     <div className="glass-card border border-theme rounded-3xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 shadow-2xl transition-all duration-300">
       
-      {/* Left Column: Segmented Pill Switcher & Active Chamber Details */}
+      {/* Left Column: Segmented Pill Switcher & Active Location Details */}
       <div className="lg:col-span-6 p-6 sm:p-8 md:p-10 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-theme">
         <div>
-          {/* 🌟 Fully Pill-Shaped Track (`rounded-full`) */}
+          {/* Pill-Shaped Track */}
           <div className="p-1 sm:p-1.5 bg-black/5 dark:bg-white/5 rounded-full border border-theme grid grid-cols-3 gap-1 mb-6 sm:mb-8">
             {chambersList.map((chamber, index) => {
               const isSelected = activeIndex === index;
@@ -86,7 +80,6 @@ export default function ChamberMapCard() {
                       : "text-secondary-light dark:text-secondary-dark hover:text-primary-light dark:hover:text-primary-dark"
                   }`}
                 >
-                  {/* 🌟 Pill-Shaped Sliding Indicator (`rounded-full`) */}
                   {isSelected && (
                     <motion.div
                       layoutId="activeChamberTab"
@@ -101,7 +94,7 @@ export default function ChamberMapCard() {
             })}
           </div>
 
-          {/* Dynamic Chamber Content */}
+          {/* Dynamic Location Content */}
           <AnimatePresence mode="wait">
             <motion.div
               key={activeChamber.id}
@@ -152,12 +145,12 @@ export default function ChamberMapCard() {
           </AnimatePresence>
         </div>
 
-        {/* Chamber Inquiries Footer */}
+        {/* Inquiries Footer */}
         <div className="mt-6 sm:mt-8 pt-5 border-t border-theme flex flex-col sm:flex-row sm:items-center justify-between gap-1">
           <div className="flex items-center gap-1.5">
             <Mail className="w-3.5 h-3.5 text-secondary-light dark:text-secondary-dark" />
             <span className="font-mono text-[9px] sm:text-[10px] font-bold tracking-[0.2em] uppercase text-secondary-light dark:text-secondary-dark">
-              CHAMBER INQUIRIES
+              DIRECT INQUIRIES
             </span>
           </div>
           <a

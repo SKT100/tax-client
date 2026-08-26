@@ -5,7 +5,7 @@ import MediaBadge from "./cards/MediaBadge";
 import PortraitCard from "./cards/PortraitCard";
 import StatBadge from "./cards/StatBadge";
 
-export default function PhilosophySection() {
+export default function Philosophy() {
   const targetRef = useRef(null);
 
   const { scrollYProgress } = useScroll({

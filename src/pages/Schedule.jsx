@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import AppointmentForm from '../components/sections/schedule/AppointmentForm';
+import TaxScheduler from '../components/sections/consultation/TaxScheduler';
 import ChamberMapCard from '../components/ui/ChamberMapCard';
 
 const fadeUp = {
@@ -30,19 +30,19 @@ export default function Schedule() {
                 className="font-serif text-5xl sm:text-6xl lg:text-7xl leading-[1.05] font-light tracking-tight text-primary-light dark:text-primary-dark mb-6"
               >
                 Schedule Your <br />
-                <span className="italic font-light opacity-90">Legal Consultation</span>
+                <span className="italic font-light opacity-90 text-primary-light dark:text-primary-dark">Tax Consultation</span>
               </motion.h1>
 
               <motion.p
                 variants={fadeUp}
                 className="font-body font-light text-base md:text-lg text-secondary-light dark:text-secondary-dark max-w-lg leading-relaxed"
               >
-                Direct 1-on-1 confidential consultation with Satyendra Agrawal, Advocate on Record, Supreme Court of India, for appellate litigation, constitutional writs, arbitration, or statutory defense.
+                Direct 1-on-1 confidential consultation with Partha Pratim Halder, Matrix Tax Solutions, for GST registration, income tax filing, statutory defense, or business compliance.
               </motion.p>
             </motion.div>
 
             <div className="lg:col-span-7">
-              <AppointmentForm />
+              <TaxScheduler />
             </div>
           </div>
 
