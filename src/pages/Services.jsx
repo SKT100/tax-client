@@ -2,8 +2,10 @@ import { useRef } from "react";
 import { TaxHero, LandmarkCases } from "../components/sections/services";
 import ServiceDirectory from "../components/sections/services/ServiceDirectory";
 import PracticeScrollThread from "../components/sections/services/PracticeScrollThread";
+import WhyChooseUs from "../components/sections/shared/WhyChooseUs";
 import RegionalReachMap from "../components/sections/contact/RegionalReachMap";
-import AngledTicker from "../components/sections/shared/AngledTicker";
+import FAQSection from "../components/sections/shared/FAQSection";
+import TestimonialsSection from "../components/sections/shared/TestimonialsSection";
 
 export default function Services() {
   const containerRef = useRef(null);
@@ -19,8 +21,15 @@ export default function Services() {
       <main className="relative z-10 w-full flex flex-col pb-[20vh]">
         <TaxHero />
         <ServiceDirectory />
-        <LandmarkCases />
-        <RegionalReachMap />
+        <div className="space-y-16 py-8">
+          <WhyChooseUs />
+          <TestimonialsSection />
+          <FAQSection
+            title="Frequently Asked Directives"
+            subtitle="Everything you need to know about retained tax compliance, bookkeeping schedules, and notice defense."
+          />
+          <RegionalReachMap />
+        </div>
       </main>
     </div>
   );

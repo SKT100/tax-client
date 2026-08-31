@@ -4,6 +4,7 @@ import Stats from '../components/sections/shared/Stats';
 import HomePracticeSection from '../components/sections/home/HomePracticeSection';
 import PhilosophySection from '../components/sections/home/philosophy/Philosophy';
 import TestimonialsSection from '../components/sections/shared/TestimonialsSection';
+import FAQSection from '../components/sections/shared/FAQSection';
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
         <HomePracticeSection />
         <PhilosophySection />
         <TestimonialsSection />
+        <FAQSection />
       </main>
     </div>
   );

@@ -146,7 +146,6 @@ export default function PracticeScrollThread({ containerRef }) {
   const containerDocTopRef = useRef(0);
   const dimensionsRef = useRef({ width: 0, viewportH: 0, fontSize: 14, dpr: 1 });
 
-  // Geometry Anchor vs. Live Shrunk Height
   const anchorHeightRef = useRef(0);
   const liveContentHeightRef = useRef(0);
 
@@ -185,7 +184,6 @@ export default function PracticeScrollThread({ containerRef }) {
 
     dimensionsRef.current = { width: w, viewportH, fontSize, dpr };
 
-    // Rescale curve path ONLY if width changes or container height exceeds previous max anchor
     if (!dataRef.current || widthChanged || grew) {
       anchorHeightRef.current = Math.max(totalH, anchorHeightRef.current);
       const scaleX = w / DESIGN_W;
@@ -201,9 +199,12 @@ export default function PracticeScrollThread({ containerRef }) {
       );
     }
 
-    // Viewport-sized canvas buffer avoids multi-megapixel allocation
-    canvas.width = w * dpr;
-    canvas.height = viewportH * dpr;
+    const targetW = w * dpr;
+    const targetH = viewportH * dpr;
+    if (canvas.width !== targetW || canvas.height !== targetH) {
+      canvas.width = targetW;
+      canvas.height = targetH;
+    }
     lastDrawnProgressRef.current = -1;
   };
 
@@ -243,7 +244,6 @@ export default function PracticeScrollThread({ containerRef }) {
       const targetProgress = scrollYProgress.get();
       const delta = targetProgress - currentProgressRef.current;
 
-      // Skip render if scroll is stationary
       if (
         Math.abs(delta) < 0.00005 &&
         Math.abs(currentProgressRef.current - lastDrawnProgressRef.current) < 0.00005
@@ -264,7 +264,6 @@ export default function PracticeScrollThread({ containerRef }) {
       const docTop = containerDocTopRef.current;
       const contentCutoff = liveContentHeightRef.current;
 
-      // Rescale lighting progression proportionally against the active visible length
       let visibleMaxDist = totalLen;
       for (let i = glyphs.length - 1; i >= 0; i--) {
         if (glyphs[i].y <= contentCutoff) {
@@ -283,7 +282,6 @@ export default function PracticeScrollThread({ containerRef }) {
       ctx.textBaseline = "middle";
       ctx.textAlign = "center";
 
-      // Balanced Theme Colors
       const dimColor = isDark
         ? "rgba(212, 175, 55, 0.22)"
         : "rgba(180, 130, 20, 0.26)";
@@ -292,12 +290,12 @@ export default function PracticeScrollThread({ containerRef }) {
         ? "rgba(251, 191, 36, 0.65)"
         : "rgba(217, 119, 6, 0.45)";
 
-      // Pass 1: Inactive Base Track for visible glyphs
+      // Pass 1: Inactive Base Track
       ctx.fillStyle = dimColor;
       ctx.shadowBlur = 0;
       for (let i = 0; i < glyphs.length; i++) {
         const g = glyphs[i];
-        if (g.y > contentCutoff) continue; // Decoupled: clipped at live height
+        if (g.y > contentCutoff) continue;
 
         const screenY = docTop + g.y - currentScrollY;
         if (screenY < -80 || screenY > viewportH + 80) continue;
@@ -311,13 +309,13 @@ export default function PracticeScrollThread({ containerRef }) {
         }
       }
 
-      // Pass 2: Illuminated Glyphs for visible glyphs
+      // Pass 2: Illuminated Glyphs
       ctx.fillStyle = litColor;
       ctx.shadowColor = litShadow;
       ctx.shadowBlur = isDark ? 6 : 3;
       for (let i = 0; i < glyphs.length; i++) {
         const g = glyphs[i];
-        if (g.y > contentCutoff) continue; // Decoupled: clipped at live height
+        if (g.y > contentCutoff) continue;
 
         const screenY = docTop + g.y - currentScrollY;
         if (screenY < -80 || screenY > viewportH + 80) continue;
