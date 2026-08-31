@@ -6,7 +6,7 @@ import RegionalReachMap from '../components/sections/contact/RegionalReachMap';
 
 export default function About() {
   return (
-    <div className="bg-surface-light dark:bg-surface-dark text-primary-light dark:text-primary-dark transition-colors duration-300 min-h-screen">
+    <div className="relative bg-surface-light dark:bg-surface-dark text-primary-light dark:text-primary-dark transition-colors duration-300 min-h-screen">
       <main className="relative w-full flex flex-col pb-[35vh] md:pb-[45vh]">
         {/* 1. Hero */}
         <AboutProfileHero />

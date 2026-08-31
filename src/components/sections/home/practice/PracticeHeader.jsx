@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
-export function PracticeHeader({ title = "Specialized Benches" }) {
+export function PracticeHeader({ title = "Specialized Practices" }) {
   const headerRef = useRef(null);
   const isHeaderInView = useInView(headerRef, { once: true, margin: "-100px" });
 
@@ -36,7 +36,7 @@ export function PracticeHeader({ title = "Specialized Benches" }) {
         variants={containerVariants}
         initial="hidden"
         animate={isHeaderInView ? "visible" : "hidden"}
-        className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-[5.5rem] font-light text-white tracking-tight leading-[1.05] flex flex-wrap"
+        className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-[5.25rem] font-light text-white tracking-tight leading-[1.05] flex flex-wrap"
       >
         {title.split("").map((char, index) => {
           if (char === " ") {

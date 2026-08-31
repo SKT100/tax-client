@@ -38,52 +38,47 @@ function WhyChooseUs() {
   return (
     <section
       id="why-choose-us"
-      className="relative z-20 w-full bg-[#0F0F12] text-white dark:bg-white dark:text-slate-950 border-y border-white/10 dark:border-black/10 py-16 sm:py-24 md:py-32 transition-colors duration-300"
+      className="relative z-20 w-full bg-surface-dark text-white dark:bg-surface-secondary-dark dark:text-white border-y border-white/10 py-16 sm:py-24 md:py-32 transition-colors duration-300"
     >
       <div className="max-w-container-max-width mx-auto px-margin-mobile md:px-margin-desktop">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           
-          {/* ========================================================= */}
-          {/* 🌟 LEFT: LARGE EDITORIAL HEADING & ACTION                 */}
-          {/* ========================================================= */}
-          <div className="lg:col-span-5 flex flex-col justify-between pr-0 lg:pr-10 lg:border-r border-white/10 dark:border-black/10">
+          {/* LEFT: EDITORIAL HEADING */}
+          <div className="lg:col-span-5 flex flex-col justify-between pr-0 lg:pr-10 lg:border-r border-white/10">
             <div>
-              <span className="font-mono text-xs font-bold tracking-[0.25em] uppercase text-white/60 dark:text-slate-500 block mb-3">
+              <span className="font-mono text-[10px] sm:text-xs font-bold tracking-[0.25em] uppercase text-white/50 block mb-3">
                 WHY CHOOSE US
               </span>
 
-              <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-light text-white dark:text-slate-950 leading-[1.05] tracking-tight mb-5">
+              <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-light text-white leading-[1.05] tracking-tight mb-5">
                 We Deliver More <br />
                 <span className="italic font-light opacity-90">
                   Than Just Solutions
                 </span>
               </h2>
 
-              <div className="w-12 h-px bg-white/20 dark:bg-black/20 mb-5" />
+              <div className="w-12 h-px bg-white/20 mb-5" />
 
-              <p className="font-sans font-light text-sm sm:text-base text-white/65 dark:text-slate-600 leading-relaxed mb-8 max-w-md">
+              <p className="font-body font-light text-sm sm:text-base text-white/70 leading-relaxed mb-8 max-w-md">
                 We combine expertise, technology and personalized service to deliver results that drive your business forward.
               </p>
             </div>
 
+            {/* CTA BUTTON */}
             <div>
               <Link to="/about" className="inline-block group/btn no-underline">
                 <PillButton
-                  variant="auto"
-                  className="px-8 py-3 rounded-full font-mono text-xs font-bold tracking-widest uppercase whitespace-nowrap bg-white text-slate-950 hover:bg-slate-100 dark:bg-slate-950 dark:text-white dark:hover:bg-black border border-white/20 dark:border-black/20 shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
+                  variant="on-dark"
+                  className="px-8 py-3.5 shadow-md hover:scale-[1.02] active:scale-[0.98]"
                 >
-                  <span className="inline-flex flex-row items-center justify-center gap-3 whitespace-nowrap">
-                    <span>Know More About Us</span>
-                    <ArrowRight className="w-3.5 h-3.5 shrink-0 transition-transform duration-300 group-hover/btn:translate-x-1" />
-                  </span>
+                  <span>Know More About Us</span>
+                  <ArrowRight className="w-3.5 h-3.5 shrink-0 transition-transform duration-300 group-hover/btn:translate-x-1" />
                 </PillButton>
               </Link>
             </div>
           </div>
 
-          {/* ========================================================= */}
-          {/* 🌟 RIGHT: 4 PILLAR ARCHITECTURAL MATRIX                   */}
-          {/* ========================================================= */}
+          {/* RIGHT: 4 PILLARS */}
           <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0">
             {PILLARS.map((pillar, idx) => {
               const IconComp = pillar.icon;
@@ -92,20 +87,19 @@ function WhyChooseUs() {
                   key={idx}
                   className={`flex flex-col items-center text-center px-4 sm:px-5 py-2 ${
                     idx !== PILLARS.length - 1
-                      ? "lg:border-r border-white/10 dark:border-black/10"
+                      ? "lg:border-r border-white/10"
                       : ""
                   }`}
                 >
-                  {/* Clean Monochrome Icon */}
-                  <div className="w-14 h-14 mb-4 flex items-center justify-center text-white dark:text-slate-900">
+                  <div className="w-14 h-14 mb-4 flex items-center justify-center text-white">
                     <IconComp className="w-8 h-8 stroke-[1.3]" />
                   </div>
 
-                  <h3 className="font-serif text-xl sm:text-2xl font-light text-white dark:text-slate-950 mb-2.5 tracking-tight">
+                  <h3 className="font-serif text-xl sm:text-2xl font-light text-white mb-2.5 tracking-tight">
                     {pillar.title}
                   </h3>
 
-                  <p className="font-sans font-light text-xs sm:text-sm text-white/65 dark:text-slate-600 leading-relaxed max-w-[170px]">
+                  <p className="font-body font-light text-xs sm:text-sm text-white/70 leading-relaxed max-w-[170px]">
                     {pillar.description}
                   </p>
                 </div>

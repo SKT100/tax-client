@@ -1,3 +1,5 @@
+// src/components/ui/ThemeToggle.jsx
+
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sun, Moon } from "lucide-react";
@@ -41,18 +43,18 @@ export default function ThemeToggle({ onToggle }) {
     <>
       <button
         onClick={handleToggle}
-        className="p-2 text-secondary-light hover:text-primary-light dark:text-secondary-dark dark:hover:text-primary-dark relative z-[10000] group transition-colors"
+        className="p-2 text-secondary-light hover:text-primary-light dark:text-secondary-dark dark:hover:text-primary-dark relative z-[10000] group transition-colors cursor-pointer"
         aria-label="Toggle theme"
       >
         {isDark ? (
           <Sun
             size={18}
-            className="transition-all duration-300 group-hover:drop-shadow-[0_0_10px_rgba(251,191,36,0.9)]"
+            className="transition-all duration-300 opacity-80 group-hover:opacity-100"
           />
         ) : (
           <Moon
             size={18}
-            className="transition-all duration-300 group-hover:drop-shadow-[0_0_10px_rgba(30,41,59,0.8)]"
+            className="transition-all duration-300 opacity-80 group-hover:opacity-100"
           />
         )}
       </button>
@@ -70,7 +72,7 @@ export default function ThemeToggle({ onToggle }) {
               top: ripple.y - 50,
               width: 100,
               height: 100,
-              backgroundColor: ripple.nextDark ? "#121212" : "#FBF9F5",
+              backgroundColor: ripple.nextDark ? "#141313" : "#FBF9F5",
               borderRadius: "50%",
               zIndex: 9998,
               pointerEvents: "none",

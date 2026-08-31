@@ -1,5 +1,6 @@
 // src/components/sections/contact/RegionalReachMap.jsx
 
+import { memo } from "react";
 import { motion } from "framer-motion";
 import ChamberMapCard from "../../ui/ChamberMapCard";
 
@@ -17,11 +18,11 @@ const staggerContainer = {
   visible: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } },
 };
 
-export default function RegionalReachMap() {
+function RegionalReachMap() {
   return (
     <section
       id="locations"
-      className="px-margin-mobile md:px-margin-desktop relative z-10 py-20 sm:py-28 md:py-36 transition-colors duration-300"
+      className="px-margin-mobile md:px-margin-desktop relative z-10 py-16 sm:py-24 md:py-32 transition-colors duration-300"
     >
       <div className="max-w-container-max-width mx-auto">
         {/* Section Header */}
@@ -33,11 +34,14 @@ export default function RegionalReachMap() {
           variants={staggerContainer}
         >
           <div>
+            <span className="font-mono text-[10px] sm:text-xs font-bold tracking-[0.25em] uppercase text-secondary-light dark:text-secondary-dark block mb-2">
+              JURISDICTIONAL PRESENCE
+            </span>
             <motion.h2
               variants={fadeUp}
-              className="font-serif text-3xl sm:text-5xl lg:text-6xl font-light text-primary-light dark:text-primary-dark leading-tight"
+              className="font-serif text-3xl sm:text-5xl lg:text-6xl font-light text-primary-light dark:text-primary-dark tracking-tight leading-tight"
             >
-              Regional Presence
+              Regional <span className="italic font-light opacity-90">Presence</span>
             </motion.h2>
           </div>
 
@@ -45,7 +49,7 @@ export default function RegionalReachMap() {
             variants={fadeUp}
             className="font-mono text-xs tracking-widest uppercase text-secondary-light dark:text-secondary-dark"
           >
-            SERVING HOOGHLY, KOLKATA & ADJACENT DISTRICTS
+            SERVING HOOGHLY, KOLKATA &amp; ADJACENT DISTRICTS
           </motion.span>
         </motion.div>
 
@@ -55,3 +59,5 @@ export default function RegionalReachMap() {
     </section>
   );
 }
+
+export default memo(RegionalReachMap);

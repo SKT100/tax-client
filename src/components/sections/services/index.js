@@ -1,3 +1,3 @@
 export { default as TaxHero } from "./TaxHero";
-export { default as PracticeAreas } from "./PracticeAreas";
-export { default as LandmarkCases } from "./LandmarkCases";
+export { default as ServiceDirectory } from "./ServiceDirectory";
+export { default as PracticeScrollThread } from "./PracticeScrollThread";

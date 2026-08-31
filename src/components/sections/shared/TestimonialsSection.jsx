@@ -30,61 +30,57 @@ export default function TestimonialsSection({
   const nextReview = TESTIMONIALS[(currentIndex + 1) % totalSlides];
 
   return (
-    <section className="px-margin-mobile md:px-margin-desktop relative z-10 py-24 md:py-36 transition-colors duration-300">
+    <section className="px-margin-mobile md:px-margin-desktop relative z-20 py-20 sm:py-28 md:py-36 transition-colors duration-300">
       <div className="max-w-container-max-width mx-auto">
         {/* Section Header */}
         <motion.div
-          className="max-w-2xl mb-12 md:mb-16"
+          className="max-w-3xl mb-12 md:mb-16"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.4 }}
         >
+          <span className="font-mono text-[10px] sm:text-xs font-bold tracking-[0.25em] uppercase text-secondary-light dark:text-secondary-dark block mb-2">
+            PROVEN TRACK RECORD
+          </span>
           <motion.h2
             variants={fadeUp}
-            className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-primary-light dark:text-primary-dark tracking-tight leading-tight"
+            className="font-serif text-3xl sm:text-5xl lg:text-6xl font-light text-primary-light dark:text-primary-dark tracking-tight leading-tight"
           >
             {heading}
           </motion.h2>
         </motion.div>
 
-        {/* Master Testimonial Grid - Strictly Height-Locked */}
-        <div className="glass-card border border-theme rounded-none overflow-hidden grid grid-cols-1 lg:grid-cols-12 shadow-2xl transition-all duration-300 h-auto sm:h-[460px] md:h-[420px] lg:h-[400px]">
+        {/* Master Testimonial Grid */}
+        <div className="glass-card border border-theme rounded-2xl md:rounded-3xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 shadow-2xl transition-all duration-300 h-auto sm:h-[460px] md:h-[420px] lg:h-[400px]">
           
-          {/* ========================================================= */}
-          {/* 🌟 LEFT FIXED PANEL: Static Rating & Verified Compliance  */}
-          {/* ========================================================= */}
-          <div className="lg:col-span-4 p-8 sm:p-10 md:p-12 flex flex-col justify-center items-center text-center border-b lg:border-b-0 lg:border-r border-theme bg-black/[0.02] dark:bg-surface-light/[0.02] h-full">
+          {/* LEFT FIXED PANEL */}
+          <div className="lg:col-span-4 p-8 sm:p-10 md:p-12 flex flex-col justify-center items-center text-center border-b lg:border-b-0 lg:border-r border-theme bg-black/[0.02] dark:bg-white/[0.02] h-full">
             <div className="w-full flex flex-col items-center">
-              {/* Giant Rating Number */}
               <div className="font-serif text-7xl sm:text-8xl md:text-[6.5rem] font-light tracking-tight text-primary-light dark:text-primary-dark leading-none mb-4">
                 4.9
               </div>
 
-              {/* 5 Stars */}
-              <div className="flex items-center gap-1.5 mb-3 text-amber-500">
+              {/* Monochrome Filled Stars */}
+              <div className="flex items-center gap-1.5 mb-3 text-primary-light dark:text-primary-dark">
                 {[...Array(5)].map((_, i) => (
                   <Star
                     key={i}
-                    className="w-5 h-5 fill-amber-500 text-amber-500"
+                    className="w-4 h-4 sm:w-5 sm:h-5 fill-amber-500 text-amber-500 opacity-90"
                   />
                 ))}
               </div>
 
-              {/* Verified Count */}
-              <div className="font-mono text-[10px] sm:text-xs font-bold tracking-[0.25em] uppercase mb-1">
-                500+ Filings & Audits
+              <div className="font-mono text-[10px] sm:text-xs font-bold tracking-[0.25em] uppercase text-primary-light dark:text-primary-dark mb-1">
+                500+ Filings &amp; Audits
               </div>
 
-              {/* Subtitle */}
-              <p className="font-mono text-xs tracking-wider uppercase text-secondary-light dark:text-secondary-dark">
+              <p className="font-mono text-[11px] tracking-wider uppercase text-secondary-light dark:text-secondary-dark">
                 Direct Tax • GST • Scrutiny Defense • MSME
               </p>
             </div>
           </div>
 
-          {/* ========================================================= */}
-          {/* 🌟 RIGHT SLIDING CAROUSEL: Level Baseline & Zero Shift    */}
-          {/* ========================================================= */}
+          {/* RIGHT CAROUSEL */}
           <div className="lg:col-span-8 p-6 sm:p-8 md:p-10 flex flex-col justify-between h-full overflow-hidden">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-stretch h-full">
               
@@ -99,14 +95,12 @@ export default function TestimonialsSection({
                     transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                     className="flex flex-col justify-between h-full w-full"
                   >
-                    {/* Locked Quote Area */}
                     <div className="flex-1 flex items-start overflow-hidden mb-4">
                       <blockquote className="font-serif text-lg sm:text-xl font-light text-primary-light dark:text-primary-dark leading-relaxed line-clamp-6">
                         “{currentReview.quote}”
                       </blockquote>
                     </div>
 
-                    {/* Fixed Height Baseline Author Section */}
                     <div className="pt-4 border-t border-theme h-[76px] flex items-center gap-3.5 shrink-0 mt-auto">
                       <div className="w-10 h-10 rounded-full bg-surface-dark/5 dark:bg-surface-light/10 border border-theme flex items-center justify-center font-mono text-xs font-semibold text-primary-light dark:text-primary-dark shrink-0">
                         {currentReview.initials}
@@ -127,7 +121,7 @@ export default function TestimonialsSection({
                 </AnimatePresence>
               </div>
 
-              {/* Card 2 (Desktop Secondary Slide) */}
+              {/* Card 2 (Desktop) */}
               <div className="hidden md:flex relative flex-col justify-between h-full w-full min-h-0 border-l border-theme pl-8 lg:pl-10">
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -142,14 +136,12 @@ export default function TestimonialsSection({
                     }}
                     className="flex flex-col justify-between h-full w-full"
                   >
-                    {/* Locked Quote Area */}
                     <div className="flex-1 flex items-start overflow-hidden mb-4">
                       <blockquote className="font-serif text-lg sm:text-xl font-light text-primary-light dark:text-primary-dark leading-relaxed line-clamp-6">
                         “{nextReview.quote}”
                       </blockquote>
                     </div>
 
-                    {/* Fixed Height Baseline Author Section */}
                     <div className="pt-4 border-t border-theme h-[76px] flex items-center gap-3.5 shrink-0 mt-auto">
                       <div className="w-10 h-10 rounded-full bg-surface-dark/5 dark:bg-surface-light/10 border border-theme flex items-center justify-center font-mono text-xs font-semibold text-primary-light dark:text-primary-dark shrink-0">
                         {nextReview.initials}
@@ -174,13 +166,13 @@ export default function TestimonialsSection({
           </div>
         </div>
 
-        {/* Navigation Controls */}
+        {/* Controls */}
         <div className="flex items-center gap-3 mt-6">
           <button
             type="button"
             onClick={handlePrev}
             aria-label="Previous Testimonial"
-            className="w-12 h-12 rounded-xl glass-card border border-theme flex items-center justify-center text-primary-light dark:text-primary-dark hover:bg-slate-900 hover:text-primary-dark dark:hover:bg-surface-light dark:hover:text-slate-900 transition-all duration-300 shadow-md active:scale-95"
+            className="w-12 h-12 rounded-xl glass-card border border-theme flex items-center justify-center text-primary-light dark:text-primary-dark hover:bg-primary-light hover:text-surface-light dark:hover:bg-primary-dark dark:hover:text-primary-light transition-all duration-300 shadow-md active:scale-95 cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4" />
           </button>
@@ -188,7 +180,7 @@ export default function TestimonialsSection({
             type="button"
             onClick={handleNext}
             aria-label="Next Testimonial"
-            className="w-12 h-12 rounded-xl glass-card border border-theme flex items-center justify-center text-primary-light dark:text-primary-dark hover:bg-slate-900 hover:text-primary-dark dark:hover:bg-surface-light dark:hover:text-slate-900 transition-all duration-300 shadow-md active:scale-95"
+            className="w-12 h-12 rounded-xl glass-card border border-theme flex items-center justify-center text-primary-light dark:text-primary-dark hover:bg-primary-light hover:text-surface-light dark:hover:bg-primary-dark dark:hover:text-primary-light transition-all duration-300 shadow-md active:scale-95 cursor-pointer"
           >
             <ArrowRight className="w-4 h-4" />
           </button>

@@ -1,3 +1,5 @@
+// src/components/ui/ParticleImage.jsx
+
 import { useEffect, useRef, useState } from "react";
 
 const hexToRgb = (hex) => {
@@ -53,8 +55,8 @@ export default function ParticleImage({
     return () => observer.disconnect();
   }, []);
 
-  const activeColor = color || (isDark ? "#E2E8F0" : "#475569");
-  const activeHighlight = highlightColor || "#D4AF37";
+  const activeColor = color || (isDark ? "#F8FAFC" : "#090A0F");
+  const activeHighlight = highlightColor || (isDark ? "#FFFFFF" : "#1A1A1A");
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -168,7 +170,6 @@ export default function ParticleImage({
         isGathering = false;
       }
 
-      // If finished gathering and pointer is away, freeze cleanly into sleep mode
       if (!isGathering && !pointer.active && maxMotion < 0.8) {
         drawStatic();
         isSleeping = true;
@@ -246,8 +247,8 @@ export default function ParticleImage({
         const randDist = scatter * (0.5 + rand(index, 7919) * 0.8);
         const depth = 0.5 + rand(index, 104729) * 0.5;
 
-        const isGold = seed < 0.18;
-        const particleColor = isGold
+        const isHighlight = seed < 0.18;
+        const particleColor = isHighlight
           ? activeHighlight
           : baseRgb && highlightRgb
           ? rgbToCss(mixRgb(baseRgb, highlightRgb, seed * 0.3))

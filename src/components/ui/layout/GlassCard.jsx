@@ -1,16 +1,24 @@
-﻿import React from "react";
-export function GlassCard({ children, className = "", hoverEffect = false }) {
+﻿
+import { memo } from "react";
+
+export function GlassCard({
+  children,
+  className = "",
+  hoverEffect = false,
+  ...props
+}) {
   const hoverClass = hoverEffect
-    ? "transition-colors duration-500 hover:border-theme hover:bg-black/10 dark:hover:bg-surface-light/10"
+    ? "transition-all duration-500 hover:border-black/20 dark:hover:border-white/20 hover:bg-black/[0.04] dark:hover:bg-white/[0.06] hover:-translate-y-0.5"
     : "";
+
   return (
     <div
-      className={
-        "border border-theme bg-surface-dark/5 dark:bg-surface-light/5 backdrop-blur-md rounded-3xl ${hoverClass} ${className}"
-      }
+      className={`glass-card border border-theme rounded-2xl md:rounded-3xl p-6 sm:p-8 transition-colors duration-300 ${hoverClass} ${className}`}
+      {...props}
     >
-      {" "}
-      {children}{" "}
+      {children}
     </div>
   );
 }
+
+export default memo(GlassCard);

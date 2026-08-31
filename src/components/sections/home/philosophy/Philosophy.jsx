@@ -1,3 +1,5 @@
+// src/components/sections/home/philosophy/Philosophy.jsx
+
 import { useRef } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import DossierCard from "./cards/DossierCard";
@@ -27,16 +29,16 @@ export default function Philosophy() {
       ref={targetRef}
       className="relative w-full min-h-[420vh] bg-surface-light dark:bg-surface-dark transition-colors duration-300 z-10"
     >
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center gpu-layer transform-gpu will-change-transform">
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center transform-gpu will-change-transform">
         
-        {/* Center Big Typography */}
+        {/* Center Headline */}
         <motion.div
           style={{ scale: textScale, opacity: textOpacity }}
-          className="relative z-10 text-center max-w-5xl px-4 pointer-events-none"
+          className="relative z-10 text-center max-w-5xl px-margin-mobile pointer-events-none select-none"
         >
           <h2 className="font-serif italic font-light text-5xl sm:text-7xl md:text-8xl lg:text-9xl text-primary-light dark:text-primary-dark tracking-tight leading-[0.92]">
             Turning <br />
-            <span className="font-sans font-black uppercase not-italic tracking-[0.05em] text-slate-900 dark:text-white">
+            <span className="font-sans font-black uppercase not-italic tracking-[0.05em] text-primary-light dark:text-primary-dark">
               complexity
             </span>{" "}
             <br />

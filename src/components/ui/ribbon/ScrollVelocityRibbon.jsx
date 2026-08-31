@@ -1,3 +1,5 @@
+// src/components/ui/ribbon/ScrollVelocityRibbon.jsx
+
 import { useRef } from "react";
 import {
   motion,
@@ -7,8 +9,13 @@ import {
   useSpring,
   useMotionValue,
   useAnimationFrame,
+  useInView,
 } from "framer-motion";
+
 export function ScrollVelocityRibbon({ children, baseVelocity = 0.25 }) {
+  const containerRef = useRef(null);
+  const isInView = useInView(containerRef, { margin: "100px" });
+
   const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
@@ -16,14 +23,20 @@ export function ScrollVelocityRibbon({ children, baseVelocity = 0.25 }) {
     damping: 50,
     stiffness: 300,
   });
+
   const velocityFactor = useTransform(
     smoothVelocity,
     [-1000, 1000],
     [-0.8, 0.8],
     { clamp: true },
   );
+
   const directionFactor = useRef(1);
+
   useAnimationFrame((t, delta) => {
+    // Suspend loop calculation when ribbon is outside viewport buffer
+    if (!isInView) return;
+
     let moveBy = directionFactor.current * baseVelocity * (delta / 16);
     if (velocityFactor.get() < 0) {
       directionFactor.current = -1;
@@ -33,17 +46,22 @@ export function ScrollVelocityRibbon({ children, baseVelocity = 0.25 }) {
     moveBy += moveBy * Math.abs(velocityFactor.get());
     baseX.set(baseX.get() + moveBy * 0.025);
   });
+
   const x = useTransform(baseX, (v) => `${(((v % 50) + 50) % 50) - 50}%`);
+
   return (
-    <div className="overflow-hidden whitespace-nowrap flex flex-nowrap w-full">
-      {" "}
+    <div
+      ref={containerRef}
+      className="overflow-hidden whitespace-nowrap flex flex-nowrap w-full"
+    >
       <motion.div
         className="flex flex-nowrap shrink-0 items-center gap-8 md:gap-12 lg:gap-16 pr-8 md:pr-12 lg:pr-16"
         style={{ x }}
       >
-        {" "}
-        {children} {children} {children} {children}{" "}
-      </motion.div>{" "}
+        {children} {children} {children} {children}
+      </motion.div>
     </div>
   );
 }
+
+export default ScrollVelocityRibbon;

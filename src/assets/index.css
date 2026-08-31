@@ -6,57 +6,64 @@
   body {
     @apply bg-surface-light text-primary-light dark:bg-surface-dark dark:text-primary-dark;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 300ms ease, color 300ms ease;
   }
 }
 
 @layer utilities {
+  /* Standard Layout & Spacing */
+  .layout-container {
+    @apply max-w-container-max-width mx-auto px-margin-mobile md:px-margin-desktop;
+  }
+
+  .section-padding {
+    @apply relative z-20 py-16 sm:py-24 md:py-32;
+  }
+
+  /* Universal Borders */
+  .border-theme {
+    @apply border-black/10 dark:border-white/10;
+  }
+
+  .border-theme-strong {
+    @apply border-black/20 dark:border-white/20;
+  }
+
+  /* Glassmorphism Presets */
+  .glass-card {
+    @apply bg-surface-secondary-light/60 dark:bg-surface-secondary-dark/60 backdrop-blur-md border border-theme shadow-sm;
+  }
+
+  .glass-card-perf {
+    @apply bg-surface-secondary-light/80 dark:bg-surface-secondary-dark/80 backdrop-blur-sm border border-theme;
+  }
+
+  .glass-nav {
+    @apply bg-surface-light/80 dark:bg-surface-dark/80 backdrop-blur-md border-b border-theme;
+  }
+
+  /* Interactive Elements */
   .interactive {
     @apply transition-all duration-150 ease-out border border-transparent;
   }
 
   .interactive:hover,
   .interactive:focus-visible {
-    @apply bg-black/5 border-black/10 dark:bg-white/5 dark:border-white/30;
+    @apply bg-black/5 border-black/10 dark:bg-white/5 dark:border-white/20;
   }
 
   .link-hover {
     @apply transition-colors duration-150 border border-transparent rounded-md px-2 py-1 -mx-2;
   }
+
   .link-hover:hover,
   .link-hover:focus-visible {
-    @apply bg-black/5 border-black/10 dark:bg-white/5 dark:border-white/30;
-  }
-
-  .border-theme {
-    @apply border-black/5 dark:border-white/10;
-  }
-
-  .rounded-theme {
-    @apply rounded-2xl;
-  }
-
-  .rounded-theme-pill {
-    @apply rounded-[60px];
-  }
-
-  .rounded-theme-button {
-    @apply rounded-full;
-  }
-
-  .glass-nav {
-    @apply bg-surface-light/80 dark:bg-[#141313]/60 backdrop-blur-md;
-  }
-
-  .glass-card {
-    @apply bg-white/40 dark:bg-[#141313]/60 backdrop-blur-md border border-black/5 dark:border-white/10;
-  }
-
-  /* Low-cost glass surface for scroll-heavy animated sections */
-  .glass-card-perf {
-    @apply bg-white/50 dark:bg-[#141313]/70 backdrop-blur-sm border border-black/5 dark:border-white/10;
+    @apply bg-black/5 border-black/10 dark:bg-white/5 dark:border-white/20;
   }
 }
 
+/* Lenis Scroll Smoothness Settings */
 html.lenis,
 html.lenis body {
   height: auto;

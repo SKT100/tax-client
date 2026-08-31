@@ -1,6 +1,8 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Video, Building, Lock, CheckCircle2 } from 'lucide-react';
+// src/components/sections/consultation/TaxScheduler.jsx
+
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Video, Building, Lock, CheckCircle2 } from "lucide-react";
 
 const PRACTICE_DOMAINS = [
   "Income Tax Returns",
@@ -9,7 +11,7 @@ const PRACTICE_DOMAINS = [
   "TDS / TCS Compliance",
   "MSME & Trade License",
   "Bookkeeping & Accounting",
-  "Other Consultation"
+  "Other Consultation",
 ];
 
 const DATES = [
@@ -18,7 +20,7 @@ const DATES = [
   { day: "WED", date: "19" },
   { day: "THU", date: "20" },
   { day: "FRI", date: "21" },
-  { day: "SAT", date: "22" }
+  { day: "SAT", date: "22" },
 ];
 
 const TIME_SLOTS = [
@@ -26,7 +28,7 @@ const TIME_SLOTS = [
   "12:00 PM",
   "02:30 PM",
   "04:30 PM",
-  "06:00 PM"
+  "06:00 PM",
 ];
 
 export default function TaxScheduler() {
@@ -48,22 +50,30 @@ export default function TaxScheduler() {
     <div className="glass-card border border-theme rounded-3xl p-6 sm:p-8 md:p-10 shadow-2xl relative overflow-hidden transition-all duration-300">
       
       {isSubmitted ? (
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }} 
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           className="py-16 text-center flex flex-col items-center justify-center"
         >
-          <CheckCircle2 className="w-14 h-14 text-amber-600 dark:text-amber-400 mb-6" />
+          <CheckCircle2 className="w-14 h-14 text-emerald-600 dark:text-emerald-400 mb-6" />
           <h3 className="font-serif text-3xl md:text-4xl text-primary-light dark:text-primary-dark mb-3 font-light">
             Consultation Requested
           </h3>
-          <p className="font-body font-light text-secondary-light dark:text-secondary-dark max-w-md mx-auto mb-8 leading-relaxed">
-            Thank you, <span className="font-medium text-primary-light dark:text-primary-dark">{fullName}</span>. Our team will verify availability for <span className="font-medium text-primary-light dark:text-primary-dark">{selectedDate} Aug at {selectedTime}</span> and contact you shortly to confirm the appointment.
+          <p className="font-body font-light text-secondary-light dark:text-secondary-dark max-w-md mx-auto mb-8 leading-relaxed text-sm sm:text-base">
+            Thank you,{" "}
+            <span className="font-medium text-primary-light dark:text-primary-dark">
+              {fullName}
+            </span>
+            . Our team will verify availability for{" "}
+            <span className="font-medium text-primary-light dark:text-primary-dark">
+              {selectedDate} Aug at {selectedTime}
+            </span>{" "}
+            and contact you shortly to confirm the appointment.
           </p>
           <button
             type="button"
             onClick={() => setIsSubmitted(false)}
-            className="font-mono text-xs uppercase tracking-widest text-secondary-light hover:text-primary-light dark:hover:text-primary-dark underline underline-offset-8"
+            className="font-mono text-xs uppercase tracking-widest text-secondary-light hover:text-primary-light dark:text-secondary-dark dark:hover:text-primary-dark underline underline-offset-8 cursor-pointer transition-colors"
           >
             ← Schedule Another Consultation
           </button>
@@ -73,7 +83,7 @@ export default function TaxScheduler() {
           
           {/* 01. SELECT PRACTICE DOMAIN */}
           <div>
-            <span className="font-mono text-[10px] font-bold tracking-[0.25em] uppercase text-secondary-light dark:text-white/50 block mb-3.5">
+            <span className="font-mono text-[10px] font-bold tracking-[0.25em] uppercase text-secondary-light dark:text-secondary-dark block mb-3.5">
               01. SELECT PRACTICE DOMAIN
             </span>
             <div className="flex flex-wrap gap-2">
@@ -84,10 +94,10 @@ export default function TaxScheduler() {
                     key={domain}
                     type="button"
                     onClick={() => setSelectedDomain(domain)}
-                    className={`px-4 py-2 rounded-full text-xs font-mono tracking-wider transition-all duration-300 border ${
+                    className={`px-4 py-2 rounded-full text-xs font-mono tracking-wider uppercase transition-all duration-300 border cursor-pointer ${
                       isSelected
-                        ? 'bg-slate-900 text-white border-slate-900 dark:bg-white dark:text-slate-900 dark:border-white shadow-md'
-                        : 'bg-black/5 dark:bg-white/5 border-theme text-secondary-light dark:text-secondary-dark hover:border-black/30 dark:hover:border-white/30'
+                        ? "bg-primary-light text-surface-light border-primary-light dark:bg-primary-dark dark:text-primary-light dark:border-primary-dark font-bold shadow-md"
+                        : "bg-black/[0.04] dark:bg-white/[0.05] border-theme text-secondary-light dark:text-secondary-dark hover:border-black/30 dark:hover:border-white/30 hover:text-primary-light dark:hover:text-primary-dark"
                     }`}
                   >
                     {domain}
@@ -99,39 +109,47 @@ export default function TaxScheduler() {
 
           {/* 02. CONSULTATION MODE */}
           <div className="pt-6 border-t border-theme">
-            <span className="font-mono text-[10px] font-bold tracking-[0.25em] uppercase text-secondary-light dark:text-white/50 block mb-3.5">
+            <span className="font-mono text-[10px] font-bold tracking-[0.25em] uppercase text-secondary-light dark:text-secondary-dark block mb-3.5">
               02. CONSULTATION MODE
             </span>
-            <div className="grid grid-cols-2 gap-3.5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <button
                 type="button"
                 onClick={() => setConsultationMode("online")}
-                className={`p-4 rounded-2xl border text-left flex flex-col justify-between h-28 transition-all duration-300 ${
+                className={`p-5 rounded-2xl border text-left flex flex-col justify-between h-28 transition-all duration-300 cursor-pointer ${
                   consultationMode === "online"
-                    ? 'bg-slate-900 text-white border-slate-900 dark:bg-white dark:text-slate-900 dark:border-white shadow-md'
-                    : 'bg-black/5 dark:bg-white/5 border-theme text-primary-light dark:text-primary-dark hover:border-black/30 dark:hover:border-white/30'
+                    ? "bg-primary-light text-surface-light border-primary-light dark:bg-primary-dark dark:text-primary-light dark:border-primary-dark shadow-md"
+                    : "bg-black/[0.04] dark:bg-white/[0.05] border-theme text-primary-light dark:text-primary-dark hover:border-black/30 dark:hover:border-white/30"
                 }`}
               >
                 <Video className="w-5 h-5 opacity-80" />
                 <div>
-                  <span className="font-mono text-[9px] tracking-widest uppercase block opacity-70">REMOTE</span>
-                  <span className="font-serif text-base font-light">Online / Phone</span>
+                  <span className="font-mono text-[9px] tracking-widest uppercase block opacity-70">
+                    REMOTE
+                  </span>
+                  <span className="font-serif text-base font-light">
+                    Online / Phone
+                  </span>
                 </div>
               </button>
 
               <button
                 type="button"
                 onClick={() => setConsultationMode("chamber")}
-                className={`p-4 rounded-2xl border text-left flex flex-col justify-between h-28 transition-all duration-300 ${
+                className={`p-5 rounded-2xl border text-left flex flex-col justify-between h-28 transition-all duration-300 cursor-pointer ${
                   consultationMode === "chamber"
-                    ? 'bg-slate-900 text-white border-slate-900 dark:bg-white dark:text-slate-900 dark:border-white shadow-md'
-                    : 'bg-black/5 dark:bg-white/5 border-theme text-primary-light dark:text-primary-dark hover:border-black/30 dark:hover:border-white/30'
+                    ? "bg-primary-light text-surface-light border-primary-light dark:bg-primary-dark dark:text-primary-light dark:border-primary-dark shadow-md"
+                    : "bg-black/[0.04] dark:bg-white/[0.05] border-theme text-primary-light dark:text-primary-dark hover:border-black/30 dark:hover:border-white/30"
                 }`}
               >
                 <Building className="w-5 h-5 opacity-80" />
                 <div>
-                  <span className="font-mono text-[9px] tracking-widest uppercase block opacity-70">IN PERSON</span>
-                  <span className="font-serif text-base font-light">Office Visit</span>
+                  <span className="font-mono text-[9px] tracking-widest uppercase block opacity-70">
+                    IN PERSON
+                  </span>
+                  <span className="font-serif text-base font-light">
+                    Office Visit
+                  </span>
                 </div>
               </button>
             </div>
@@ -140,7 +158,7 @@ export default function TaxScheduler() {
           {/* 03. SELECT TIME SLOT */}
           <div className="pt-6 border-t border-theme">
             <div className="flex items-center justify-between mb-3.5">
-              <span className="font-mono text-[10px] font-bold tracking-[0.25em] uppercase text-secondary-light dark:text-white/50">
+              <span className="font-mono text-[10px] font-bold tracking-[0.25em] uppercase text-secondary-light dark:text-secondary-dark">
                 03. SELECT TIME SLOT
               </span>
               <span className="font-mono text-[10px] tracking-widest uppercase text-secondary-light dark:text-secondary-dark">
@@ -148,7 +166,8 @@ export default function TaxScheduler() {
               </span>
             </div>
 
-            <div className="grid grid-cols-6 gap-2 mb-3.5">
+            {/* Date Chips */}
+            <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 mb-3.5">
               {DATES.map((item) => {
                 const isSelected = selectedDate === item.date;
                 return (
@@ -156,19 +175,24 @@ export default function TaxScheduler() {
                     key={item.date}
                     type="button"
                     onClick={() => setSelectedDate(item.date)}
-                    className={`py-2.5 rounded-2xl text-center border transition-all duration-300 flex flex-col items-center justify-center ${
+                    className={`py-2.5 rounded-xl text-center border transition-all duration-300 flex flex-col items-center justify-center cursor-pointer ${
                       isSelected
-                        ? 'bg-slate-900 text-white border-slate-900 dark:bg-white dark:text-slate-900 dark:border-white shadow-md'
-                        : 'bg-black/5 dark:bg-white/5 border-theme text-primary-light dark:text-primary-dark hover:border-black/20 dark:hover:border-white/20'
+                        ? "bg-primary-light text-surface-light border-primary-light dark:bg-primary-dark dark:text-primary-light dark:border-primary-dark font-bold shadow-md"
+                        : "bg-black/[0.04] dark:bg-white/[0.05] border-theme text-primary-light dark:text-primary-dark hover:border-black/20 dark:hover:border-white/20"
                     }`}
                   >
-                    <span className="font-mono text-[9px] uppercase opacity-60 mb-0.5">{item.day}</span>
-                    <span className="font-serif text-base sm:text-lg font-normal">{item.date}</span>
+                    <span className="font-mono text-[9px] uppercase opacity-60 mb-0.5">
+                      {item.day}
+                    </span>
+                    <span className="font-serif text-base sm:text-lg font-normal">
+                      {item.date}
+                    </span>
                   </button>
                 );
               })}
             </div>
 
+            {/* Hour Chips */}
             <div className="flex flex-wrap gap-2">
               {TIME_SLOTS.map((time) => {
                 const isSelected = selectedTime === time;
@@ -177,10 +201,10 @@ export default function TaxScheduler() {
                     key={time}
                     type="button"
                     onClick={() => setSelectedTime(time)}
-                    className={`px-3.5 py-2 rounded-xl text-xs font-mono tracking-wider transition-all duration-300 border ${
+                    className={`px-3.5 py-2 rounded-lg text-xs font-mono tracking-wider uppercase transition-all duration-300 border cursor-pointer ${
                       isSelected
-                        ? 'bg-slate-900 text-white border-slate-900 dark:bg-white dark:text-slate-900 dark:border-white'
-                        : 'bg-black/5 dark:bg-white/5 border-theme text-secondary-light dark:text-secondary-dark hover:border-black/20 dark:hover:border-white/20'
+                        ? "bg-primary-light text-surface-light border-primary-light dark:bg-primary-dark dark:text-primary-light dark:border-primary-dark font-bold"
+                        : "bg-black/[0.04] dark:bg-white/[0.05] border-theme text-secondary-light dark:text-secondary-dark hover:border-black/20 dark:hover:border-white/20 hover:text-primary-light dark:hover:text-primary-dark"
                     }`}
                   >
                     {time}
@@ -192,7 +216,7 @@ export default function TaxScheduler() {
 
           {/* 04. YOUR DETAILS */}
           <div className="pt-6 border-t border-theme flex flex-col gap-4">
-            <span className="font-mono text-[10px] font-bold tracking-[0.25em] uppercase text-secondary-light dark:text-white/50">
+            <span className="font-mono text-[10px] font-bold tracking-[0.25em] uppercase text-secondary-light dark:text-secondary-dark">
               04. YOUR DETAILS
             </span>
 
@@ -203,7 +227,7 @@ export default function TaxScheduler() {
                 placeholder="YOUR FULL NAME"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                className="w-full bg-black/5 dark:bg-white/5 border border-theme rounded-xl px-4 py-3.5 font-mono text-xs tracking-wider text-primary-light dark:text-primary-dark placeholder:text-secondary-light/60 dark:placeholder:text-secondary-dark/60 focus:outline-none focus:border-slate-900 dark:focus:border-white transition-colors"
+                className="w-full bg-black/[0.03] dark:bg-white/[0.04] border border-theme rounded-xl px-4 py-3.5 font-mono text-xs tracking-wider text-primary-light dark:text-primary-dark placeholder:text-secondary-light/60 dark:placeholder:text-secondary-dark/60 focus:outline-none focus:border-primary-light dark:focus:border-primary-dark transition-colors"
               />
 
               <input
@@ -212,7 +236,7 @@ export default function TaxScheduler() {
                 placeholder="PHONE / WHATSAPP NUMBER"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full bg-black/5 dark:bg-white/5 border border-theme rounded-xl px-4 py-3.5 font-mono text-xs tracking-wider text-primary-light dark:text-primary-dark placeholder:text-secondary-light/60 dark:placeholder:text-secondary-dark/60 focus:outline-none focus:border-slate-900 dark:focus:border-white transition-colors"
+                className="w-full bg-black/[0.03] dark:bg-white/[0.04] border border-theme rounded-xl px-4 py-3.5 font-mono text-xs tracking-wider text-primary-light dark:text-primary-dark placeholder:text-secondary-light/60 dark:placeholder:text-secondary-dark/60 focus:outline-none focus:border-primary-light dark:focus:border-primary-dark transition-colors"
               />
             </div>
 
@@ -221,19 +245,20 @@ export default function TaxScheduler() {
               placeholder="BRIEF SUMMARY OF YOUR TAX QUERY / NOTICE REFERENCE (OPTIONAL)"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              className="w-full bg-black/5 dark:bg-white/5 border border-theme rounded-xl px-4 py-3.5 font-mono text-xs tracking-wider text-primary-light dark:text-primary-dark placeholder:text-secondary-light/60 dark:placeholder:text-secondary-dark/60 focus:outline-none focus:border-slate-900 dark:focus:border-white transition-colors resize-none"
+              className="w-full bg-black/[0.03] dark:bg-white/[0.04] border border-theme rounded-xl px-4 py-3.5 font-mono text-xs tracking-wider text-primary-light dark:text-primary-dark placeholder:text-secondary-light/60 dark:placeholder:text-secondary-dark/60 focus:outline-none focus:border-primary-light dark:focus:border-primary-dark transition-colors resize-none"
             />
           </div>
 
+          {/* Action Row */}
           <div className="pt-4 border-t border-theme flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-secondary-light dark:text-secondary-dark">
-              <Lock className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
-              <span>100% CONFIDENTIAL & PRIVILEGED</span>
+              <Lock className="w-3.5 h-3.5 text-secondary-light dark:text-secondary-dark" />
+              <span>100% CONFIDENTIAL &amp; PRIVILEGED</span>
             </div>
 
             <button
               type="submit"
-              className="w-full sm:w-auto px-8 py-4 rounded-full font-mono text-xs uppercase tracking-widest bg-slate-900 text-white dark:bg-white dark:text-slate-900 hover:bg-amber-600 hover:text-white dark:hover:bg-amber-400 dark:hover:text-slate-900 transition-all duration-300 shadow-xl"
+              className="w-full sm:w-auto px-8 py-4 rounded-full font-mono text-xs font-bold uppercase tracking-widest bg-primary-light text-surface-light dark:bg-primary-dark dark:text-primary-light hover:bg-black dark:hover:bg-slate-100 transition-all duration-300 shadow-xl cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
             >
               CONFIRM APPOINTMENT →
             </button>

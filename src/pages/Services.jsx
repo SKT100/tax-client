@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { TaxHero, LandmarkCases } from "../components/sections/services";
+import { TaxHero } from "../components/sections/services";
 import ServiceDirectory from "../components/sections/services/ServiceDirectory";
 import PracticeScrollThread from "../components/sections/services/PracticeScrollThread";
 import WhyChooseUs from "../components/sections/shared/WhyChooseUs";

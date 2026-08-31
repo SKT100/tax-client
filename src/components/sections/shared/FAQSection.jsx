@@ -1,5 +1,3 @@
-// src/components/sections/common/FAQSection.jsx
-
 import { useState, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Minus, ArrowRight, HelpCircle } from "lucide-react";
@@ -48,8 +46,8 @@ const DEFAULT_FAQS = [
 function FAQSection({
   id = "faq",
   badge = "FREQUENTLY ASKED QUESTIONS",
-  title = "Common Inquiries",
-  subtitle = "Clear statutory answers regarding tax notice defense, filing calendars, retainer models, and compliance protocols.",
+  title = "Frequently Asked Directives",
+  subtitle = "Everything you need to know about retained tax compliance, bookkeeping schedules, and notice defense.",
   items = DEFAULT_FAQS,
   showCta = true,
 }) {
@@ -66,9 +64,7 @@ function FAQSection({
     >
       <div className="max-w-container-max-width mx-auto px-margin-mobile md:px-margin-desktop">
         
-        {/* ========================================================= */}
-        {/* 🌟 1. SECTION HEADER                                      */}
-        {/* ========================================================= */}
+        {/* SECTION HEADER */}
         <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-14 md:mb-18">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/[0.04] dark:bg-white/[0.05] border border-theme mb-4">
             <HelpCircle className="w-3.5 h-3.5 text-secondary-light dark:text-secondary-dark" />
@@ -84,15 +80,13 @@ function FAQSection({
           <div className="w-12 h-px bg-theme mb-5" />
 
           {subtitle && (
-            <p className="font-sans font-light text-sm sm:text-base text-secondary-light dark:text-secondary-dark leading-relaxed">
+            <p className="font-body font-light text-sm sm:text-base text-secondary-light dark:text-secondary-dark leading-relaxed">
               {subtitle}
             </p>
           )}
         </div>
 
-        {/* ========================================================= */}
-        {/* 🌟 2. FILLED ACCORDION CARD STACK                         */}
-        {/* ========================================================= */}
+        {/* ACCORDION CARDS */}
         <div className="max-w-4xl mx-auto space-y-3.5 sm:space-y-4">
           {items.map((faq) => {
             const isOpen = openId === faq.id;
@@ -100,10 +94,10 @@ function FAQSection({
             return (
               <div
                 key={faq.id}
-                className={`rounded-2xl sm:rounded-3xl border transition-all duration-300 overflow-hidden ${
+                className={`rounded-2xl sm:rounded-3xl border transition-colors duration-300 overflow-hidden ${
                   isOpen
-                    ? "bg-[#0F0F12] text-white border-white/20 shadow-xl dark:bg-[#F2F1ED] dark:text-slate-950 dark:border-black/20"
-                    : "bg-black/[0.03] text-primary-light border-theme hover:border-primary-light/30 hover:bg-black/[0.05] dark:bg-white/[0.04] dark:text-primary-dark dark:hover:border-white/20 dark:hover:bg-white/[0.07]"
+                    ? "bg-surface-dark text-white border-white/20 dark:bg-surface-secondary-dark dark:text-white dark:border-white/20 shadow-lg"
+                    : "bg-surface-dark/70 text-white/90 border-white/10 hover:border-white/25 hover:bg-surface-dark dark:bg-surface-secondary-dark/60 dark:text-white/90 dark:border-white/10 dark:hover:border-white/25 dark:hover:bg-surface-secondary-dark"
                 }`}
               >
                 <button
@@ -113,23 +107,11 @@ function FAQSection({
                   aria-expanded={isOpen}
                 >
                   <div className="flex items-start gap-3.5 sm:gap-5">
-                    <span
-                      className={`font-mono text-xs sm:text-sm font-semibold tracking-widest mt-0.5 sm:mt-1 ${
-                        isOpen
-                          ? "text-white/50 dark:text-slate-400"
-                          : "text-secondary-light/50 dark:text-secondary-dark/50"
-                      }`}
-                    >
+                    <span className="font-mono text-xs sm:text-sm font-semibold tracking-widest mt-0.5 sm:mt-1 text-white/50">
                       {faq.id}
                     </span>
 
-                    <h3
-                      className={`font-serif text-base sm:text-xl md:text-2xl font-light tracking-tight leading-snug transition-colors duration-200 ${
-                        isOpen
-                          ? "text-white dark:text-slate-950"
-                          : "text-primary-light dark:text-primary-dark"
-                      }`}
-                    >
+                    <h3 className="font-serif text-base sm:text-xl md:text-2xl font-light tracking-tight leading-snug text-white">
                       {faq.question}
                     </h3>
                   </div>
@@ -137,8 +119,8 @@ function FAQSection({
                   <div
                     className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center shrink-0 border transition-all duration-300 ${
                       isOpen
-                        ? "bg-white text-slate-950 border-white dark:bg-slate-950 dark:text-white dark:border-slate-950"
-                        : "border-theme text-primary-light dark:text-primary-dark bg-transparent"
+                        ? "bg-white text-slate-950 border-white"
+                        : "border-white/20 text-white bg-transparent"
                     }`}
                   >
                     {isOpen ? (
@@ -155,11 +137,11 @@ function FAQSection({
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                      transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
                       className="overflow-hidden"
                     >
-                      <div className="px-5 pb-5 sm:px-7 sm:pb-7 pt-0 pl-11 sm:pl-16 pr-6 sm:pr-12 border-t border-white/10 dark:border-black/10 mt-1">
-                        <p className="font-sans font-light text-xs sm:text-sm md:text-[15px] leading-relaxed text-white/70 dark:text-slate-600 pt-4">
+                      <div className="px-5 pb-5 sm:px-7 sm:pb-7 pt-0 pl-11 sm:pl-16 pr-6 sm:pr-12 border-t border-white/10 mt-1">
+                        <p className="font-body font-light text-xs sm:text-sm md:text-[15px] leading-relaxed text-white/70 pt-4">
                           {faq.answer}
                         </p>
                       </div>
@@ -171,16 +153,14 @@ function FAQSection({
           })}
         </div>
 
-        {/* ========================================================= */}
-        {/* 🌟 3. BOTTOM CTA STRIP                                    */}
-        {/* ========================================================= */}
+        {/* BOTTOM CTA */}
         {showCta && (
           <div className="mt-14 sm:mt-18 md:mt-22 pt-10 border-t border-theme flex flex-col sm:flex-row items-center justify-between gap-6 max-w-4xl mx-auto">
             <div className="text-center sm:text-left">
               <h4 className="font-serif text-lg sm:text-xl font-light text-primary-light dark:text-primary-dark mb-1">
                 Still have unanswered statutory questions?
               </h4>
-              <p className="font-sans font-light text-xs sm:text-sm text-secondary-light dark:text-secondary-dark">
+              <p className="font-body font-light text-xs sm:text-sm text-secondary-light dark:text-secondary-dark">
                 Reach out to our direct advisory desk for clarification on notices or filings.
               </p>
             </div>
@@ -188,7 +168,7 @@ function FAQSection({
             <Link to="/contact" className="inline-block group/btn no-underline shrink-0">
               <PillButton
                 variant="auto"
-                className="px-7 py-3 rounded-full font-mono text-xs font-bold tracking-widest uppercase whitespace-nowrap bg-[#0F0F12] text-white hover:bg-black dark:bg-white dark:text-slate-950 dark:hover:bg-slate-100 shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
+                className="px-7 py-3 rounded-full font-mono text-xs font-bold tracking-widest uppercase whitespace-nowrap bg-primary-light text-surface-light hover:bg-black dark:bg-primary-dark dark:text-primary-light dark:hover:bg-slate-100 shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
               >
                 <span className="inline-flex items-center gap-2.5">
                   <span>Contact Desk</span>

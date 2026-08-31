@@ -1,3 +1,5 @@
+// src/components/sections/home/philosophy/cards/MediaBadge.jsx
+
 import { motion, useTransform } from "framer-motion";
 import { Play } from "lucide-react";
 import { PHILOSOPHY_CONFIG } from "../philosophyData";
@@ -15,14 +17,14 @@ export default function MediaBadge({ progress }) {
         decoding="async"
         src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80"
         alt="Tax Analysis & Calculation"
-        className="w-full h-full object-cover filter brightness-75 contrast-110 group-hover:scale-110 transition-transform duration-700 ease-out"
+        className="w-full h-full object-cover filter grayscale contrast-125 brightness-90 group-hover:scale-105 transition-transform duration-700 ease-out"
       />
-      <div className="absolute inset-0 bg-black/30 group-hover:bg-black/15 transition-colors" />
+      <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-300" />
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
         <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/60 group-hover:scale-110 transition-transform mb-2">
-          <Play size={20} className="text-white ml-1 fill-white" />
+          <Play size={18} className="text-white ml-0.5 fill-white" />
         </div>
-        <span className="text-xs font-mono tracking-widest text-white uppercase mt-1">
+        <span className="font-mono text-xs tracking-widest text-white uppercase mt-1 font-bold">
           Advisory Reel
         </span>
       </div>

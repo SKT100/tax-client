@@ -1,3 +1,5 @@
+// src/components/sections/home/philosophy/cards/DossierCard.jsx
+
 import { motion, useTransform } from "framer-motion";
 import { PHILOSOPHY_CONFIG } from "../philosophyData";
 
@@ -9,10 +11,10 @@ export default function DossierCard({ progress }) {
 
   return (
     <motion.div style={{ opacity, scale, y }} className={className}>
-      <h4 className="font-serif text-xl md:text-2xl text-primary-light dark:text-primary-dark font-normal">
+      <h4 className="font-serif text-xl md:text-2xl text-primary-light dark:text-primary-dark font-light tracking-tight">
         Statutory Defense
       </h4>
-      <p className="text-xs md:text-sm text-secondary-light dark:text-secondary-dark mt-2.5 font-light leading-relaxed">
+      <p className="font-body font-light text-xs md:text-sm text-secondary-light dark:text-secondary-dark mt-2.5 leading-relaxed">
         Structured legal defense for Income Tax show-cause notices, Section 148 reassessments, and GST appellate reviews.
       </p>
     </motion.div>

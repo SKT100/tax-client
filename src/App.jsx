@@ -1,3 +1,5 @@
+// src/App.jsx
+
 import { useState, useEffect, useRef, useCallback, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Lenis from 'lenis';
@@ -10,6 +12,7 @@ const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
 const Services = lazy(() => import('./pages/Services'));
 const Schedule = lazy(() => import('./pages/Schedule'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 function AppContent() {
   const navigate = useNavigate();
@@ -57,7 +60,7 @@ function AppContent() {
   }, [runCounter]);
 
   const navigateWithTransition = useCallback((toPath) => {
-    if (isTransitioningRef.current || toPath === location.pathname) return;
+    if (isTransitioningRef.current || toPath === `${location.pathname}${location.search}`) return;
     isTransitioningRef.current = true;
 
     setStage('closing');
@@ -65,7 +68,7 @@ function AppContent() {
 
     setTimeout(() => {
       navigate(toPath);
-      window.scrollTo(0, 0);
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
       setStage('counting');
 
       runCounter(() => {
@@ -76,7 +79,7 @@ function AppContent() {
         }, 700);
       });
     }, 450);
-  }, [location.pathname, navigate, runCounter]);
+  }, [location.pathname, location.search, navigate, runCounter]);
 
   useEffect(() => {
     const handleGlobalClick = (e) => {
@@ -114,7 +117,7 @@ function AppContent() {
     <>
       <LoadingScreen stage={stage} progress={progress} />
 
-      <div className="relative min-h-screen selection:bg-amber-500 selection:text-black">
+      <div className="relative min-h-screen selection:bg-primary-light selection:text-surface-light dark:selection:bg-primary-dark dark:selection:text-surface-dark">
         <ScrollToTop />
         <Navbar />
         <main className="pt-20">
@@ -125,6 +128,8 @@ function AppContent() {
               <Route path="/services" element={<Services />} />
               <Route path="/practices" element={<Services />} />
               <Route path="/schedule" element={<Schedule />} />
+              {/* 404 Catch-All Fallback */}
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
         </main>
@@ -155,15 +160,17 @@ export default function App() {
       touchMultiplier: 1.8,
     });
 
+    let rafId = null;
+
     function raf(time) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
 
-    const rafId = requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
     return () => {
-      cancelAnimationFrame(rafId);
+      if (rafId) cancelAnimationFrame(rafId);
       lenis.destroy();
     };
   }, []);

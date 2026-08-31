@@ -1,3 +1,5 @@
+// src/components/sections/about/AboutProfileHero.jsx
+
 import { useRef } from "react";
 import {
   motion,
@@ -5,7 +7,7 @@ import {
   useMotionTemplate,
   animate,
 } from "framer-motion";
-import { Award, ShieldCheck, FileCheck2, Sparkles } from "lucide-react";
+import { Award, ShieldCheck } from "lucide-react";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -21,7 +23,6 @@ const staggerContainer = {
   visible: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
 };
 
-// Statutory standards & practice benchmarks (replacing redundant service lists)
 const PRACTICE_STANDARDS = [
   "STATUTORY PRECISION",
   "STRICT CONFIDENTIALITY",
@@ -62,8 +63,8 @@ export default function AboutProfileHero() {
 
   return (
     <section className="relative w-full bg-surface-light dark:bg-surface-dark text-primary-light dark:text-primary-dark transition-colors duration-300 overflow-hidden pt-12 md:pt-16 lg:pt-20 pb-12">
-
-      {/* 🌟 1. HIGH-CONTRAST MOBILE/TABLET BACKDROP PORTRAIT (< lg screens) */}
+      
+      {/* 🌟 1. Mobile/Tablet Backdrop Portrait */}
       <div className="absolute top-0 right-0 w-full sm:w-[85%] h-[560px] sm:h-[650px] lg:hidden pointer-events-none z-0 overflow-hidden">
         <img
           loading="eager"
@@ -72,8 +73,6 @@ export default function AboutProfileHero() {
           alt="Partha Pratim Halder Backdrop"
           className="w-full h-full object-cover object-[82%_top] filter grayscale contrast-125 brightness-95 opacity-75 dark:opacity-65 dark:brightness-90 transition-opacity duration-300"
         />
-
-        {/* Calibrated Multi-Stop Fades for Text Legibility */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-surface-light/50 to-surface-light dark:via-surface-dark/50 dark:to-surface-dark" />
         <div className="absolute inset-0 bg-gradient-to-r from-surface-light/90 via-surface-light/40 to-transparent dark:from-surface-dark/90 dark:via-surface-dark/40" />
       </div>
@@ -85,9 +84,9 @@ export default function AboutProfileHero() {
         animate="visible"
         variants={staggerContainer}
       >
-        {/* LEFT COLUMN: Narrative & Credentials */}
+        {/* Left Column: Narrative & Credentials */}
         <div className="w-full lg:w-[55%] flex flex-col justify-center gap-5 z-20">
-
+          
           {/* Main Headline */}
           <motion.h1
             variants={fadeUp}
@@ -103,7 +102,7 @@ export default function AboutProfileHero() {
             className="flex items-center gap-2 font-mono text-xs tracking-widest uppercase text-secondary-light dark:text-secondary-dark"
           >
             <Award className="w-4 h-4 text-primary-light dark:text-primary-dark shrink-0" />
-            <span>GST & Tax Consultant — 10+ Years Experience</span>
+            <span>GST &amp; Tax Consultant — 10+ Years Experience</span>
           </motion.div>
 
           {/* Strategic Narrative */}
@@ -123,7 +122,7 @@ export default function AboutProfileHero() {
             </p>
           </motion.div>
 
-          {/* Practice Benchmarks / Standards Container */}
+          {/* Practice Benchmarks */}
           <motion.div
             id="pedigree"
             variants={fadeUp}
@@ -146,15 +145,13 @@ export default function AboutProfileHero() {
             </div>
           </motion.div>
 
-          {/* Statutory Alliance & Practice Badges */}
-          {/* Institutional Standing / Practice Badges */}
+          {/* Practice Badges */}
           <motion.div
             variants={fadeUp}
             className="grid grid-cols-2 gap-4 max-w-md pt-2"
           >
-            {/* Card 1: GST Practitioner */}
-            <div className="relative aspect-square p-5 sm:p-6 rounded-xl glass-card border-theme flex flex-col justify-end overflow-hidden transition-all duration-300 hover:border-primary-light/30 dark:hover:border-primary-dark/30 group">
-              {/* Subtle Watermark Logo */}
+            {/* Card 1 */}
+            <div className="relative aspect-square p-5 sm:p-6 rounded-2xl glass-card border border-theme flex flex-col justify-end overflow-hidden transition-all duration-300 hover:border-black/20 dark:hover:border-white/20 group">
               <div className="absolute -right-4 -top-4 w-32 h-32 opacity-10 dark:opacity-15 pointer-events-none transition-transform duration-500 group-hover:scale-105">
                 <img
                   loading="lazy"
@@ -173,14 +170,13 @@ export default function AboutProfileHero() {
                   GST PRACTITIONER
                 </h3>
                 <p className="font-body font-light text-[11px] sm:text-xs text-secondary-light dark:text-secondary-dark leading-tight">
-                  Authorized E-Filing & SCN Legal Defense
+                  Authorized E-Filing &amp; SCN Legal Defense
                 </p>
               </div>
             </div>
 
-            {/* Card 2: Direct Tax Intermediary */}
-            <div className="relative aspect-square p-5 sm:p-6 rounded-xl glass-card border-theme flex flex-col justify-end overflow-hidden transition-all duration-300 hover:border-primary-light/30 dark:hover:border-primary-dark/30 group">
-              {/* Subtle Watermark Logo */}
+            {/* Card 2 */}
+            <div className="relative aspect-square p-5 sm:p-6 rounded-2xl glass-card border border-theme flex flex-col justify-end overflow-hidden transition-all duration-300 hover:border-black/20 dark:hover:border-white/20 group">
               <div className="absolute -right-4 -top-4 w-32 h-32 opacity-10 dark:opacity-15 pointer-events-none transition-transform duration-500 group-hover:scale-105">
                 <img
                   loading="lazy"
@@ -199,7 +195,7 @@ export default function AboutProfileHero() {
                   TAX PRACTITIONER
                 </h3>
                 <p className="font-body font-light text-[11px] sm:text-xs text-secondary-light dark:text-secondary-dark leading-tight">
-                  Income Tax E-Filing & Scrutiny Management
+                  Income Tax E-Filing &amp; Scrutiny Management
                 </p>
               </div>
             </div>
@@ -208,16 +204,16 @@ export default function AboutProfileHero() {
           {/* Mobile Quote Card */}
           <motion.div
             variants={fadeUp}
-            className="lg:hidden glass-card p-5 rounded-xl border border-theme max-w-md mt-2 shadow-lg"
+            className="lg:hidden glass-card p-5 rounded-2xl border border-theme max-w-md mt-2 shadow-lg"
           >
             <Award className="w-4 h-4 text-primary-light dark:text-primary-dark mb-2" />
             <p className="font-serif italic text-xs sm:text-sm text-primary-light dark:text-primary-dark leading-snug">
-              "Accurate Advice, Proper Compliance, Complete Peace of Mind."
+              &ldquo;Accurate Advice, Proper Compliance, Complete Peace of Mind.&rdquo;
             </p>
           </motion.div>
         </div>
 
-        {/* 🌟 2. DESKTOP INTERACTIVE COLOR LENS PORTRAIT (`hidden lg:flex`) */}
+        {/* 🌟 2. Desktop Interactive Color Lens Portrait */}
         <div className="hidden lg:flex w-full lg:w-[45%] relative min-h-[640px] items-center justify-center">
           <motion.div
             ref={portraitRef}
@@ -225,7 +221,7 @@ export default function AboutProfileHero() {
             onMouseEnter={handleMouseEnter}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className="relative w-full h-full rounded-theme overflow-hidden glass-card shadow-2xl cursor-crosshair select-none"
+            className="relative w-full h-full rounded-3xl overflow-hidden glass-card shadow-2xl cursor-crosshair select-none"
           >
             {/* Base Grayscale Portrait */}
             <img
@@ -254,10 +250,10 @@ export default function AboutProfileHero() {
             <div className="absolute inset-0 bg-gradient-to-r from-surface-dark/90 via-surface-dark/30 to-transparent hidden dark:block pointer-events-none z-10" />
 
             {/* Desktop Quote Badge */}
-            <div className="absolute bottom-6 right-6 glass-card p-6 rounded-theme max-w-xs shadow-2xl z-20 pointer-events-auto border border-theme">
+            <div className="absolute bottom-6 right-6 glass-card p-6 rounded-2xl max-w-xs shadow-2xl z-20 pointer-events-auto border border-theme">
               <Award className="w-5 h-5 text-primary-light dark:text-primary-dark mb-2" />
               <p className="font-serif italic text-sm text-primary-light dark:text-primary-dark leading-snug">
-                "Accurate Advice, Proper Compliance, Complete Peace of Mind."
+                &ldquo;Accurate Advice, Proper Compliance, Complete Peace of Mind.&rdquo;
               </p>
             </div>
           </motion.div>

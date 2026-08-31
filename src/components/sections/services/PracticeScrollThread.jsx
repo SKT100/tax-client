@@ -290,29 +290,10 @@ export default function PracticeScrollThread({ containerRef }) {
         ? "rgba(251, 191, 36, 0.65)"
         : "rgba(217, 119, 6, 0.45)";
 
-      // Pass 1: Inactive Base Track
-      ctx.fillStyle = dimColor;
-      ctx.shadowBlur = 0;
-      for (let i = 0; i < glyphs.length; i++) {
-        const g = glyphs[i];
-        if (g.y > contentCutoff) continue;
+      // Single-pass render: collect visible glyphs once
+      const dimGlyphs = [];
+      const litGlyphs = [];
 
-        const screenY = docTop + g.y - currentScrollY;
-        if (screenY < -80 || screenY > viewportH + 80) continue;
-
-        if (g.dist > litDistance) {
-          ctx.save();
-          ctx.translate(g.x, screenY);
-          ctx.rotate(g.angle);
-          ctx.fillText(g.ch, 0, 0);
-          ctx.restore();
-        }
-      }
-
-      // Pass 2: Illuminated Glyphs
-      ctx.fillStyle = litColor;
-      ctx.shadowColor = litShadow;
-      ctx.shadowBlur = isDark ? 6 : 3;
       for (let i = 0; i < glyphs.length; i++) {
         const g = glyphs[i];
         if (g.y > contentCutoff) continue;
@@ -321,12 +302,35 @@ export default function PracticeScrollThread({ containerRef }) {
         if (screenY < -80 || screenY > viewportH + 80) continue;
 
         if (g.dist <= litDistance) {
-          ctx.save();
-          ctx.translate(g.x, screenY);
-          ctx.rotate(g.angle);
-          ctx.fillText(g.ch, 0, 0);
-          ctx.restore();
+          litGlyphs.push({ g, screenY });
+        } else {
+          dimGlyphs.push({ g, screenY });
         }
+      }
+
+      // Draw Dim Base
+      ctx.fillStyle = dimColor;
+      ctx.shadowBlur = 0;
+      for (let i = 0; i < dimGlyphs.length; i++) {
+        const { g, screenY } = dimGlyphs[i];
+        ctx.save();
+        ctx.translate(g.x, screenY);
+        ctx.rotate(g.angle);
+        ctx.fillText(g.ch, 0, 0);
+        ctx.restore();
+      }
+
+      // Draw Lit Overlay
+      ctx.fillStyle = litColor;
+      ctx.shadowColor = litShadow;
+      ctx.shadowBlur = isDark ? 6 : 3;
+      for (let i = 0; i < litGlyphs.length; i++) {
+        const { g, screenY } = litGlyphs[i];
+        ctx.save();
+        ctx.translate(g.x, screenY);
+        ctx.rotate(g.angle);
+        ctx.fillText(g.ch, 0, 0);
+        ctx.restore();
       }
       ctx.shadowBlur = 0;
     };
@@ -337,8 +341,13 @@ export default function PracticeScrollThread({ containerRef }) {
 
   return (
     <div
-      className="fixed inset-0 w-full h-full pointer-events-none z-[2] select-none transform-gpu overflow-hidden"
-      style={{ width: "100vw", height: "100vh" }}
+      className="fixed inset-0 w-full h-full pointer-events-none z-[2] select-none overflow-hidden"
+      style={{
+        width: "100vw",
+        height: "100vh",
+        transform: "translateZ(0)",
+        willChange: "transform",
+      }}
     >
       <canvas
         ref={canvasRef}

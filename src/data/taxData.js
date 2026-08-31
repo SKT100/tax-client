@@ -47,8 +47,7 @@ export const TAX_PRACTICE_AREAS = [
       "Foreign Asset & Income Statutory Reporting",
       "Past Returns Rectification & Nil Demand Processing",
     ],
-    image:
-      "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80",
+    image: "/images/tax.webp",
   },
   {
     id: "gst-lifecycle",
@@ -65,8 +64,7 @@ export const TAX_PRACTICE_AREAS = [
       "E-Way Bill System & E-Invoicing Integration",
       "LUT Filing for Zero-Rated Exports & Inverted Duty Claims",
     ],
-    image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+    image: "/images/gst-lifestyle.webp",
   },
   {
     id: "notice-defense",
@@ -83,8 +81,7 @@ export const TAX_PRACTICE_AREAS = [
       "Penalty Waiver Applications & Demand Adjustments",
       "Departmental Summons & Inspection Advisory",
     ],
-    image:
-      "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=1200&q=80",
+    image: "/images/notice-defense.webp",
   },
   {
     id: "tds-tcs",
@@ -101,8 +98,7 @@ export const TAX_PRACTICE_AREAS = [
       "TDS Defaults, Late Fee & Interest Mismatch Mitigation",
       "Vendor TDS Withholding Rate Verification",
     ],
-    image:
-      "https://images.unsplash.com/photo-1586486855514-8c633cc6fd38?auto=format&fit=crop&w=1200&q=80",
+    image: "/images/tcs-tds.webp",
   },
   {
     id: "accounting",
@@ -119,8 +115,7 @@ export const TAX_PRACTICE_AREAS = [
       "Inventory & Cost of Goods Sold (COGS) Auditing",
       "Statutory Audit File Preparation for Chartered Accountants",
     ],
-    image:
-      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80",
+    image: "/images/accounting.webp",
   },
   {
     id: "licensing",
@@ -137,8 +132,7 @@ export const TAX_PRACTICE_AREAS = [
       "Import Export Code (IEC) Issuance with DGFT",
       "Digital Signature Certificate (DSC Class 3) Processing",
     ],
-    image:
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
+    image: "/images/licensing.webp",
   },
 ];
 

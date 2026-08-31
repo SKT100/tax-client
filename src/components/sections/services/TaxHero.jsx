@@ -29,7 +29,6 @@ export default function TaxHero() {
       setIsDarkMode(document.documentElement.classList.contains("dark"));
     };
     const handleResize = () => {
-      // Larger footprint across viewports to frame the hero title cleanly
       setParticleScale(window.innerWidth < 768 ? 0.78 : 0.62);
     };
 
@@ -55,32 +54,29 @@ export default function TaxHero() {
       className="relative w-full min-h-[78vh] md:min-h-[85vh] bg-surface-light dark:bg-surface-dark text-primary-light dark:text-primary-dark transition-colors duration-300 flex items-center justify-center overflow-hidden pt-36 md:pt-44 pb-20 md:pb-28 transform-gpu"
       style={{ contain: "paint layout" }}
     >
-      {/* 🌟 High-Visibility, Low-Overhead Rupee Particle Field */}
+      {/* High-Visibility Rupee Particle Field */}
       <div className="absolute inset-0 z-0 flex items-center justify-center opacity-95 dark:opacity-90 pointer-events-auto transition-opacity duration-500">
         <ParticleImage
           key={`hero-particle-${particleScale}-${isDarkMode ? "dark" : "light"}`}
           imageSrc="/images/rupee-bg.webp"
-          /* 2.2px dot size gives bold definition without needing high particle counts */
           particleSize={2.2}
           density={2.5}
-          /* Deep ink-black in light mode, brilliant platinum in dark mode */
           color={isDarkMode ? "#F8FAFC" : "#090A0F"}
-          highlightColor={isDarkMode ? "#FBBF24" : "#B45309"}
+          highlightColor={isDarkMode ? "#FFFFFF" : "#1A1A1A"}
           scatter={140}
           gatherDuration={1300}
           pointerRepel={40}
           repelRadius={120}
           idleDrift={0.3}
           scalePercent={particleScale}
-          /* Capped at 1,100 particles for sub-1ms draw times */
           maxParticles={1100}
           className="w-full h-full cursor-crosshair"
         />
       </div>
 
-      {/* 🌟 Subtle Ambient Under-Glow (Keeps text legible without washing out particles) */}
+      {/* Ambient Under-Glow */}
       <div className="absolute inset-0 z-[1] pointer-events-none flex items-center justify-center">
-        <div className="w-[520px] sm:w-[680px] h-[320px] sm:h-[420px] rounded-full bg-surface-light/20 dark:bg-[#0F0F12]/75 blur-3xl transition-colors duration-300" />
+        <div className="w-[520px] sm:w-[680px] h-[320px] sm:h-[420px] rounded-full bg-surface-light/20 dark:bg-surface-dark/80 blur-3xl transition-colors duration-300" />
       </div>
 
       {/* Hero Typography Overlay */}
@@ -95,7 +91,7 @@ export default function TaxHero() {
           className="flex items-center justify-center gap-2 mb-4"
         >
           <span className="font-mono text-[10px] sm:text-xs tracking-[0.25em] uppercase text-secondary-light dark:text-secondary-dark font-bold">
-            STATUTORY CONSULTANCY & ADVISORY
+            STATUTORY CONSULTANCY &amp; ADVISORY
           </span>
         </motion.div>
 

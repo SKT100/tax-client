@@ -23,20 +23,19 @@ export default function HeroContent({ index }) {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="absolute inset-0 flex flex-col items-center justify-center text-center z-30 px-4 mt-16 pointer-events-none"
+      className="absolute inset-0 flex flex-col items-center justify-center text-center z-30 px-margin-mobile mt-16 pointer-events-none"
     >
       <motion.h1
         variants={itemVariants}
-        className="font-display text-display-huge text-white drop-shadow-md"
+        className="font-serif text-display-huge text-white drop-shadow-lg tracking-tight leading-[0.92]"
       >
-        Tax <br /> <span className="font-serif italic font-light">
-          &
-        </span> Compliance
+        Tax <br />
+        <span className="italic font-light opacity-90">&amp; Compliance</span>
       </motion.h1>
 
       <motion.div
         variants={itemVariants}
-        className="mt-8 text-sm md:text-lg font-light text-white/90 uppercase tracking-widest max-w-2xl h-8 overflow-hidden relative w-full"
+        className="mt-8 font-mono text-xs sm:text-sm font-light text-white/90 uppercase tracking-[0.25em] max-w-2xl h-8 overflow-hidden relative w-full"
       >
         <AnimatePresence mode="wait">
           <motion.p
@@ -53,14 +52,10 @@ export default function HeroContent({ index }) {
       </motion.div>
 
       <motion.div variants={itemVariants} className="mt-10 pointer-events-auto">
-        <Link
-          to="/services"
-          data-interactive="true"
-          className="inline-block"
-        >
+        <Link to="/services" data-interactive="true" className="inline-block no-underline">
           <PillButton
             variant="on-dark"
-            className="px-10 py-4 text-sm"
+            className="px-8 sm:px-10 py-3.5 sm:py-4 text-xs font-mono font-bold tracking-widest shadow-2xl hover:scale-[1.02] active:scale-[0.98]"
             data-interactive="true"
           >
             EXPLORE TAX SERVICES

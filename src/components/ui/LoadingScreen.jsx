@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function LoadingScreen({ stage, progress }) {
   const [isDarkMode, setIsDarkMode] = useState(true);
 
-  // Dynamic theme observer
   useEffect(() => {
     const checkTheme = () => {
       setIsDarkMode(document.documentElement.classList.contains("dark"));
@@ -24,22 +23,20 @@ export default function LoadingScreen({ stage, progress }) {
 
   if (stage === "idle") return null;
 
-  // Cinematic shutter ease
   const curtainEase = [0.83, 0, 0.17, 1];
 
-  // Theme-aware tokens
   const bgClass = isDarkMode
-    ? "bg-[#0F0F12] text-white border-white/[0.08]"
-    : "bg-[#F8F8F6] text-[#121316] border-black/[0.08]";
+    ? "bg-surface-dark text-primary-dark border-white/10"
+    : "bg-surface-light text-primary-light border-black/10";
 
-  const seamBorderClass = isDarkMode ? "border-white/[0.08]" : "border-black/[0.08]";
-  const barTrackClass = isDarkMode ? "bg-white/[0.06]" : "bg-black/[0.06]";
+  const seamBorderClass = isDarkMode ? "border-white/10" : "border-black/10";
+  const barTrackClass = isDarkMode ? "bg-white/10" : "bg-black/10";
 
   const barGradientClass = isDarkMode
-    ? "bg-gradient-to-r from-emerald-500/80 via-emerald-400 to-amber-300/90 shadow-[0_0_12px_rgba(52,211,153,0.35)]"
-    : "bg-gradient-to-r from-slate-900 via-slate-800 to-emerald-700 shadow-[0_0_8px_rgba(15,23,42,0.15)]";
+    ? "bg-gradient-to-r from-slate-400 via-white to-slate-200 shadow-[0_0_12px_rgba(255,255,255,0.35)]"
+    : "bg-gradient-to-r from-slate-900 via-slate-800 to-black shadow-[0_0_8px_rgba(15,23,42,0.15)]";
 
-  const percentAccentClass = isDarkMode ? "text-emerald-400/90" : "text-emerald-700";
+  const percentAccentClass = isDarkMode ? "text-white/80" : "text-slate-900/80";
   const mottoSubtextClass = isDarkMode ? "text-white/45" : "text-black/45";
   const logoThemeClass = isDarkMode
     ? "brightness-100 opacity-90"
@@ -51,7 +48,7 @@ export default function LoadingScreen({ stage, progress }) {
   return (
     <div className="fixed inset-0 z-[9999] pointer-events-auto select-none overflow-hidden font-sans">
       
-      {/* 🌟 1. TOP HALF CURTAIN */}
+      {/* 1. TOP HALF CURTAIN */}
       <motion.div
         initial={{ y: stage === "initial" ? "0%" : "-100%" }}
         animate={{ y: isClosed ? "0%" : "-100%" }}
@@ -61,7 +58,6 @@ export default function LoadingScreen({ stage, progress }) {
         }}
         className={`absolute top-0 left-0 right-0 h-[50vh] ${bgClass} ${seamBorderClass} border-b z-20 flex flex-col justify-between p-8 md:p-14 transform-gpu will-change-transform`}
       >
-        {/* Brand Logo Header (Dark in Light Mode, White in Dark Mode) */}
         <AnimatePresence>
           {showContent && (
             <motion.div
@@ -83,7 +79,7 @@ export default function LoadingScreen({ stage, progress }) {
         </AnimatePresence>
       </motion.div>
 
-      {/* 🌟 2. CENTER SEAM PROGRESS TRACK */}
+      {/* 2. CENTER SEAM PROGRESS TRACK */}
       <AnimatePresence>
         {showContent && (
           <motion.div
@@ -108,7 +104,7 @@ export default function LoadingScreen({ stage, progress }) {
         )}
       </AnimatePresence>
 
-      {/* 🌟 3. BOTTOM HALF CURTAIN */}
+      {/* 3. BOTTOM HALF CURTAIN */}
       <motion.div
         initial={{ y: stage === "initial" ? "0%" : "100%" }}
         animate={{ y: isClosed ? "0%" : "100%" }}
@@ -118,7 +114,6 @@ export default function LoadingScreen({ stage, progress }) {
         }}
         className={`absolute bottom-0 left-0 right-0 h-[50vh] ${bgClass} ${seamBorderClass} border-t flex items-end justify-between p-8 md:p-14 z-20 transform-gpu will-change-transform`}
       >
-        {/* Bengali & Sanskrit Statutory Motto */}
         <AnimatePresence>
           {showContent && (
             <motion.div
@@ -134,7 +129,6 @@ export default function LoadingScreen({ stage, progress }) {
           )}
         </AnimatePresence>
 
-        {/* Large Percentage Display */}
         <AnimatePresence>
           {showContent && (
             <motion.div
@@ -142,7 +136,7 @@ export default function LoadingScreen({ stage, progress }) {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.96 }}
               transition={{ duration: 0.2 }}
-              className="flex items-baseline gap-1.5 font-serif leading-none ml-auto"
+              className="flex items-baseline gap-1.5 font-serif leading-none ml-auto text-primary-light dark:text-primary-dark"
             >
               <span className="text-7xl sm:text-9xl md:text-[10.5rem] font-light tracking-tighter tabular-nums">
                 {progress}

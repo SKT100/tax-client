@@ -1,7 +1,9 @@
-import { useEffect, useRef } from "react";
+// src/components/ui/CountUp.jsx
+
+import { useEffect, useRef, memo } from "react";
 import { useInView, useMotionValue, useSpring } from "framer-motion";
 
-export default function CountUp({
+function CountUp({
   to,
   from = 0,
   direction = "up",
@@ -40,7 +42,7 @@ export default function CountUp({
             onEnd();
           }
         },
-        delay * 1000 + duration * 1000,
+        delay * 1000 + duration * 1000
       );
       return () => {
         clearTimeout(timeoutId);
@@ -69,7 +71,7 @@ export default function CountUp({
           maximumFractionDigits: 0,
         };
         const formattedNumber = Intl.NumberFormat("en-US", options).format(
-          latest.toFixed(0),
+          latest.toFixed(0)
         );
         ref.current.textContent = separator
           ? formattedNumber.replace(/,/g, separator)
@@ -81,3 +83,5 @@ export default function CountUp({
 
   return <span className={className} ref={ref} />;
 }
+
+export default memo(CountUp);

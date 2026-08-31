@@ -1,22 +1,26 @@
+// src/components/sections/home/practice/PracticeCard.jsx
+
+import { memo } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 
 export function PracticeCard({ item, index }) {
-  const targetUrl = `/services#core-tax-pillars`;
+  const targetUrl = `/services`;
+  const formattedIndex = String(index + 1).padStart(2, "0");
 
   return (
     <div
-      className={`group relative w-[85vw] sm:w-[500px] md:w-[580px] lg:w-[640px] shrink-0 bg-[#121212]/80 backdrop-blur-2xl border border-white/15 p-5 sm:p-7 transition-all duration-500 flex flex-col justify-between hover:border-white/40 hover:bg-[#121212]/95 overflow-hidden max-h-[calc(100vh-210px)] ${
+      className={`group relative w-[85vw] sm:w-[500px] md:w-[580px] lg:w-[640px] shrink-0 bg-[#0F0F12] border border-white/10 p-5 sm:p-7 transition-colors duration-300 flex flex-col justify-between hover:border-white/30 overflow-hidden max-h-[calc(100vh-210px)] ${
         index !== 0 ? "-ml-[1px]" : ""
       }`}
     >
-      {/* Top Index */}
+      {/* Top Header */}
       <Link
         to={targetUrl}
-        className="flex items-center justify-between pb-4 border-b border-white/15 transition-colors duration-500 group-hover:border-white/40 shrink-0"
+        className="flex items-center justify-between pb-4 border-b border-white/10 transition-colors duration-300 group-hover:border-white/30 shrink-0"
       >
         <span className="font-mono text-xs font-semibold tracking-[0.2em] text-white/70 uppercase group-hover:text-white transition-colors">
-          REF. 0{index + 1}
+          REF. {formattedIndex}
         </span>
         <ArrowUpRight
           size={18}
@@ -24,55 +28,73 @@ export function PracticeCard({ item, index }) {
         />
       </Link>
 
-      {/* Card Content Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch my-3 flex-1 overflow-y-auto pr-1.5 custom-scrollbar">
+      {/* Split Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch my-3 flex-1 overflow-hidden">
         
-        {/* Left: Text & Precedents */}
+        {/* Left: Text & Services */}
         <div className="md:col-span-7 flex flex-col justify-between h-full">
           <div>
             <Link to={targetUrl} className="block group/title">
               <h3 className="font-serif text-2xl sm:text-3xl font-light text-white tracking-tight leading-[1.15] mb-1">
                 {item.title}
                 {item.subtitle && (
-                  <span className="block italic font-light text-white/50 text-lg sm:text-xl mt-1">
+                  <span className="block italic font-light text-white/50 text-base sm:text-lg mt-1">
                     {item.subtitle}
                   </span>
                 )}
               </h3>
             </Link>
 
-            <p className="mt-2.5 text-xs sm:text-sm text-white/60 font-sans font-light leading-relaxed">
+            <p className="mt-2 text-xs sm:text-sm text-white/60 font-sans font-light leading-relaxed line-clamp-3">
               {item.description}
             </p>
           </div>
 
           <div className="mt-4 pt-3 border-t border-white/10">
-            <span className="font-mono text-[10px] font-bold tracking-[0.2em] text-white/50 uppercase block mb-2.5">
+            <span className="font-mono text-[9px] font-bold tracking-[0.2em] text-white/50 uppercase block mb-2">
               KEY COMPLIANCE COVERAGE
             </span>
-            <ul className="flex flex-col border-t border-white/15">
-              {(item.keyServices || [item.description]).slice(0, 3).map((prec, i) => (
+            <ul className="flex flex-col border-t border-white/10">
+              {(item.keyServices || [item.description]).slice(0, 3).map((serviceName, i) => (
                 <li
                   key={i}
-                  className="py-1.5 border-b border-white/15 text-xs font-sans font-light text-white/70 transition-colors duration-300 group-hover:text-white"
+                  className="py-1.5 border-b border-white/10 text-xs font-sans font-light text-white/70 transition-colors duration-300 group-hover:text-white"
                 >
-                  {prec}
+                  {serviceName}
                 </li>
               ))}
             </ul>
           </div>
         </div>
 
-        {/* Right: Image Frame */}
+        {/* Right: Hardware-Accelerated Image Container */}
         <Link
           to={targetUrl}
-          className="md:col-span-5 h-full min-h-[140px] md:min-h-[240px] border border-white/15 relative overflow-hidden bg-[#1A1A1A] shrink-0 block group-hover:border-white/40 transition-colors duration-500 flex items-center justify-center text-white/10 text-6xl font-light"
+          className="md:col-span-5 h-full min-h-[160px] md:min-h-[220px] border border-white/10 relative overflow-hidden bg-[#16161A] shrink-0 block group-hover:border-white/30 transition-colors duration-300"
         >
-          {String(index + 1).padStart(2, '0')}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+          {item.image ? (
+            <img
+              src={item.image}
+              alt={item.title}
+              loading="lazy"
+              decoding="async"
+              className="absolute inset-0 w-full h-full object-cover object-center filter grayscale contrast-110 brightness-90 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500 will-change-transform"
+            />
+          ) : (
+            <div className="flex items-center justify-center h-full text-white/10 text-6xl font-light">
+              {formattedIndex}
+            </div>
+          )}
+
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
+          <span className="absolute bottom-3 right-4 font-serif text-5xl font-light text-white/20 select-none pointer-events-none leading-none tracking-tighter">
+            {formattedIndex}
+          </span>
         </Link>
 
       </div>
     </div>
   );
 }
+
+export default memo(PracticeCard);

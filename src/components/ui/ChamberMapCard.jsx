@@ -1,3 +1,5 @@
+// src/components/ui/ChamberMapCard.jsx
+
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, MapPin, Phone, Mail } from "lucide-react";
@@ -66,7 +68,7 @@ export default function ChamberMapCard() {
       <div className="lg:col-span-6 p-6 sm:p-8 md:p-10 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-theme">
         <div>
           {/* Pill-Shaped Track */}
-          <div className="p-1 sm:p-1.5 bg-black/5 dark:bg-white/5 rounded-full border border-theme grid grid-cols-3 gap-1 mb-6 sm:mb-8">
+          <div className="p-1 sm:p-1.5 bg-black/[0.04] dark:bg-white/[0.05] rounded-full border border-theme grid grid-cols-3 gap-1 mb-6 sm:mb-8">
             {chambersList.map((chamber, index) => {
               const isSelected = activeIndex === index;
               return (
@@ -74,9 +76,9 @@ export default function ChamberMapCard() {
                   key={chamber.id}
                   type="button"
                   onClick={() => setActiveIndex(index)}
-                  className={`relative py-2 sm:py-2.5 px-1.5 sm:px-3 rounded-full text-[10px] sm:text-xs font-mono font-medium tracking-wider uppercase transition-colors duration-200 text-center z-10 ${
+                  className={`relative py-2 sm:py-2.5 px-1.5 sm:px-3 rounded-full text-[10px] sm:text-xs font-mono font-medium tracking-wider uppercase transition-colors duration-200 text-center z-10 cursor-pointer ${
                     isSelected
-                      ? "text-slate-900 dark:text-slate-900 font-semibold"
+                      ? "text-primary-light dark:text-primary-dark font-bold"
                       : "text-secondary-light dark:text-secondary-dark hover:text-primary-light dark:hover:text-primary-dark"
                   }`}
                 >
@@ -84,7 +86,7 @@ export default function ChamberMapCard() {
                     <motion.div
                       layoutId="activeChamberTab"
                       transition={{ type: "spring", stiffness: 380, damping: 32 }}
-                      className="absolute inset-0 bg-white rounded-full shadow-sm -z-10"
+                      className="absolute inset-0 bg-surface-light dark:bg-surface-secondary-dark rounded-full shadow-sm -z-10 border border-theme"
                     />
                   )}
                   <span className="opacity-50 mr-1 hidden xs:inline">{chamber.number}.</span>
@@ -163,7 +165,7 @@ export default function ChamberMapCard() {
       </div>
 
       {/* Right Column: Synchronized Map Viewport */}
-      <div className="lg:col-span-6 relative min-h-[300px] sm:min-h-[360px] lg:min-h-[440px] bg-slate-900/10 dark:bg-white/5 group">
+      <div className="lg:col-span-6 relative min-h-[300px] sm:min-h-[360px] lg:min-h-[440px] bg-surface-dark/5 dark:bg-surface-light/5 group">
         <iframe
           key={activeChamber.id}
           title={activeChamber.title}
@@ -177,7 +179,7 @@ export default function ChamberMapCard() {
           href={activeChamber.mapDirectLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="absolute bottom-4 right-4 backdrop-blur-xl bg-surface-light/90 dark:bg-[#0F0F12]/90 border border-theme px-3.5 py-1.5 rounded-full text-[10px] sm:text-[11px] font-mono tracking-widest uppercase text-primary-light dark:text-primary-dark flex items-center gap-1.5 shadow-xl hover:bg-slate-900 hover:text-white dark:hover:bg-white dark:hover:text-slate-900 transition-all duration-300 group-hover:scale-105"
+          className="absolute bottom-4 right-4 backdrop-blur-xl bg-surface-light/90 dark:bg-surface-dark/90 border border-theme px-3.5 py-1.5 rounded-full text-[10px] sm:text-[11px] font-mono tracking-widest uppercase text-primary-light dark:text-primary-dark flex items-center gap-1.5 shadow-xl hover:bg-primary-light hover:text-surface-light dark:hover:bg-primary-dark dark:hover:text-primary-light transition-all duration-300 group-hover:scale-105 no-underline"
         >
           <span>OPEN MAP</span>
           <ExternalLink className="w-3 h-3" />

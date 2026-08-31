@@ -14,39 +14,51 @@ export default {
           dark: '#141313',  // Lex Elegantia Pitch Black
         },
         'surface-secondary': {
-          light: '#ffffff', // For frosted glass overlays
-          dark: '#1c1b1b',
+          light: '#FFFFFF', // For frosted glass overlays
+          dark: '#1C1B1B',
         },
         // Typography & Lines
-        obsidian: '#1a1a1a', // Charcoal text for light mode
+        obsidian: '#1A1A1A', // Charcoal text for light mode
         primary: {
-          light: '#1a1a1a',
-          dark: '#ffffff',
+          light: '#1A1A1A',
+          dark: '#FFFFFF',
         },
         secondary: {
           light: '#666666',
           dark: '#888888',
         },
-        wireframe: 'rgba(255, 255, 255, 0.15)', // Dark mode border
-        bronze: '#9a7b56', // Luxury metallic accent
+        wireframe: 'rgba(255, 255, 255, 0.15)',
+        bronze: '#9A7B56',
       },
+
       fontFamily: {
         body: ["Inter", "sans-serif"],
+        sans: ["Inter", "sans-serif"],
         display: ["Playfair Display", "serif"],
-        serif: ["Playfair Display", "serif"]
+        serif: ["Playfair Display", "serif"],
+        mono: ["JetBrains Mono", "monospace"],
       },
+
       fontSize: {
-        "display-huge": ["clamp(4rem, 10vw, 128px)", { lineHeight: "0.95", letterSpacing: "-0.02em", fontWeight: "700" }],
-        "display-large": ["clamp(2.5rem, 6vw, 64px)", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "600" }]
+        "display-huge": ["clamp(3.5rem, 8vw, 112px)", { lineHeight: "0.95", letterSpacing: "-0.03em" }],
+        "display-large": ["clamp(2.5rem, 5.5vw, 64px)", { lineHeight: "1.08", letterSpacing: "-0.02em" }],
+        "display-medium": ["clamp(1.75rem, 3.5vw, 42px)", { lineHeight: "1.15", letterSpacing: "-0.015em" }],
       },
+
       spacing: {
-        "gutter": "32px",
-        "container-max-width": "1440px",
-        "margin-mobile": "24px",
         "unit": "8px",
-        "margin-desktop": "80px",
+        "gutter": "32px",
+        "margin-mobile": "24px",
         "margin-tablet": "40px",
-        "section-gap": "160px"
+        "margin-desktop": "80px",
+        "container-max-width": "1440px",
+        "section-gap": "140px",
+      },
+
+      borderRadius: {
+        "theme": "16px",
+        "theme-lg": "24px",
+        "theme-pill": "60px",
       },
     },
   },

@@ -1,3 +1,5 @@
+// src/components/sections/home/philosophy/cards/PortraitCard.jsx
+
 import { motion, useTransform } from "framer-motion";
 import { PHILOSOPHY_CONFIG } from "../philosophyData";
 
@@ -16,13 +18,13 @@ export default function PortraitCard({ progress }) {
         alt="Statutory Compliance & GST"
         className="absolute inset-0 w-full h-full object-cover filter grayscale contrast-125 brightness-90 group-hover:scale-105 transition-transform duration-700 ease-out"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent" />
       <div className="absolute bottom-0 left-0 right-0 p-6 text-center">
         <h4 className="font-serif italic font-light text-2xl md:text-3xl text-white">
           Statutory
         </h4>
-        <p className="text-xs font-mono tracking-[0.2em] uppercase text-white/70 mt-1.5">
-          Tax & GST Lifecycle
+        <p className="font-mono text-xs tracking-[0.2em] uppercase text-white/70 mt-1.5 font-bold">
+          Tax &amp; GST Lifecycle
         </p>
       </div>
     </motion.div>

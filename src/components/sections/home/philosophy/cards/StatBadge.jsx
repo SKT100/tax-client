@@ -1,3 +1,5 @@
+// src/components/sections/home/philosophy/cards/StatBadge.jsx
+
 import { motion, useTransform } from "framer-motion";
 import { PHILOSOPHY_CONFIG } from "../philosophyData";
 
@@ -12,7 +14,7 @@ export default function StatBadge({ progress }) {
       <div className="font-serif text-4xl md:text-5xl text-primary-light dark:text-primary-dark font-light leading-none">
         100%
       </div>
-      <div className="text-[10px] font-mono tracking-widest uppercase text-secondary-light dark:text-secondary-dark mt-2 max-w-[130px]">
+      <div className="font-mono text-[10px] tracking-widest uppercase text-secondary-light dark:text-secondary-dark mt-2 max-w-[130px] font-bold">
         On-Time Statutory Compliance Rate
       </div>
     </motion.div>
