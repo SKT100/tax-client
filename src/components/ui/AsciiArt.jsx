@@ -16,18 +16,25 @@ function AsciiArt({
 }) {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(() =>
+    typeof document !== "undefined"
+      ? document.documentElement.classList.contains("dark")
+      : true
+  );
 
+  // Synchronize theme changes without frame lag
   useEffect(() => {
     const checkTheme = () => {
       setIsDark(document.documentElement.classList.contains("dark"));
     };
     checkTheme();
+
     const observer = new MutationObserver(checkTheme);
     observer.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ["class"],
     });
+
     return () => observer.disconnect();
   }, []);
 
@@ -39,15 +46,18 @@ function AsciiArt({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    let isMounted = true;
     const img = new Image();
     img.crossOrigin = "anonymous";
     img.src = imageSrc;
 
     const renderStaticAscii = () => {
+      if (!isMounted) return;
       const rect = container.getBoundingClientRect();
       const width = Math.floor(rect.width);
       const height = Math.floor(rect.height);
       if (width <= 0 || height <= 0) return;
+      if (!img.naturalWidth || !img.naturalHeight) return;
 
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = width * dpr;
@@ -98,7 +108,11 @@ function AsciiArt({
           continue;
         }
 
-        const lum = (0.299 * imgData[idx] + 0.587 * imgData[idx + 1] + 0.114 * imgData[idx + 2]) / 255;
+        const lum =
+          (0.299 * imgData[idx] +
+            0.587 * imgData[idx + 1] +
+            0.114 * imgData[idx + 2]) /
+          255;
         lums[i] = lum;
 
         if (lum < minLum) minLum = lum;
@@ -115,6 +129,7 @@ function AsciiArt({
       ctx.textAlign = "left";
 
       const charsLen = charSet.length;
+      const currentIsDark = document.documentElement.classList.contains("dark");
 
       for (let y = 0; y < rows; y++) {
         for (let x = 0; x < cols; x++) {
@@ -124,7 +139,7 @@ function AsciiArt({
           let normalized = (rawLum - minLum) / lumRange;
 
           // Invert for light mode so dark bridge beams become dense ink
-          if (!isDark) {
+          if (!currentIsDark) {
             normalized = 1.0 - normalized;
           }
 
@@ -140,10 +155,11 @@ function AsciiArt({
           const char = charSet[charIdx];
 
           if (char && char.trim().length > 0) {
-            if (isDark) {
+            if (currentIsDark) {
               ctx.fillStyle = `rgba(241, 245, 249, ${0.45 + normalized * 0.55})`;
             } else {
-              ctx.fillStyle = `rgba(15, 23, 42, ${0.55 + normalized * 0.45})`;
+              // Balanced light-mode ink: readable structural density without foreground collision
+              ctx.fillStyle = `rgba(15, 23, 42, ${0.18 + normalized * 0.38})`;
             }
 
             ctx.fillText(char, x * charSize, y * charSize);
@@ -152,19 +168,38 @@ function AsciiArt({
       }
     };
 
-    if (img.complete) {
-      renderStaticAscii();
+    // Robust async decoding to eliminate first-load blank canvas glitches
+    const handleImageReady = async () => {
+      try {
+        if (img.decode) {
+          await img.decode();
+        }
+      } catch {
+        // Fallback for browsers decoding synchronously during render
+      }
+      if (isMounted) {
+        renderStaticAscii();
+      }
+    };
+
+    if (img.complete && img.naturalWidth > 0) {
+      handleImageReady();
     } else {
-      img.onload = renderStaticAscii;
+      img.onload = handleImageReady;
     }
 
-    const resizeObserver = new ResizeObserver(renderStaticAscii);
+    const resizeObserver = new ResizeObserver(() => {
+      if (isMounted) renderStaticAscii();
+    });
     resizeObserver.observe(container);
 
-    return () => resizeObserver.disconnect();
+    return () => {
+      isMounted = false;
+      resizeObserver.disconnect();
+    };
   }, [imageSrc, charSize, charSet, contrast, threshold, isDark]);
 
-  const effectiveOpacity = opacity ?? (isDark ? 0.55 : 0.75);
+  const effectiveOpacity = opacity ?? (isDark ? 0.55 : 0.6);
 
   return (
     <div

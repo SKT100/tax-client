@@ -11,7 +11,7 @@ const FONT_FAMILY =
   "'Hind Siliguri', 'Noto Sans Bengali', 'Noto Serif Bengali', 'Kalpurush', 'SolaimanLipi', system-ui, -apple-system, sans-serif";
 
 const DESIGN_W = 1440;
-const DESIGN_H = 5600;
+const DESIGN_H = 5000;
 
 // Original Start & Placement Coordinates (Starting at Y: 560)
 const CURVE_POINTS = [

@@ -13,19 +13,27 @@ function HeroMediaLayers({
 }) {
   const videoRefs = useRef({});
 
-  // Play active slide video, or preview video during hover/expansion
+  // Prime and play all muted video streams so frames are instantly rendered
   useEffect(() => {
     HERO_SLIDES.forEach((slide, idx) => {
       const videoEl = videoRefs.current[idx];
       if (!videoEl || slide.type !== "video") return;
 
-      const isRevealing = idx === nextIndex && (isHoveringHero || isExpanding);
-      const shouldPlay = idx === index || isRevealing;
+      videoEl.muted = true;
+      videoEl.play().catch(() => {
+        // Fallback for browsers waiting for user gesture
+      });
+    });
+  }, []);
 
-      if (shouldPlay) {
+  // Ensure active slide and upcoming preview slide never pause
+  useEffect(() => {
+    HERO_SLIDES.forEach((slide, idx) => {
+      const videoEl = videoRefs.current[idx];
+      if (!videoEl || slide.type !== "video") return;
+
+      if (videoEl.paused) {
         videoEl.play().catch(() => {});
-      } else {
-        videoEl.pause();
       }
     });
   }, [index, nextIndex, isHoveringHero, isExpanding]);
@@ -63,9 +71,10 @@ function HeroMediaLayers({
                 ref={(el) => (videoRefs.current[slideIdx] = el)}
                 src={slide.src}
                 muted
+                autoPlay
                 loop
                 playsInline
-                preload="metadata"
+                preload="auto"
                 className="w-full h-full object-cover filter brightness-105 contrast-110"
               />
             ) : (
