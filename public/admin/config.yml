@@ -1,0 +1,69 @@
+backend:
+  name: github
+  repo: SKT100/tax-client
+  branch: main
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "compliance_section"
+    label: "Compliance Deadlines"
+    files:
+      - file: "src/data/complianceDueDates.json"
+        label: "Statutory Tax Calendar"
+        name: "compliance_data"
+        fields:
+          - label: "Statutory Filing Deadlines"
+            name: "STATUTORY_DUE_DATES"
+            widget: "list"
+            summary: "{{fields.title}} ({{fields.dueDate}})"
+            fields:
+              - { label: "Unique ID", name: "id", widget: "string" }
+              - label: "Category"
+                name: "category"
+                widget: "select"
+                options:
+                  - { label: "GST Lifecycle", value: "gst" }
+                  - { label: "Income Tax & Advance Tax", value: "income-tax" }
+                  - { label: "TDS / TCS Withholding", value: "tds" }
+                  - { label: "PF, ESIC & P-Tax", value: "payroll" }
+                  - { label: "Corporate & MCA", value: "corporate" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Governing Act / Section", name: "act", widget: "string" }
+              - { label: "Due Date", name: "dueDate", widget: "string" }
+              - { label: "Filing Frequency", name: "frequency", widget: "string" }
+              - label: "Urgency Level"
+                name: "urgency"
+                widget: "select"
+                options: ["critical", "standard"]
+              - { label: "Target Assessee", name: "targetAssessee", widget: "string" }
+              - { label: "Statutory Importance", name: "importance", widget: "text" }
+              - { label: "Penal Consequence", name: "consequence", widget: "text" }
+
+  - name: "firm_profile"
+    label: "Firm Settings & Desk Info"
+    files:
+      - file: "src/data/firmSettings.json"
+        label: "Chamber & Contact Data"
+        name: "firm_data"
+        fields:
+          - { label: "Firm Name", name: "firm_name", widget: "string" }
+          - { label: "Principal Practitioner", name: "principal_name", widget: "string" }
+          - { label: "Official WhatsApp", name: "whatsapp_number", widget: "string" }
+          - { label: "Chamber Email", name: "email", widget: "string" }
+          - { label: "Baidyabati Chamber Address", name: "address_hq", widget: "string" }
+
+  - name: "blog"
+    label: "Tax Insights & Articles"
+    folder: "src/data/posts"
+    create: true
+    extension: "json"
+    format: "json"
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Article Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Category", name: "category", widget: "select", options: ["Direct Tax", "GST Law", "Audit Defense", "Company Compliance", "Trade Licences"] }
+      - { label: "Executive Summary", name: "summary", widget: "text" }
+      - { label: "Full Statutory Brief / Body", name: "body", widget: "markdown" }
