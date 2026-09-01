@@ -1,12 +1,19 @@
+/* src/assets/index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply bg-surface-light text-primary-light dark:bg-surface-dark dark:text-primary-dark;
+  html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-surface-light text-primary-light dark:bg-surface-dark dark:text-primary-dark;
+    overflow-x: hidden;
+    touch-action: pan-y;
     transition: background-color 300ms ease, color 300ms ease;
   }
 }
@@ -33,10 +40,19 @@
   /* Glassmorphism Presets */
   .glass-card {
     @apply bg-surface-secondary-light/60 dark:bg-surface-secondary-dark/60 backdrop-blur-md border border-theme shadow-sm;
+    isolation: isolate;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: transform;
   }
 
   .glass-card-perf {
     @apply bg-surface-secondary-light/80 dark:bg-surface-secondary-dark/80 backdrop-blur-sm border border-theme;
+    isolation: isolate;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
   }
 
   .glass-nav {
@@ -61,9 +77,23 @@
   .link-hover:focus-visible {
     @apply bg-black/5 border-black/10 dark:bg-white/5 dark:border-white/20;
   }
+
+  /* Universal GPU Acceleration & Layout Containment */
+  .transform-gpu {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    perspective: 1000;
+  }
+
+  .practice-container-containment {
+    contain: layout style;
+  }
 }
 
-/* Lenis Scroll Smoothness Settings */
+/* Lenis Smooth Scroll Configuration */
 html.lenis,
 html.lenis body {
   height: auto;
@@ -81,19 +111,7 @@ html.lenis body {
   overflow: hidden;
 }
 
-.lenis.lenis-smooth iframe {
+/* Disable pointer events on iframes ONLY while scrolling to maintain 60fps */
+.lenis.lenis-scrolling iframe {
   pointer-events: none;
-}
-
-.glass-card {
-  isolation: isolate;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  will-change: transform;
-}
-
-.practice-container-containment {
-  contain: layout style;
 }

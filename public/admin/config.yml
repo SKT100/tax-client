@@ -7,19 +7,21 @@ media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
 
 collections:
+  # 1. Statutory Compliance Due Dates
   - name: "compliance_section"
     label: "Compliance Deadlines"
+    icon: "event"
     files:
       - file: "src/data/complianceDueDates.json"
         label: "Statutory Tax Calendar"
         name: "compliance_data"
         fields:
-          - label: "Statutory Filing Deadlines"
+          - label: "Statutory Directives"
             name: "STATUTORY_DUE_DATES"
             widget: "list"
-            summary: "{{fields.title}} ({{fields.dueDate}})"
+            summary: "{{fields.title}} • Due: {{fields.dueDate}}"
             fields:
-              - { label: "Unique ID", name: "id", widget: "string" }
+              - { label: "Directive ID", name: "id", widget: "string" }
               - label: "Category"
                 name: "category"
                 widget: "select"
@@ -29,7 +31,7 @@ collections:
                   - { label: "TDS / TCS Withholding", value: "tds" }
                   - { label: "PF, ESIC & P-Tax", value: "payroll" }
                   - { label: "Corporate & MCA", value: "corporate" }
-              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Directive Title", name: "title", widget: "string" }
               - { label: "Governing Act / Section", name: "act", widget: "string" }
               - { label: "Due Date", name: "dueDate", widget: "string" }
               - { label: "Filing Frequency", name: "frequency", widget: "string" }
@@ -41,8 +43,10 @@ collections:
               - { label: "Statutory Importance", name: "importance", widget: "text" }
               - { label: "Penal Consequence", name: "consequence", widget: "text" }
 
+  # 2. Chamber & Firm Details
   - name: "firm_profile"
     label: "Firm Settings & Desk Info"
+    icon: "business_center"
     files:
       - file: "src/data/firmSettings.json"
         label: "Chamber & Contact Data"
@@ -54,8 +58,10 @@ collections:
           - { label: "Chamber Email", name: "email", widget: "string" }
           - { label: "Baidyabati Chamber Address", name: "address_hq", widget: "string" }
 
+  # 3. Blog & Legal Insights
   - name: "blog"
     label: "Tax Insights & Articles"
+    icon: "feed"
     folder: "src/data/posts"
     create: true
     extension: "json"
