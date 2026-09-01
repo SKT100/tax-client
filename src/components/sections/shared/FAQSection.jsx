@@ -60,7 +60,7 @@ function FAQSection({
   return (
     <section
       id={id}
-      className="relative z-20 py-20 sm:py-28 md:py-36 w-full border-t border-theme transition-colors duration-300"
+      className="relative z-20 py-20 sm:py-28 md:py-36 w-full duration-300"
     >
       <div className="max-w-container-max-width mx-auto px-margin-mobile md:px-margin-desktop">
         

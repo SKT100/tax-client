@@ -11,6 +11,8 @@ import LoadingScreen from './components/ui/LoadingScreen';
 const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
 const Services = lazy(() => import('./pages/Services'));
+const Compliance = lazy(() => import('./pages/Compliance'));
+const Locations = lazy(() => import('./pages/Locations'));
 const Schedule = lazy(() => import('./pages/Schedule'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
@@ -127,6 +129,10 @@ function AppContent() {
               <Route path="/about" element={<About />} />
               <Route path="/services" element={<Services />} />
               <Route path="/practices" element={<Services />} />
+              <Route path="/compliance" element={<Compliance />} />
+              <Route path="/due-dates" element={<Compliance />} />
+              <Route path="/locations" element={<Locations />} />
+              <Route path="/chambers" element={<Locations />} />
               <Route path="/schedule" element={<Schedule />} />
               {/* 404 Catch-All Fallback */}
               <Route path="*" element={<NotFound />} />

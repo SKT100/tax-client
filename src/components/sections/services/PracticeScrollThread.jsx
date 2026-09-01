@@ -1,6 +1,6 @@
 // src/components/sections/services/PracticeScrollThread.jsx
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, memo } from "react";
 import { useScroll } from "framer-motion";
 
 // Bengali Statutory Maxims with Four-Point Star (✦) Dividers
@@ -13,6 +13,7 @@ const FONT_FAMILY =
 const DESIGN_W = 1440;
 const DESIGN_H = 5600;
 
+// Original Start & Placement Coordinates (Starting at Y: 560)
 const CURVE_POINTS = [
   { x: -140, y: 560 },
   { cp1x: -40, cp1y: 530, cp2x: 80, cp2y: 590, x: 200, y: 550 },
@@ -136,7 +137,7 @@ function precomputeGlyphs(polyline, text, fontSize, letterSpacing) {
   return { glyphs, totalLen };
 }
 
-export default function PracticeScrollThread({ containerRef }) {
+function PracticeScrollThread({ containerRef }) {
   const canvasRef = useRef(null);
   const dataRef = useRef(null);
   const rafRef = useRef(null);
@@ -145,14 +146,12 @@ export default function PracticeScrollThread({ containerRef }) {
   const lastDrawnProgressRef = useRef(-1);
   const containerDocTopRef = useRef(0);
   const dimensionsRef = useRef({ width: 0, viewportH: 0, fontSize: 14, dpr: 1 });
-
   const anchorHeightRef = useRef(0);
-  const liveContentHeightRef = useRef(0);
 
   const { scrollYProgress } = useScroll(
     containerRef?.current
-      ? { target: containerRef, offset: ["start 5%", "end 95%"] }
-      : { offset: ["start 5%", "end 95%"] }
+      ? { target: containerRef, offset: ["start start", "end end"] }
+      : { offset: ["start start", "end end"] }
   );
 
   const measureDocTop = () => {
@@ -171,8 +170,6 @@ export default function PracticeScrollThread({ containerRef }) {
     const w = window.innerWidth || DESIGN_W;
     const totalH = container.scrollHeight || DESIGN_H;
     const viewportH = window.innerHeight || 900;
-
-    liveContentHeightRef.current = totalH;
 
     const widthChanged = w !== dimensionsRef.current.width;
     const grew = totalH > anchorHeightRef.current;
@@ -262,17 +259,9 @@ export default function PracticeScrollThread({ containerRef }) {
       const { glyphs, totalLen } = dataRef.current;
       const currentScrollY = window.scrollY;
       const docTop = containerDocTopRef.current;
-      const contentCutoff = liveContentHeightRef.current;
 
-      let visibleMaxDist = totalLen;
-      for (let i = glyphs.length - 1; i >= 0; i--) {
-        if (glyphs[i].y <= contentCutoff) {
-          visibleMaxDist = glyphs[i].dist;
-          break;
-        }
-      }
-
-      const litDistance = Math.max(0, Math.min(1, progress * 1.05)) * visibleMaxDist;
+      // Ensure illumination smoothly tracks through the entire curve length
+      const litDistance = Math.max(0, Math.min(1, progress * 1.05)) * totalLen;
       const isDark = document.documentElement.classList.contains("dark");
 
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -290,15 +279,15 @@ export default function PracticeScrollThread({ containerRef }) {
         ? "rgba(251, 191, 36, 0.65)"
         : "rgba(217, 119, 6, 0.45)";
 
-      // Single-pass render: collect visible glyphs once
       const dimGlyphs = [];
       const litGlyphs = [];
 
+      // Single-pass collector for all glyphs from start (y: 560) down to the bottom
       for (let i = 0; i < glyphs.length; i++) {
         const g = glyphs[i];
-        if (g.y > contentCutoff) continue;
-
         const screenY = docTop + g.y - currentScrollY;
+
+        // Viewport bounds culling
         if (screenY < -80 || screenY > viewportH + 80) continue;
 
         if (g.dist <= litDistance) {
@@ -308,7 +297,7 @@ export default function PracticeScrollThread({ containerRef }) {
         }
       }
 
-      // Draw Dim Base
+      // Draw Dim Base Track
       ctx.fillStyle = dimColor;
       ctx.shadowBlur = 0;
       for (let i = 0; i < dimGlyphs.length; i++) {
@@ -320,7 +309,7 @@ export default function PracticeScrollThread({ containerRef }) {
         ctx.restore();
       }
 
-      // Draw Lit Overlay
+      // Draw Illuminated Overlay
       ctx.fillStyle = litColor;
       ctx.shadowColor = litShadow;
       ctx.shadowBlur = isDark ? 6 : 3;
@@ -356,3 +345,5 @@ export default function PracticeScrollThread({ containerRef }) {
     </div>
   );
 }
+
+export default memo(PracticeScrollThread);

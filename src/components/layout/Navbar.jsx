@@ -16,7 +16,7 @@ const MEGA_MENU_CONTENT = {
       { name: SITE_CONFIG.principal.name, path: "/about" },
       { name: "Professional Pedigree", path: "/about#pedigree" },
       { name: "Compliance Vault", path: "/about#compliance-vault" },
-      { name: "Regional Network", path: "/about#locations" },
+      { name: "Chamber Network", path: "/locations" },
       { name: "Beyond the Desk", path: "/about#beyond-the-desk" },
     ],
   },
@@ -32,6 +32,31 @@ const MEGA_MENU_CONTENT = {
       { name: "Company & Entity Registration", path: "/services#company-registration" },
       { name: "PF & ESIC Statutory Advisory", path: "/services#pf-esic" },
       { name: "Trade Licences & MSME Advisory", path: "/services#licences-advisory" },
+    ],
+  },
+  compliance: {
+    title: "Statutory Due Dates",
+    description:
+      "Statutory compliance calendar, tax filing deadlines, advance tax schedules, and penalty prevention matrices for FY 2026-27.",
+    links: [
+      { name: "Complete Due Date Matrix", path: "/compliance" },
+      { name: "GST Monthly Deadlines (GSTR-1 / 3B)", path: "/compliance" },
+      { name: "Income Tax & Advance Tax Dates", path: "/compliance" },
+      { name: "TDS / TCS Deposit & Return Cutoffs", path: "/compliance" },
+      { name: "EPF, ESIC & WB P-Tax Deadlines", path: "/compliance" },
+      { name: "Annual Tax Audit & GSTR-9/9C", path: "/compliance" },
+    ],
+  },
+  locations: {
+    title: "Chambers & Regional Desks",
+    description:
+      "Municipal on-ground support and direct tax representation covering Baidyabati, Serampore, Hooghly corridor, and Greater Kolkata.",
+    links: [
+      { name: "Baidyabati & Sheoraphuli (HQ)", path: "/locations" },
+      { name: "Serampore & Rishra Industrial Belt", path: "/locations" },
+      { name: "Uttarpara, Hindmotor & Konnagar", path: "/locations" },
+      { name: "Chandannagar & Chinsurah Hub", path: "/locations" },
+      { name: "Greater Kolkata & Salt Lake Sector V", path: "/locations" },
     ],
   },
 };
@@ -142,7 +167,7 @@ function Navbar() {
       <div className="relative flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-container-max-width mx-auto h-20">
         {/* Navigation Links */}
         <ul
-          className={`hidden md:flex gap-10 font-mono text-xs font-semibold uppercase tracking-widest transition-colors duration-300 ${textClasses}`}
+          className={`hidden md:flex gap-8 lg:gap-10 font-mono text-xs font-semibold uppercase tracking-widest transition-colors duration-300 ${textClasses}`}
         >
           {Object.keys(MEGA_MENU_CONTENT).map((item) => (
             <li
@@ -151,10 +176,8 @@ function Navbar() {
               onMouseEnter={() => setActiveMenu(item)}
             >
               <Link
-                to={item === "about" ? "/about" : "/services"}
-                onClick={() =>
-                  handleLinkClick(item === "about" ? "/about" : "/services")
-                }
+                to={`/${item}`}
+                onClick={() => handleLinkClick(`/${item}`)}
                 className={`block py-4 transition-opacity duration-150 ${
                   activeMenu === item
                     ? "opacity-100 font-bold"
@@ -219,7 +242,7 @@ function Navbar() {
             <div className="max-w-container-max-width mx-auto px-margin-mobile md:px-margin-desktop py-10 sm:py-12 flex flex-col md:flex-row gap-8 md:gap-16">
               {/* Context Summary */}
               <div className="w-full md:w-1/3 shrink-0">
-                <h3 className="font-serif text-2xl md:text-3xl font-light text-primary-light dark:text-primary-dark mb-3 tracking-tight">
+                <h3 className="font-serif text-2xl md:text-3xl font-light text-primary-light dark:text-primary-dark mb-3 tracking-tight capitalize">
                   {MEGA_MENU_CONTENT[activeMenu].title}
                 </h3>
                 <p className="font-body font-light text-secondary-light dark:text-secondary-dark text-xs sm:text-sm leading-relaxed">

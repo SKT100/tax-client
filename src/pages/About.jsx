@@ -1,13 +1,16 @@
-import AboutProfileHero from '../components/sections/about/AboutProfileHero';
-import Stats from '../components/sections/shared/Stats';
-import AngledTicker from '../components/sections/shared/AngledTicker';
-import ComplianceVault from '../components/sections/about/ComplianceVault';
-import RegionalReachMap from '../components/sections/contact/RegionalReachMap';
+// src/pages/About.jsx
 
-export default function About() {
+import { memo } from "react";
+import AboutProfileHero from "../components/sections/about/AboutProfileHero";
+import Stats from "../components/sections/shared/Stats";
+import AngledTicker from "../components/sections/shared/AngledTicker";
+import ComplianceVault from "../components/sections/about/ComplianceVault";
+import RegionalReachMap from "../components/sections/contact/RegionalReachMap";
+
+function About() {
   return (
     <div className="relative bg-surface-light dark:bg-surface-dark text-primary-light dark:text-primary-dark transition-colors duration-300 min-h-screen">
-      <main className="relative w-full flex flex-col pb-[35vh] md:pb-[45vh]">
+      <main className="relative w-full flex flex-col">
         {/* 1. Hero */}
         <AboutProfileHero />
 
@@ -24,3 +27,5 @@ export default function About() {
     </div>
   );
 }
+
+export default memo(About);

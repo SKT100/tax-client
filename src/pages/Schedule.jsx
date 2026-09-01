@@ -1,10 +1,30 @@
-import { motion } from 'framer-motion';
-import TaxScheduler from '../components/sections/consultation/TaxScheduler';
-import ChamberMapCard from '../components/ui/ChamberMapCard';
+// src/pages/Schedule.jsx
+
+import { memo } from "react";
+import { motion } from "framer-motion";
+import {
+  MessageSquare,
+  Phone,
+  Mail,
+  FileText,
+  Clock,
+  ShieldCheck,
+  CheckCircle2,
+  CalendarCheck,
+  Zap,
+} from "lucide-react";
+import TaxScheduler from "../components/sections/consultation/TaxScheduler";
+import ChamberMapCard from "../components/ui/ChamberMapCard";
+import FAQSection from "../components/sections/shared/FAQSection";
+import { SITE_CONFIG } from "../data/siteConfig";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+  },
 };
 
 const staggerContainer = {
@@ -12,42 +32,237 @@ const staggerContainer = {
   visible: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
 };
 
-export default function Schedule() {
+const CONSULTATION_STEPS = [
+  {
+    step: "01",
+    title: "Reserve Open Slot",
+    desc: "Select a 30-min window on Google Meet or book an in-person chamber slot at Baidyabati.",
+  },
+  {
+    step: "02",
+    title: "Document Evaluation",
+    desc: "Share prior ITRs, GSTR-2B ledgers, or Show Cause Notices securely over encrypted channels.",
+  },
+  {
+    step: "03",
+    title: "Statutory Defense Plan",
+    desc: "Receive an actionable compliance strategy, filing timeline, and legal notice rebuttal roadmap.",
+  },
+];
+
+const PRE_MEETING_CHECKLIST = [
+  "Assessment Year & PAN details",
+  "Portal login access (Income Tax / GST)",
+  "Scanned copy of Departmental Notice / SCN",
+  "Relevant bank statements or purchase ledgers",
+];
+
+const SCHEDULING_FAQS = [
+  {
+    question: "How do virtual Google Meet consultations work?",
+    answer:
+      "Once you select a time slot, a Google Meet link and calendar invitation are immediately sent to your email. You can present documents on-screen for live verification.",
+  },
+  {
+    question: "Can I bring original paper notices to the Baidyabati chambers?",
+    answer:
+      "Yes. Select the 'In Person / Chambers' location during booking to meet at our Baidyabati Head Office on GT Road with your case files.",
+  },
+  {
+    question: "What if my statutory notice response deadline is within 48 hours?",
+    answer:
+      "For urgent DRC-01, Section 148, or appellate deadlines, bypass the regular scheduler and message the emergency WhatsApp desk directly for same-day triage.",
+  },
+  {
+    question: "Are case facts and client disclosures confidential?",
+    answer:
+      "All consultations, document reviews, and communications are strictly privileged and held in statutory confidence under professional practice standards.",
+  },
+];
+
+function Schedule() {
+  const whatsappNumber = (
+    SITE_CONFIG?.contact?.phoneRaw || "919007064088"
+  ).replace("+", "");
+
   return (
     <div className="relative bg-surface-light dark:bg-surface-dark text-primary-light dark:text-primary-dark transition-colors duration-300 min-h-screen">
-      <main className="relative z-10 w-full pt-16 md:pt-24 pb-[35vh] md:pb-[45vh]">
-        <div className="max-w-container-max-width mx-auto px-margin-mobile md:px-margin-desktop">
+      <main className="relative z-10 w-full pt-8 sm:pt-12 md:pt-16 pb-16 sm:pb-24">
+        <div className="max-w-container-max-width mx-auto px-margin-mobile md:px-margin-desktop space-y-16 sm:space-y-24">
           
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start mb-24 md:mb-32">
+          {/* ========================================================= */}
+          {/* 🌟 1. HERO SECTION: BALANCED 2-COLUMN GRID                */}
+          {/* ========================================================= */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+            
+            {/* Left Column: Heading, Emergency WhatsApp & Pre-Meeting Checklist */}
             <motion.div
-              className="lg:col-span-5 flex flex-col pt-1"
+              className="lg:col-span-5 flex flex-col space-y-6 pt-1"
               initial="hidden"
               animate="visible"
               variants={staggerContainer}
             >
-              <motion.h1
-                variants={fadeUp}
-                className="font-serif text-5xl sm:text-6xl lg:text-7xl leading-[1.05] font-light tracking-tight text-primary-light dark:text-primary-dark mb-6"
-              >
-                Schedule Your <br />
-                <span className="italic font-light opacity-90 text-primary-light dark:text-primary-dark">Tax Consultation</span>
-              </motion.h1>
+              <div>
+                <motion.h1
+                  variants={fadeUp}
+                  className="font-serif text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight leading-[1.08] text-primary-light dark:text-primary-dark"
+                >
+                  Schedule Your <br />
+                  <span className="italic font-light opacity-90">Tax Consultation</span>
+                </motion.h1>
 
-              <motion.p
+                <motion.p
+                  variants={fadeUp}
+                  className="font-body font-light text-sm sm:text-base text-secondary-light dark:text-secondary-dark leading-relaxed mt-3"
+                >
+                  Confidential Direct Tax advocacy, GST reconciliation, Section 148 notice defense, and corporate statutory compliance.
+                </motion.p>
+              </div>
+
+              {/* Emergency WhatsApp Notice Action Card */}
+              <motion.div
                 variants={fadeUp}
-                className="font-body font-light text-base md:text-lg text-secondary-light dark:text-secondary-dark max-w-lg leading-relaxed"
+                className="p-5 rounded-2xl border border-amber-500/30 bg-amber-500/[0.04] space-y-3"
               >
-                Direct 1-on-1 confidential consultation with Partha Pratim Halder, Matrix Tax Solutions, for GST registration, income tax filing, statutory defense, or business compliance.
-              </motion.p>
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-[10px] uppercase font-bold tracking-wider text-amber-600 dark:text-amber-400 flex items-center gap-1.5">
+                    <Zap className="w-3.5 h-3.5" />
+                    Urgent Notice Defense?
+                  </span>
+                  <span className="font-mono text-[9px] uppercase px-2 py-0.5 rounded bg-amber-500/20 text-amber-700 dark:text-amber-300">
+                    &lt; 2-Hr Response
+                  </span>
+                </div>
+                <p className="font-body text-xs text-secondary-light dark:text-secondary-dark font-light leading-relaxed">
+                  If you have an impending 7-day or 15-day statutory notice cutoff (GST DRC-01 / Section 148), reach our emergency desk directly.
+                </p>
+                <a
+                  href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+                    "*URGENT STATUTORY NOTICE DEFENSE*\n------------------------\nI have received a time-sensitive notice and require immediate assistance."
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-primary-light dark:text-primary-dark hover:text-amber-500 transition-colors no-underline"
+                >
+                  <MessageSquare className="w-3.5 h-3.5 text-emerald-500" />
+                  <span>Message on WhatsApp Chambers →</span>
+                </a>
+              </motion.div>
+
+              {/* Document Preparation Checklist Box */}
+              <motion.div
+                variants={fadeUp}
+                className="glass-card p-5 rounded-2xl border border-theme space-y-3"
+              >
+                <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-secondary-light dark:text-secondary-dark block">
+                  Recommended For Your Call
+                </span>
+                <div className="space-y-2">
+                  {PRE_MEETING_CHECKLIST.map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-start gap-2 text-xs font-body font-light text-secondary-light dark:text-secondary-dark"
+                    >
+                      <CheckCircle2 className="w-3.5 h-3.5 text-amber-500 shrink-0 mt-0.5" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Direct Reach Channels */}
+              <motion.div
+                variants={fadeUp}
+                className="pt-2 flex flex-wrap gap-4 text-xs font-mono text-secondary-light dark:text-secondary-dark"
+              >
+                <a
+                  href={`tel:${SITE_CONFIG?.contact?.phoneRaw || "+919007064088"}`}
+                  className="flex items-center gap-1.5 hover:text-primary-light dark:hover:text-primary-dark transition-colors no-underline"
+                >
+                  <Phone className="w-3.5 h-3.5" />
+                  <span>{SITE_CONFIG?.contact?.phone || "+91 9007064088"}</span>
+                </a>
+                <a
+                  href={`mailto:${SITE_CONFIG?.contact?.email || "tcparthahalder1984@gmail.com"}`}
+                  className="flex items-center gap-1.5 hover:text-primary-light dark:hover:text-primary-dark transition-colors no-underline"
+                >
+                  <Mail className="w-3.5 h-3.5" />
+                  <span>{SITE_CONFIG?.contact?.email || "Email Chambers"}</span>
+                </a>
+              </motion.div>
+
             </motion.div>
 
+            {/* Right Column: Live Cal.com Scheduler Widget */}
             <div className="lg:col-span-7">
               <TaxScheduler />
             </div>
+
           </div>
 
-          <div className="pt-16 border-t border-theme mb-12">
+          {/* ========================================================= */}
+          {/* 🌟 2. 3-STEP CONSULTATION WORKFLOW BLUEPRINT              */}
+          {/* ========================================================= */}
+          <div className="space-y-6 pt-10 border-t border-theme">
+            <div className="text-center max-w-xl mx-auto space-y-2">
+              <span className="font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest text-secondary-light dark:text-secondary-dark">
+                ADVISORY BLUEPRINT
+              </span>
+              <h2 className="font-serif text-2xl sm:text-3xl font-light">
+                How Consultation <span className="italic font-light">Works</span>
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {CONSULTATION_STEPS.map((item) => (
+                <div
+                  key={item.step}
+                  className="glass-card border border-theme rounded-2xl p-6 space-y-3 relative overflow-hidden"
+                >
+                  <span className="font-mono text-3xl font-light text-secondary-light/30 dark:text-secondary-dark/30 block">
+                    {item.step}
+                  </span>
+                  <h3 className="font-serif text-lg font-light text-primary-light dark:text-primary-dark">
+                    {item.title}
+                  </h3>
+                  <p className="font-body text-xs font-light text-secondary-light dark:text-secondary-dark leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* ========================================================= */}
+          {/* 🌟 3. REGIONAL CHAMBERS & LOCATION MAP                    */}
+          {/* ========================================================= */}
+          <div className="space-y-6 pt-8 border-t border-theme">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 pb-2">
+              <div>
+                <span className="font-mono text-[10px] uppercase font-bold tracking-widest text-secondary-light dark:text-secondary-dark block">
+                  PHYSICAL &amp; DIGITAL DESKS
+                </span>
+                <h2 className="font-serif text-2xl sm:text-3xl font-light">
+                  Chamber <span className="italic font-light">Locations</span>
+                </h2>
+              </div>
+              <span className="font-mono text-xs uppercase tracking-wider text-secondary-light dark:text-secondary-dark">
+                Baidyabati HQ • Greater Kolkata
+              </span>
+            </div>
+
             <ChamberMapCard />
+          </div>
+
+          {/* ========================================================= */}
+          {/* 🌟 4. REUSABLE FAQ SECTION                                */}
+          {/* ========================================================= */}
+          <div className="pt-8 border-t border-theme">
+            <FAQSection
+              title="Consultation & Advisory Inquiries"
+              subtitle="Everything you need to know about preparing for your session, confidentiality, and remote vs in-person meetings."
+              faqs={SCHEDULING_FAQS}
+            />
           </div>
 
         </div>
@@ -55,3 +270,5 @@ export default function Schedule() {
     </div>
   );
 }
+
+export default memo(Schedule);

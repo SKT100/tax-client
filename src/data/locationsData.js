@@ -1,0 +1,97 @@
+export const MUNICIPAL_CLUSTERS = [
+  {
+    id: "baidyabati-sheoraphuli",
+    zone: "Central Hooghly Corridor",
+    title: "Baidyabati & Sheoraphuli",
+    pinCodes: ["712222", "712223"],
+    status: "Principal Chambers (HQ)",
+    jurisdiction: "Baidyabati Municipality • Ward 1–22 • GT Road West",
+    targetAssessees: "Wholesale Traders, MSME Units, Agro-Distributors & Retail Assessees",
+    statutoryServices: [
+      "Municipal Trade Licence Application & Renewal",
+      "Direct Tax E-Filing & Section 148 SCN Defense",
+      "GST Registration, GSTR-1 & 3B Periodic Reconciliations",
+      "West Bengal Professional Tax (P-Tax) Enrolment",
+    ],
+    transit: "2 mins from Baidyabati Railway Station (Howrah-Bandel Line) • Direct GT Road Access",
+  },
+  {
+    id: "serampore-rishra",
+    zone: "Sub-Divisional & Industrial Belt",
+    title: "Serampore & Rishra",
+    pinCodes: ["712201", "712248", "712249"],
+    status: "Active On-Ground Desk",
+    jurisdiction: "Serampore & Rishra Municipalities • Sub-Divisional Court Jurisdiction",
+    targetAssessees: "Manufacturing Enterprises, Jute & Textile Mills, Export Firms & Healthcare Clinics",
+    statutoryServices: [
+      "EPF ECR & ESIC Statutory Labor Compliance",
+      "GST Inverted Duty Refund & Departmental Audit Defense",
+      "Corporate Balance Sheet & Statutory Audit Preparation",
+      "Partnership Deed Drafting & Firm Registration",
+    ],
+    transit: "Connected via GT Road & Serampore Town Station • 10 mins from Chambers",
+  },
+  {
+    id: "uttarpara-konnagar",
+    zone: "Southern Hooghly Gateway",
+    title: "Uttarpara, Hindmotor & Konnagar",
+    pinCodes: ["712232", "712233", "712235"],
+    status: "Digital & Field Desk",
+    jurisdiction: "Uttarpara-Kotrung & Konnagar Municipalities • Bally Border Corridor",
+    targetAssessees: "IT Professionals, Housing Societies, Real Estate Developers & Service Firms",
+    statutoryServices: [
+      "Salaried & HNI Capital Gains ITR Computation",
+      "TDS Withholding Tax Returns (Form 24Q & 26Q)",
+      "Section 44AD/ADA Presumptive Tax Advisory",
+      "Society / AOP Registration & PAN/TAN Allocation",
+    ],
+    transit: "Direct connectivity via Bally Bridge & Howrah Main Line",
+  },
+  {
+    id: "chandannagar-chinsurah",
+    zone: "Northern Commercial Hub",
+    title: "Chandannagar, Bhadreswar & Chinsurah",
+    pinCodes: ["712136", "712124", "712101"],
+    status: "District Registry Desk",
+    jurisdiction: "Chandannagar Municipal Corporation & Hooghly-Chinsurah Municipality",
+    targetAssessees: "Government Contractors, Educational Institutions, Private Limited Entities & Retailers",
+    statutoryServices: [
+      "Government Tender Tax Clearance Certificates",
+      "Private Limited & LLP Incorporation via MCA SPICe+",
+      "GST DRC-01 Show Cause Notice Drafting",
+      "Factory Licence & WBPCB Pollution Advisory",
+    ],
+    transit: "Direct arterial access along Grand Trunk Road corridor",
+  },
+  {
+    id: "kolkata-metro",
+    zone: "Metropolitan Corporate Portal",
+    title: "Greater Kolkata & Salt Lake Sector V",
+    pinCodes: ["700091", "700001", "700016", "700064"],
+    status: "Virtual Corporate Advisory",
+    jurisdiction: "Kolkata Municipal Corporation (KMC) • Bidhannagar Commissionerate",
+    targetAssessees: "Tech Startups, Agency Founders, E-Commerce Sellers & Corporate Assessees",
+    statutoryServices: [
+      "Multi-State GST Compliance & ITC Reconciliation",
+      "TDS Form 16 / 16A Bulk Generation & TRACES Cleansing",
+      "Virtual CFO & Monthly Bookkeeping Retainers",
+      "Startup India DPIIT Recognition & MSME Udyam",
+    ],
+    transit: "Seamless Remote Advisory Desk • 2-Hour Digital SLA via WhatsApp",
+  },
+];
+
+export const REGIONAL_FAQS = [
+  {
+    q: "Can businesses outside Baidyabati receive full statutory filing support remotely?",
+    a: "Yes. Our Digital Desk handles 100% cloud-based document collection, ledger verification, and e-filing for enterprises across Kolkata, Howrah, and North 24 Parganas with encrypted data transfer and instant WhatsApp receipts.",
+  },
+  {
+    q: "How does Matrix Tax Solutions assist with Municipal Trade Licences in Hooghly?",
+    a: "We process end-to-end applications, fire NOCs, and annual renewals across Baidyabati, Serampore, Rishra, Konnagar, Uttarpara, and Chandannagar Municipal Corporations.",
+  },
+  {
+    q: "What is the procedure for handling a Section 148 Income Tax or GST DRC-01 Notice?",
+    a: "Clients can transmit scanned copies of the Show Cause Notice via WhatsApp. We evaluate the DIN, review past ledgers, draft legal rebuttals, and file statutory submissions on the department portal.",
+  },
+];

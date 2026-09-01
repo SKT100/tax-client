@@ -1,6 +1,6 @@
 // src/components/layout/Footer.jsx
 
-import { useRef } from "react";
+import { useRef, memo } from "react";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
@@ -30,24 +30,24 @@ const staggerItem = {
   },
 };
 
-export default function Footer() {
+function Footer() {
   const footerRef = useRef(null);
 
   const isInView = useInView(footerRef, {
     once: true,
-    margin: "0px 0px -150px 0px",
+    margin: "0px 0px -100px 0px",
   });
 
   const { scrollYProgress } = useScroll({
     target: footerRef,
     offset: ["start end", "start start"],
   });
-  const contentY = useTransform(scrollYProgress, [0, 1], [25, 0]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [20, 0]);
 
   return (
     <footer
       ref={footerRef}
-      className="relative z-20 -mt-[25vh] md:-mt-[35vh] bg-[#0F0F12] rounded-t-[2.5rem] sm:rounded-t-[3rem] md:rounded-t-[4rem] overflow-hidden text-white shadow-2xl border-t border-white/10"
+      className="relative z-20 mt-16 sm:mt-24 md:mt-32 bg-[#0F0F12] rounded-t-[2.5rem] sm:rounded-t-[3rem] md:rounded-t-[4rem] overflow-hidden text-white shadow-2xl border-t border-white/10"
     >
       {/* Background Graphic Watermark */}
       <motion.div
@@ -83,7 +83,7 @@ export default function Footer() {
       >
         {/* Top CTA Section */}
         <motion.div
-          className="flex flex-col items-center justify-center pt-20 sm:pt-24 md:pt-28 lg:pt-32 pb-12 sm:pb-16 text-center"
+          className="flex flex-col items-center justify-center pt-16 sm:pt-20 md:pt-24 lg:pt-28 pb-12 sm:pb-16 text-center"
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           variants={staggerContainer}
@@ -145,8 +145,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/about#compliance-vault" className="hover:text-white transition-colors">
-                  Compliance Vault
+                <Link to="/compliance" className="hover:text-white transition-colors">
+                  Compliance Calendar
                 </Link>
               </li>
               <li>
@@ -236,3 +236,5 @@ export default function Footer() {
     </footer>
   );
 }
+
+export default memo(Footer);

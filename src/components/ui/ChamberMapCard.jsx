@@ -1,75 +1,74 @@
 // src/components/ui/ChamberMapCard.jsx
 
-import { useState } from "react";
+import { useState, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, MapPin, Phone, Mail } from "lucide-react";
 import { CONTACT_INFO } from "../../data/taxData";
 
-export default function ChamberMapCard() {
+const CHAMBERS_LIST = [
+  {
+    id: "baidyabati-ho",
+    number: "01",
+    tabLabel: "Head Office",
+    title: "Baidyabati Head Office",
+    description:
+      "Principal tax and advisory office managing direct tax e-filing, GST periodic compliance, business licensing, and statutory notice defense.",
+    locationName: "Matrix Tax Solutions HQ",
+    locationAddress: "Baidyabati, Hooghly, West Bengal — 712222",
+    directLine: CONTACT_INFO?.phone || "+91 9007064088",
+    email: CONTACT_INFO?.email || "tcparthahalder1984@gmail.com",
+    mapEmbedUrl:
+      "https://maps.google.com/maps?q=Baidyabati%20Hooghly%20West%20Bengal%20712222&t=&z=14&ie=UTF8&iwloc=&output=embed",
+    mapDirectLink:
+      "https://maps.google.com/?q=Baidyabati+Hooghly+West+Bengal+712222",
+  },
+  {
+    id: "digital-desk",
+    number: "02",
+    tabLabel: "Digital Desk",
+    title: "Digital Consultation & E-Filing",
+    description:
+      "Remote advisory and virtual filing desk providing dedicated consultation to individuals and businesses across Kolkata, Howrah, Nadia, and 24 Parganas.",
+    locationName: "Online Video & Document Desk",
+    locationAddress: "Virtual Advisory & Remote Compliance Portal",
+    directLine: CONTACT_INFO?.phone || "+91 9007064088",
+    email: CONTACT_INFO?.email || "tcparthahalder1984@gmail.com",
+    mapEmbedUrl:
+      "https://maps.google.com/maps?q=Kolkata%20West%20Bengal&t=&z=11&ie=UTF8&iwloc=&output=embed",
+    mapDirectLink:
+      "https://maps.google.com/?q=Kolkata+West+Bengal",
+  },
+  {
+    id: "regional-hub",
+    number: "03",
+    tabLabel: "Regional Reach",
+    title: "Hooghly & Kolkata Network",
+    description:
+      "Local client assistance and on-ground compliance support covering municipal trade licences, PF/ESI registrations, and audit documentation.",
+    locationName: "Hooghly & Greater Kolkata Belt",
+    locationAddress: "Active Service Across 6 Target Districts",
+    directLine: CONTACT_INFO?.phone || "+91 9007064088",
+    email: CONTACT_INFO?.email || "tcparthahalder1984@gmail.com",
+    mapEmbedUrl:
+      "https://maps.google.com/maps?q=Serampore%20Hooghly%20West%20Bengal&t=&z=13&ie=UTF8&iwloc=&output=embed",
+    mapDirectLink:
+      "https://maps.google.com/?q=Serampore+Hooghly+West+Bengal",
+  },
+];
+
+function ChamberMapCard() {
   const [activeIndex, setActiveIndex] = useState(0);
-
-  const chambersList = [
-    {
-      id: "baidyabati-ho",
-      number: "01",
-      tabLabel: "Head Office",
-      title: "Baidyabati Head Office",
-      description:
-        "Principal tax and advisory office managing direct tax e-filing, GST periodic compliance, business licensing, and statutory notice defense.",
-      locationName: "Matrix Tax Solutions HQ",
-      locationAddress: "Baidyabati, Hooghly, West Bengal — 712222",
-      directLine: CONTACT_INFO?.phone || "+91 9007064088",
-      email: CONTACT_INFO?.email || "tcparthahalder1984@gmail.com",
-      mapEmbedUrl:
-        "https://maps.google.com/maps?q=Baidyabati%20Hooghly%20West%20Bengal%20712222&t=&z=14&ie=UTF8&iwloc=&output=embed",
-      mapDirectLink:
-        "https://maps.google.com/?q=Baidyabati+Hooghly+West+Bengal+712222",
-    },
-    {
-      id: "digital-desk",
-      number: "02",
-      tabLabel: "Digital Desk",
-      title: "Digital Consultation & E-Filing",
-      description:
-        "Remote advisory and virtual filing desk providing dedicated consultation to individuals and businesses across Kolkata, Howrah, Nadia, and 24 Parganas.",
-      locationName: "Online Video & Document Desk",
-      locationAddress: "Virtual Advisory & Remote Compliance Portal",
-      directLine: CONTACT_INFO?.phone || "+91 9007064088",
-      email: CONTACT_INFO?.email || "tcparthahalder1984@gmail.com",
-      mapEmbedUrl:
-        "https://maps.google.com/maps?q=Kolkata%20West%20Bengal&t=&z=11&ie=UTF8&iwloc=&output=embed",
-      mapDirectLink:
-        "https://maps.google.com/?q=Kolkata+West+Bengal",
-    },
-    {
-      id: "regional-hub",
-      number: "03",
-      tabLabel: "Regional Reach",
-      title: "Hooghly & Kolkata Network",
-      description:
-        "Local client assistance and on-ground compliance support covering municipal trade licences, PF/ESI registrations, and audit documentation.",
-      locationName: "Hooghly & Greater Kolkata Belt",
-      locationAddress: "Active Service Across 6 Target Districts",
-      directLine: CONTACT_INFO?.phone || "+91 9007064088",
-      email: CONTACT_INFO?.email || "tcparthahalder1984@gmail.com",
-      mapEmbedUrl:
-        "https://maps.google.com/maps?q=Serampore%20Hooghly%20West%20Bengal&t=&z=13&ie=UTF8&iwloc=&output=embed",
-      mapDirectLink:
-        "https://maps.google.com/?q=Serampore+Hooghly+West+Bengal",
-    },
-  ];
-
-  const activeChamber = chambersList[activeIndex];
+  const activeChamber = CHAMBERS_LIST[activeIndex];
 
   return (
     <div className="glass-card border border-theme rounded-3xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 shadow-2xl transition-all duration-300">
       
-      {/* Left Column: Segmented Pill Switcher & Active Location Details */}
+      {/* Left Column: Segmented Switcher & Details */}
       <div className="lg:col-span-6 p-6 sm:p-8 md:p-10 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-theme">
         <div>
-          {/* Pill-Shaped Track */}
+          {/* Segmented Track */}
           <div className="p-1 sm:p-1.5 bg-black/[0.04] dark:bg-white/[0.05] rounded-full border border-theme grid grid-cols-3 gap-1 mb-6 sm:mb-8">
-            {chambersList.map((chamber, index) => {
+            {CHAMBERS_LIST.map((chamber, index) => {
               const isSelected = activeIndex === index;
               return (
                 <button
@@ -96,7 +95,7 @@ export default function ChamberMapCard() {
             })}
           </div>
 
-          {/* Dynamic Location Content */}
+          {/* Location Content */}
           <AnimatePresence mode="wait">
             <motion.div
               key={activeChamber.id}
@@ -164,15 +163,14 @@ export default function ChamberMapCard() {
         </div>
       </div>
 
-      {/* Right Column: Synchronized Map Viewport */}
-      <div className="lg:col-span-6 relative min-h-[300px] sm:min-h-[360px] lg:min-h-[440px] bg-surface-dark/5 dark:bg-surface-light/5 group">
+      {/* Right Column: Map Frame */}
+      <div className="lg:col-span-6 relative min-h-[280px] sm:min-h-[340px] lg:min-h-[420px] bg-surface-dark/5 dark:bg-surface-light/5 group">
         <iframe
           key={activeChamber.id}
           title={activeChamber.title}
           src={activeChamber.mapEmbedUrl}
-          className="w-full h-full min-h-[300px] sm:min-h-[360px] lg:min-h-full border-0 filter grayscale contrast-125 opacity-80 dark:invert dark:hue-rotate-180 dark:contrast-150 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
+          className="w-full h-full min-h-[280px] sm:min-h-[340px] lg:min-h-full border-0 filter grayscale contrast-125 opacity-80 dark:invert dark:hue-rotate-180 dark:contrast-150 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
           loading="lazy"
-          decoding="async"
         />
 
         <a
@@ -188,3 +186,5 @@ export default function ChamberMapCard() {
     </div>
   );
 }
+
+export default memo(ChamberMapCard);
