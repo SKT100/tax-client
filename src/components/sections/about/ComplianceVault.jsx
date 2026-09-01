@@ -212,8 +212,12 @@ export default function ComplianceVault() {
                 className="shrink-0 w-full sm:w-auto no-underline"
               >
                 <PillButton
-                  variant="auto"
-                  className="w-full sm:w-auto justify-center text-xs py-2.5 px-5 sm:py-3 sm:px-6 shadow-md bg-white text-slate-950 border-white hover:bg-slate-100 dark:bg-primary-light dark:text-surface-light dark:border-primary-light dark:hover:bg-obsidian"
+                  variant="custom"
+                  bgClass="bg-white text-slate-950 dark:bg-slate-950 dark:text-white shadow-md"
+                  borderClass="border border-white dark:border-slate-950"
+                  fillClass="bg-slate-950 dark:bg-white"
+                  hoverTextClass="text-slate-950 group-hover:text-white dark:text-white dark:group-hover:text-slate-950"
+                  className="w-full sm:w-auto justify-center text-xs py-2.5 px-5 sm:py-3 sm:px-6 shadow-md"
                 >
                   <span className="flex items-center gap-2">
                     <span>Download PDF</span>

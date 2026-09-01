@@ -1,3 +1,5 @@
+// src/data/servicesMenuData.js
+
 export const SERVICE_CATEGORIES = [
   {
     id: "accounts-audit",
@@ -222,6 +224,27 @@ export const SERVICE_CATEGORIES = [
     name: "Licences & Advisory",
     items: [
       {
+        id: "iec-export",
+        tag: "FOREIGN TRADE",
+        title: "Import Export Code (IEC) & DGFT",
+        description:
+          "DGFT portal IEC allocation, annual profile updates, ICEGATE AD Code customs registration, and annual GST LUT filings for zero-rated exports.",
+      },
+      {
+        id: "trust-ngo-12ab",
+        tag: "NGO / TRUST",
+        title: "Trust Registration & 12AB / 80G",
+        description:
+          "Charitable Trust deed drafting, Sub-Registrar registration, Income Tax 12AB tax-exemption, Section 80G donor deduction, and NITI Aayog Darpan portal filing.",
+      },
+      {
+        id: "dsc-token",
+        tag: "DIGITAL IDENTITY",
+        title: "Class 3 DSC (Digital Signature)",
+        description:
+          "Paperless 2-year/3-year Class 3 Digital Signature Certificate (Signing + Encryption) with FIPS cryptographic USB token for MCA, ITR, GST, and e-Tendering.",
+      },
+      {
         id: "trade-licence",
         tag: "BUSINESS SETUP",
         title: "Municipal Trade Licence",
@@ -234,13 +257,6 @@ export const SERVICE_CATEGORIES = [
         title: "MSME / Udyam Registration",
         description:
           "Government priority sector classification certificate for bank subsidies and collateral-free credit.",
-      },
-      {
-        id: "trust-12ab",
-        tag: "NGO / TRUST",
-        title: "Trust & 12AB / 80G",
-        description:
-          "Trust deed drafting, Sub-Registrar registration, and Income Tax 12AB/80G exemption certification.",
       },
       {
         id: "cma-loan-report",

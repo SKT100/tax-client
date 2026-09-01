@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ArrowUpRight, ShieldAlert } from "lucide-react";
 import PillButton from "../components/ui/PillButton";
-import { SITE_CONFIG } from "../data/siteConfig";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -22,7 +21,7 @@ const staggerContainer = {
 
 export default function NotFound() {
   return (
-    <div className="relative min-h-[90vh] bg-surface-light dark:bg-surface-dark text-primary-light dark:text-primary-dark transition-colors duration-300 flex flex-col justify-center items-center overflow-hidden pt-16 sm:pt-20 pb-[30vh] sm:pb-[35vh] md:pb-[42vh]">
+    <div className="relative min-h-[75vh] bg-surface-light dark:bg-surface-dark text-primary-light dark:text-primary-dark transition-colors duration-300 flex flex-col justify-center items-center overflow-hidden pt-12 sm:pt-16 pb-16 sm:pb-24">
       {/* Subtle Ambient Radial Lighting */}
       <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
         <div className="w-[420px] sm:w-[600px] h-[300px] rounded-full bg-black/[0.03] dark:bg-white/[0.03] blur-3xl" />
@@ -35,7 +34,6 @@ export default function NotFound() {
           variants={staggerContainer}
           className="flex flex-col items-center max-w-xl mx-auto"
         >
-          {/* Eyebrow Label */}
           <motion.div
             variants={fadeUp}
             className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/[0.04] dark:bg-white/[0.05] border border-theme mb-4 sm:mb-6"
@@ -46,7 +44,6 @@ export default function NotFound() {
             </span>
           </motion.div>
 
-          {/* Monolith Error Number */}
           <motion.div
             variants={fadeUp}
             className="font-serif text-7xl sm:text-9xl md:text-[10.5rem] font-light leading-none tracking-tighter text-primary-light dark:text-primary-dark mb-2 sm:mb-4 select-none opacity-95"
@@ -54,7 +51,6 @@ export default function NotFound() {
             404
           </motion.div>
 
-          {/* Primary Heading */}
           <motion.h1
             variants={fadeUp}
             className="font-serif text-2xl sm:text-4xl md:text-5xl font-light text-primary-light dark:text-primary-dark tracking-tight leading-tight mb-3"
@@ -62,7 +58,6 @@ export default function NotFound() {
             Statutory Record <span className="italic font-light opacity-90">Unavailable</span>
           </motion.h1>
 
-          {/* Contextual Narrative */}
           <motion.p
             variants={fadeUp}
             className="font-body font-light text-xs sm:text-sm md:text-base text-secondary-light dark:text-secondary-dark leading-relaxed max-w-md mb-8 sm:mb-10"
@@ -70,7 +65,6 @@ export default function NotFound() {
             The requested URL or statutory directive does not exist within the firm's directory or may have been reclassified under an updated compliance index.
           </motion.p>
 
-          {/* Action Row */}
           <motion.div
             variants={fadeUp}
             className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto"

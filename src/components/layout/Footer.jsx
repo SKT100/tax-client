@@ -32,12 +32,10 @@ const staggerItem = {
 
 function Footer() {
   const footerRef = useRef(null);
-
   const isInView = useInView(footerRef, {
     once: true,
     margin: "0px 0px -100px 0px",
   });
-
   const { scrollYProgress } = useScroll({
     target: footerRef,
     offset: ["start end", "start start"],
@@ -94,12 +92,15 @@ function Footer() {
           >
             {SITE_CONFIG.firm.tagline}
           </motion.h2>
-
           <motion.div variants={fadeUp}>
             <Link to="/schedule" className="no-underline">
               <PillButton
-                variant="auto"
-                className="px-8 sm:px-11 py-3 sm:py-3.5 text-xs sm:text-sm font-mono font-bold tracking-widest uppercase bg-white text-slate-950 hover:bg-slate-100 rounded-full shadow-2xl transition-transform hover:scale-[1.02] active:scale-[0.98]"
+                variant="custom"
+                bgClass="bg-white shadow-2xl"
+                borderClass="border border-white"
+                fillClass="bg-slate-950"
+                hoverTextClass="text-slate-950 group-hover:text-white"
+                className="px-8 sm:px-11 py-3.5 sm:py-4 text-xs sm:text-sm font-mono font-bold tracking-widest uppercase"
               >
                 Initiate Consultation
               </PillButton>
@@ -128,7 +129,7 @@ function Footer() {
               />
             </Link>
             <p className="text-white/60 text-xs sm:text-sm font-body font-light leading-relaxed">
-              {SITE_CONFIG.principal.name} — {SITE_CONFIG.principal.designation}. Delivering trusted
+              {SITE_CONFIG.principal.name} • {SITE_CONFIG.principal.designation}. Delivering trusted
               statutory compliance, ITR filing, and audit defense.
             </p>
           </motion.div>
@@ -150,6 +151,11 @@ function Footer() {
                 </Link>
               </li>
               <li>
+                <Link to="/locations" className="hover:text-white transition-colors">
+                  Chambers &amp; Locations
+                </Link>
+              </li>
+              <li>
                 <Link to="/about" className="hover:text-white transition-colors">
                   About Profile
                 </Link>
@@ -162,7 +168,7 @@ function Footer() {
             </ul>
           </motion.div>
 
-          {/* Legal Column */}
+          {/* Legal Column (Preserved as Links) */}
           <motion.div variants={staggerItem}>
             <h4 className="font-mono font-bold text-[10px] sm:text-xs uppercase tracking-[0.2em] text-white/50 mb-5 sm:mb-6">
               Legal

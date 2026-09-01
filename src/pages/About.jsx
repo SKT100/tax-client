@@ -6,6 +6,7 @@ import Stats from "../components/sections/shared/Stats";
 import AngledTicker from "../components/sections/shared/AngledTicker";
 import ComplianceVault from "../components/sections/about/ComplianceVault";
 import RegionalReachMap from "../components/sections/contact/RegionalReachMap";
+import FAQSection from "../components/sections/shared/FAQSection";
 
 function About() {
   return (
@@ -21,6 +22,10 @@ function About() {
         <div className="space-y-16 py-8">
           <ComplianceVault />
           <AngledTicker />
+          <FAQSection
+            title="Frequently Asked Directives"
+            subtitle="Everything you need to know about retained tax compliance, bookkeeping schedules, and notice defense."
+          />
           <RegionalReachMap />
         </div>
       </main>

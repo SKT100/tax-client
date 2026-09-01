@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
+import { Menu, X, ArrowRight, Phone, MessageSquare } from "lucide-react";
 import ThemeToggle from "../ui/ThemeToggle";
 import PillButton from "../ui/PillButton";
 import { SITE_CONFIG } from "../../data/siteConfig";
@@ -17,7 +18,6 @@ const MEGA_MENU_CONTENT = {
       { name: "Professional Pedigree", path: "/about#pedigree" },
       { name: "Compliance Vault", path: "/about#compliance-vault" },
       { name: "Chamber Network", path: "/locations" },
-      { name: "Beyond the Desk", path: "/about#beyond-the-desk" },
     ],
   },
   services: {
@@ -29,9 +29,9 @@ const MEGA_MENU_CONTENT = {
       { name: "Goods & Services Tax (GST)", path: "/services#gst" },
       { name: "Income Tax & Notice Scrutiny", path: "/services#income-tax" },
       { name: "TDS & Payroll Compliance", path: "/services#tds-payroll" },
-      { name: "Company & Entity Registration", path: "/services#company-registration" },
-      { name: "PF & ESIC Statutory Advisory", path: "/services#pf-esic" },
-      { name: "Trade Licences & MSME Advisory", path: "/services#licences-advisory" },
+      { name: "Company Registration", path: "/services#company-registration" },
+      { name: "PF & ESIC Advisory", path: "/services#pf-esic" },
+      { name: "Trade Licences & MSME", path: "/services#licences-advisory" },
     ],
   },
   compliance: {
@@ -40,11 +40,10 @@ const MEGA_MENU_CONTENT = {
       "Statutory compliance calendar, tax filing deadlines, advance tax schedules, and penalty prevention matrices for FY 2026-27.",
     links: [
       { name: "Complete Due Date Matrix", path: "/compliance" },
-      { name: "GST Monthly Deadlines (GSTR-1 / 3B)", path: "/compliance" },
-      { name: "Income Tax & Advance Tax Dates", path: "/compliance" },
-      { name: "TDS / TCS Deposit & Return Cutoffs", path: "/compliance" },
-      { name: "EPF, ESIC & WB P-Tax Deadlines", path: "/compliance" },
-      { name: "Annual Tax Audit & GSTR-9/9C", path: "/compliance" },
+      { name: "GST Monthly Deadlines", path: "/compliance" },
+      { name: "Income Tax & Advance Tax", path: "/compliance" },
+      { name: "TDS / TCS Deposit Cutoffs", path: "/compliance" },
+      { name: "EPF, ESIC & WB P-Tax", path: "/compliance" },
     ],
   },
   locations: {
@@ -52,11 +51,11 @@ const MEGA_MENU_CONTENT = {
     description:
       "Municipal on-ground support and direct tax representation covering Baidyabati, Serampore, Hooghly corridor, and Greater Kolkata.",
     links: [
-      { name: "Baidyabati & Sheoraphuli (HQ)", path: "/locations" },
-      { name: "Serampore & Rishra Industrial Belt", path: "/locations" },
-      { name: "Uttarpara, Hindmotor & Konnagar", path: "/locations" },
-      { name: "Chandannagar & Chinsurah Hub", path: "/locations" },
-      { name: "Greater Kolkata & Salt Lake Sector V", path: "/locations" },
+      { name: "Baidyabati HQ Chambers", path: "/locations" },
+      { name: "Serampore & Rishra Belt", path: "/locations" },
+      { name: "Uttarpara & Konnagar", path: "/locations" },
+      { name: "Chandannagar Hub", path: "/locations" },
+      { name: "Kolkata Corporate Desk", path: "/locations" },
     ],
   },
 };
@@ -64,6 +63,7 @@ const MEGA_MENU_CONTENT = {
 function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeMenu, setActiveMenu] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isTempTranslucent, setIsTempTranslucent] = useState(false);
 
   const themeTimeoutRef = useRef(null);
@@ -72,7 +72,13 @@ function Navbar() {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
 
-  // Passive rAF scroll tracker with state diff guard
+  // Close mobile drawer on route changes
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+    setActiveMenu(null);
+  }, [location.pathname]);
+
+  // Scroll listener
   useEffect(() => {
     let rAF = null;
     const handleScroll = () => {
@@ -92,7 +98,7 @@ function Navbar() {
     };
   }, []);
 
-  // Hash anchor navigation with timeout disposal
+  // Hash anchor navigation with timeout
   useEffect(() => {
     if (location.hash) {
       const id = location.hash.replace("#", "");
@@ -104,18 +110,10 @@ function Navbar() {
         }, 150);
       }
     }
-
     return () => {
       if (hashTimeoutRef.current) clearTimeout(hashTimeoutRef.current);
     };
-  }, [location.pathname, location.hash, location.search]);
-
-  // Clean up theme toggle timer
-  useEffect(() => {
-    return () => {
-      if (themeTimeoutRef.current) clearTimeout(themeTimeoutRef.current);
-    };
-  }, []);
+  }, [location.pathname, location.hash]);
 
   const handleThemeToggle = () => {
     if (window.scrollY <= 20) {
@@ -129,6 +127,7 @@ function Navbar() {
 
   const handleLinkClick = (path) => {
     setActiveMenu(null);
+    setIsMobileMenuOpen(false);
     const [targetPath, hash] = path.split("#");
     const targetRoute = targetPath.split("?")[0];
     const isCurrentPage = location.pathname === targetRoute;
@@ -136,9 +135,7 @@ function Navbar() {
     if (isCurrentPage) {
       if (hash) {
         const element = document.getElementById(hash);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
+        if (element) element.scrollIntoView({ behavior: "smooth" });
       } else {
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
@@ -146,7 +143,7 @@ function Navbar() {
   };
 
   const isSolid =
-    !isHomePage || isScrolled || activeMenu !== null || isTempTranslucent;
+    !isHomePage || isScrolled || activeMenu !== null || isTempTranslucent || isMobileMenuOpen;
 
   const textClasses = isSolid
     ? "text-primary-light dark:text-primary-dark"
@@ -157,7 +154,7 @@ function Navbar() {
       className="fixed top-0 w-full z-50 transition-colors duration-300"
       onMouseLeave={() => setActiveMenu(null)}
     >
-      {/* Dynamic Glass Surface */}
+      {/* Glass Surface */}
       <div
         className={`absolute inset-0 w-full h-full glass-nav transition-opacity duration-700 ease-in-out ${
           isSolid ? "opacity-100" : "opacity-0 pointer-events-none"
@@ -165,7 +162,8 @@ function Navbar() {
       />
 
       <div className="relative flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-container-max-width mx-auto h-20">
-        {/* Navigation Links */}
+        
+        {/* Desktop Navigation Links */}
         <ul
           className={`hidden md:flex gap-8 lg:gap-10 font-mono text-xs font-semibold uppercase tracking-widest transition-colors duration-300 ${textClasses}`}
         >
@@ -196,10 +194,22 @@ function Navbar() {
           ))}
         </ul>
 
-        {/* Centered Brand Identity */}
+        {/* Mobile Hamburger Toggle */}
+        <button
+          type="button"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className={`md:hidden p-2 text-primary-light dark:text-primary-dark transition-colors z-20 cursor-pointer ${
+            isSolid ? "" : "text-white"
+          }`}
+          aria-label="Toggle Mobile Menu"
+        >
+          {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
+
+        {/* Centered Brand Logo */}
         <Link
           to="/"
-          onClick={() => setActiveMenu(null)}
+          onClick={() => handleLinkClick("/")}
           className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center transition-transform hover:scale-105 duration-200"
         >
           <img
@@ -212,11 +222,12 @@ function Navbar() {
         </Link>
 
         {/* Actions Dock */}
-        <div className="flex items-center gap-5 sm:gap-6">
+        <div className="flex items-center gap-3 sm:gap-6">
           <ThemeToggle onToggle={handleThemeToggle} />
+          
           <Link
             to="/schedule"
-            onClick={() => setActiveMenu(null)}
+            onClick={() => handleLinkClick("/schedule")}
             className="hidden md:inline-flex no-underline"
           >
             <PillButton
@@ -229,7 +240,7 @@ function Navbar() {
         </div>
       </div>
 
-      {/* Mega Menu Overlay */}
+      {/* Desktop Mega Menu Overlay */}
       <AnimatePresence>
         {activeMenu && (
           <motion.div
@@ -237,21 +248,19 @@ function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="absolute top-full left-0 w-full bg-surface-light dark:bg-surface-dark border-b border-theme shadow-2xl transition-colors duration-300"
+            className="hidden md:block absolute top-full left-0 w-full bg-surface-light dark:bg-surface-dark border-b border-theme shadow-2xl transition-colors duration-300"
           >
-            <div className="max-w-container-max-width mx-auto px-margin-mobile md:px-margin-desktop py-10 sm:py-12 flex flex-col md:flex-row gap-8 md:gap-16">
-              {/* Context Summary */}
-              <div className="w-full md:w-1/3 shrink-0">
-                <h3 className="font-serif text-2xl md:text-3xl font-light text-primary-light dark:text-primary-dark mb-3 tracking-tight capitalize">
+            <div className="max-w-container-max-width mx-auto px-margin-desktop py-10 sm:py-12 flex flex-row gap-16">
+              <div className="w-1/3 shrink-0">
+                <h3 className="font-serif text-3xl font-light text-primary-light dark:text-primary-dark mb-3 tracking-tight capitalize">
                   {MEGA_MENU_CONTENT[activeMenu].title}
                 </h3>
-                <p className="font-body font-light text-secondary-light dark:text-secondary-dark text-xs sm:text-sm leading-relaxed">
+                <p className="font-body font-light text-secondary-light dark:text-secondary-dark text-sm leading-relaxed">
                   {MEGA_MENU_CONTENT[activeMenu].description}
                 </p>
               </div>
 
-              {/* 2-Column Responsive Links Grid */}
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-3.5 border-t md:border-t-0 md:border-l border-theme pt-6 md:pt-0 md:pl-12 flex-1 items-center">
+              <ul className="grid grid-cols-2 gap-x-10 gap-y-3.5 border-l border-theme pl-12 flex-1 items-center">
                 {MEGA_MENU_CONTENT[activeMenu].links.map((linkItem) => (
                   <li key={linkItem.name} className="w-full">
                     <Link
@@ -265,6 +274,75 @@ function Navbar() {
                   </li>
                 ))}
               </ul>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Mobile Slide-Out Drawer */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="md:hidden border-b border-theme bg-surface-light/95 dark:bg-surface-dark/95 backdrop-blur-xl px-margin-mobile py-6 shadow-2xl overflow-hidden"
+          >
+            <div className="flex flex-col gap-4">
+              <nav className="flex flex-col divide-y divide-theme">
+                {[
+                  { name: "About Profile", path: "/about" },
+                  { name: "Services Catalogue", path: "/services" },
+                  { name: "Compliance Due Dates", path: "/compliance" },
+                  { name: "Chambers & Locations", path: "/locations" },
+                  { name: "Schedule Advisory", path: "/schedule" },
+                ].map((item) => (
+                  <Link
+                    key={item.name}
+                    to={item.path}
+                    onClick={() => handleLinkClick(item.path)}
+                    className="py-3 font-serif text-xl font-light text-primary-light dark:text-primary-dark flex items-center justify-between no-underline"
+                  >
+                    <span>{item.name}</span>
+                    <ArrowRight className="w-4 h-4 text-secondary-light dark:text-secondary-dark" />
+                  </Link>
+                ))}
+              </nav>
+
+              <div className="pt-4 flex flex-col gap-3">
+                <Link
+                  to="/schedule"
+                  onClick={() => handleLinkClick("/schedule")}
+                  className="w-full no-underline"
+                >
+                  <PillButton
+                    variant="auto"
+                    className="w-full py-3.5 rounded-full font-mono text-xs font-bold tracking-widest uppercase text-center justify-center bg-primary-light text-surface-light dark:bg-primary-dark dark:text-primary-light"
+                  >
+                    FILE RETURN NOW
+                  </PillButton>
+                </Link>
+
+                <div className="flex items-center justify-center gap-6 pt-2 font-mono text-xs text-secondary-light dark:text-secondary-dark">
+                  <a
+                    href={`tel:${SITE_CONFIG.contact.phoneRaw}`}
+                    className="flex items-center gap-1.5 no-underline hover:underline"
+                  >
+                    <Phone className="w-3.5 h-3.5 text-amber-500" />
+                    <span>Call Chambers</span>
+                  </a>
+                  <a
+                    href={SITE_CONFIG.contact.whatsappUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-1.5 no-underline hover:underline text-emerald-600 dark:text-emerald-400"
+                  >
+                    <MessageSquare className="w-3.5 h-3.5" />
+                    <span>WhatsApp Desk</span>
+                  </a>
+                </div>
+              </div>
             </div>
           </motion.div>
         )}

@@ -1,3 +1,5 @@
+// src/components/sections/shared/FAQSection.jsx
+
 import { useState, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Minus, ArrowRight, HelpCircle } from "lucide-react";
@@ -58,13 +60,10 @@ function FAQSection({
   };
 
   return (
-    <section
-      id={id}
-      className="relative z-20 py-20 sm:py-28 md:py-36 w-full duration-300"
-    >
+    <section id={id} className="relative z-20 py-20 sm:py-28 md:py-36 w-full">
       <div className="max-w-container-max-width mx-auto px-margin-mobile md:px-margin-desktop">
         
-        {/* SECTION HEADER */}
+        {/* Section Header */}
         <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-14 md:mb-18">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/[0.04] dark:bg-white/[0.05] border border-theme mb-4">
             <HelpCircle className="w-3.5 h-3.5 text-secondary-light dark:text-secondary-dark" />
@@ -72,13 +71,10 @@ function FAQSection({
               {badge}
             </span>
           </div>
-
           <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-light text-primary-light dark:text-primary-dark leading-[1.08] tracking-tight mb-5">
             {title}
           </h2>
-
           <div className="w-12 h-px bg-theme mb-5" />
-
           {subtitle && (
             <p className="font-body font-light text-sm sm:text-base text-secondary-light dark:text-secondary-dark leading-relaxed">
               {subtitle}
@@ -86,18 +82,17 @@ function FAQSection({
           )}
         </div>
 
-        {/* ACCORDION CARDS */}
+        {/* Adaptive Glassmorphic Accordion Cards */}
         <div className="max-w-4xl mx-auto space-y-3.5 sm:space-y-4">
           {items.map((faq) => {
             const isOpen = openId === faq.id;
-
             return (
               <div
                 key={faq.id}
-                className={`rounded-2xl sm:rounded-3xl border transition-colors duration-300 overflow-hidden ${
+                className={`rounded-2xl sm:rounded-3xl border transition-all duration-300 overflow-hidden ${
                   isOpen
-                    ? "bg-surface-dark text-white border-white/20 dark:bg-surface-secondary-dark dark:text-white dark:border-white/20 shadow-lg"
-                    : "bg-surface-dark/70 text-white/90 border-white/10 hover:border-white/25 hover:bg-surface-dark dark:bg-surface-secondary-dark/60 dark:text-white/90 dark:border-white/10 dark:hover:border-white/25 dark:hover:bg-surface-secondary-dark"
+                    ? "glass-card border-black/20 dark:border-white/25 shadow-lg"
+                    : "border-theme bg-black/[0.02] dark:bg-white/[0.02] hover:border-black/20 dark:hover:border-white/20"
                 }`}
               >
                 <button
@@ -107,11 +102,10 @@ function FAQSection({
                   aria-expanded={isOpen}
                 >
                   <div className="flex items-start gap-3.5 sm:gap-5">
-                    <span className="font-mono text-xs sm:text-sm font-semibold tracking-widest mt-0.5 sm:mt-1 text-white/50">
+                    <span className="font-mono text-xs sm:text-sm font-semibold tracking-widest mt-0.5 sm:mt-1 text-secondary-light dark:text-secondary-dark">
                       {faq.id}
                     </span>
-
-                    <h3 className="font-serif text-base sm:text-xl md:text-2xl font-light tracking-tight leading-snug text-white">
+                    <h3 className="font-serif text-base sm:text-xl md:text-2xl font-light tracking-tight leading-snug text-primary-light dark:text-primary-dark">
                       {faq.question}
                     </h3>
                   </div>
@@ -119,8 +113,8 @@ function FAQSection({
                   <div
                     className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center shrink-0 border transition-all duration-300 ${
                       isOpen
-                        ? "bg-white text-slate-950 border-white"
-                        : "border-white/20 text-white bg-transparent"
+                        ? "bg-primary-light text-surface-light dark:bg-primary-dark dark:text-surface-dark border-transparent"
+                        : "border-theme text-secondary-light dark:text-secondary-dark bg-transparent"
                     }`}
                   >
                     {isOpen ? (
@@ -140,8 +134,8 @@ function FAQSection({
                       transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
                       className="overflow-hidden"
                     >
-                      <div className="px-5 pb-5 sm:px-7 sm:pb-7 pt-0 pl-11 sm:pl-16 pr-6 sm:pr-12 border-t border-white/10 mt-1">
-                        <p className="font-body font-light text-xs sm:text-sm md:text-[15px] leading-relaxed text-white/70 pt-4">
+                      <div className="px-5 pb-5 sm:px-7 sm:pb-7 pt-0 pl-11 sm:pl-16 pr-6 sm:pr-12 border-t border-theme mt-1">
+                        <p className="font-body font-light text-xs sm:text-sm md:text-[15px] leading-relaxed text-secondary-light dark:text-secondary-dark pt-4">
                           {faq.answer}
                         </p>
                       </div>
@@ -153,7 +147,7 @@ function FAQSection({
           })}
         </div>
 
-        {/* BOTTOM CTA */}
+        {/* Bottom CTA */}
         {showCta && (
           <div className="mt-14 sm:mt-18 md:mt-22 pt-10 border-t border-theme flex flex-col sm:flex-row items-center justify-between gap-6 max-w-4xl mx-auto">
             <div className="text-center sm:text-left">
@@ -165,20 +159,17 @@ function FAQSection({
               </p>
             </div>
 
-            <Link to="/contact" className="inline-block group/btn no-underline shrink-0">
+            <Link to="/schedule" className="inline-block group/btn no-underline shrink-0">
               <PillButton
                 variant="auto"
-                className="px-7 py-3 rounded-full font-mono text-xs font-bold tracking-widest uppercase whitespace-nowrap bg-primary-light text-surface-light hover:bg-black dark:bg-primary-dark dark:text-primary-light dark:hover:bg-slate-100 shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
+                className="px-7 py-3 rounded-full font-mono text-xs font-bold tracking-widest uppercase shadow-md"
               >
-                <span className="inline-flex items-center gap-2.5">
-                  <span>Contact Desk</span>
-                  <ArrowRight className="w-3.5 h-3.5 shrink-0 transition-transform duration-300 group-hover/btn:translate-x-1" />
-                </span>
+                <span>Contact Desk</span>
+                <ArrowRight className="w-3.5 h-3.5 shrink-0 transition-transform duration-300 group-hover/btn:translate-x-1" />
               </PillButton>
             </Link>
           </div>
         )}
-
       </div>
     </section>
   );

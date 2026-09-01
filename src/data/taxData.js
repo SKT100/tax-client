@@ -1,32 +1,32 @@
-// src/data/taxData.js
+
 
 export const CONTACT_INFO = {
   name: "Partha Pratim Halder",
   firm: "Matrix Tax Solutions",
   title: "Principal Tax Consultant & Statutory Advocate",
-  email: "contact@matrixtaxsolutions.com",
-  phone: "+91 98300 00000",
+  email: "tcparthahalder1984@gmail.com",
+  phone: "+91 90070 64088",
   address: {
-    line1: "City Centre II, Action Area II, New Town",
-    city: "Kolkata",
+    line1: "GT Road West, Baidyabati",
+    city: "Baidyabati, Hooghly",
     state: "West Bengal",
-    pincode: "700157",
+    pincode: "712222",
   },
   regionalOffices: [
     {
-      city: "Kolkata (Main Chambers)",
-      location: "New Town / Salt Lake Sector V",
-      scope: "Direct Tax & Corporate SCN Defense",
+      city: "Baidyabati (Head Office)",
+      location: "GT Road West, Hooghly",
+      scope: "Principal Tax & Notice Defense Chambers",
     },
     {
-      city: "Barrackpore & North 24 Parganas",
-      location: "Municipal Commercial Zone",
-      scope: "Trade Licences, MSME & GST Filings",
-    },
-    {
-      city: "Howrah & Hooghly",
+      city: "Serampore & Rishra",
       location: "Industrial Corridor Desk",
-      scope: "TDS Audits & Enterprise Bookkeeping",
+      scope: "GST Audits & Labor Law Compliance",
+    },
+    {
+      city: "Kolkata Corporate Desk",
+      location: "Sector V & BBD Bagh",
+      scope: "Direct Tax & Corporate SCN Defense",
     },
   ],
 };

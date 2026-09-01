@@ -1,9 +1,9 @@
 // src/components/sections/services/TaxHero.jsx
 
-import { useState, useEffect, useRef } from "react";
+import { memo } from "react";
 import { motion } from "framer-motion";
 import { ShieldCheck } from "lucide-react";
-import ParticleImage from "../../ui/ParticleImage";
+import AsciiArt from "../../ui/AsciiArt";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -19,64 +19,26 @@ const staggerContainer = {
   visible: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
 };
 
-export default function TaxHero() {
-  const [isDarkMode, setIsDarkMode] = useState(true);
-  const [particleScale, setParticleScale] = useState(0.62);
-  const heroRef = useRef(null);
-
-  useEffect(() => {
-    const checkTheme = () => {
-      setIsDarkMode(document.documentElement.classList.contains("dark"));
-    };
-    const handleResize = () => {
-      setParticleScale(window.innerWidth < 768 ? 0.78 : 0.62);
-    };
-
-    checkTheme();
-    handleResize();
-
-    window.addEventListener("resize", handleResize);
-    const observer = new MutationObserver(checkTheme);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      observer.disconnect();
-    };
-  }, []);
-
+function TaxHero() {
   return (
     <section
-      ref={heroRef}
       className="relative w-full min-h-[78vh] md:min-h-[85vh] bg-surface-light dark:bg-surface-dark text-primary-light dark:text-primary-dark transition-colors duration-300 flex items-center justify-center overflow-hidden pt-36 md:pt-44 pb-20 md:pb-28 transform-gpu"
       style={{ contain: "paint layout" }}
     >
-      {/* High-Visibility Rupee Particle Field */}
-      <div className="absolute inset-0 z-0 flex items-center justify-center opacity-95 dark:opacity-90 pointer-events-auto transition-opacity duration-500">
-        <ParticleImage
-          key={`hero-particle-${particleScale}-${isDarkMode ? "dark" : "light"}`}
-          imageSrc="/images/rupee-bg.webp"
-          particleSize={2.2}
-          density={2.5}
-          color={isDarkMode ? "#F8FAFC" : "#090A0F"}
-          highlightColor={isDarkMode ? "#FFFFFF" : "#1A1A1A"}
-          scatter={140}
-          gatherDuration={1300}
-          pointerRepel={40}
-          repelRadius={120}
-          idleDrift={0.3}
-          scalePercent={particleScale}
-          maxParticles={1100}
-          className="w-full h-full cursor-crosshair"
+      {/* High-Contrast Howrah Cantilever ASCII Background */}
+      <div className="absolute inset-0 z-0 flex items-center justify-center">
+        <AsciiArt
+          imageSrc="/images/howrah-bridge.webp"
+          charSize={8}
+          contrast={1.55}
+          threshold={0.16}
+          className="w-full h-full object-cover"
         />
       </div>
 
-      {/* Ambient Under-Glow */}
+      {/* Subtle Center Readability Aura (Eliminates Light-Mode Bleaching) */}
       <div className="absolute inset-0 z-[1] pointer-events-none flex items-center justify-center">
-        <div className="w-[520px] sm:w-[680px] h-[320px] sm:h-[420px] rounded-full bg-surface-light/20 dark:bg-surface-dark/80 blur-3xl transition-colors duration-300" />
+        <div className="w-[520px] sm:w-[700px] h-[320px] sm:h-[420px] rounded-full bg-surface-light/35 dark:bg-surface-dark/85 blur-3xl transition-colors duration-300" />
       </div>
 
       {/* Hero Typography Overlay */}
@@ -120,7 +82,9 @@ export default function TaxHero() {
       </motion.div>
 
       {/* Clean Bottom Fade */}
-      <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-surface-light dark:from-surface-dark to-transparent pointer-events-none z-[2]" />
+      <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-surface-light dark:from-surface-dark to-transparent pointer-events-none z-[2]" />
     </section>
   );
 }
+
+export default memo(TaxHero);
