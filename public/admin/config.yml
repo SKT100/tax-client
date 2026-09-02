@@ -70,6 +70,28 @@ collections:
     fields:
       - { label: "Article Title", name: "title", widget: "string" }
       - { label: "Publish Date", name: "date", widget: "datetime" }
-      - { label: "Category", name: "category", widget: "select", options: ["Direct Tax", "GST Law", "Audit Defense", "Company Compliance", "Trade Licences"] }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options: 
+          - "Direct Tax"
+          - "GST Law"
+          - "Audit Defense"
+          - "Company Compliance"
+          - "Trade Licences"
+          - "General Updates"
+      - label: "External Link / Social URL"
+        name: "external_link"
+        widget: "string"
+        required: false
+        hint: "Optional. Paste a Facebook post link, news URL, or official circular PDF if this post is from an external source."
+      - label: "Cover Image"
+        name: "thumbnail"
+        widget: "image"
+        required: false
+        hint: "Optional. Optimal size <250 KB. If empty, default tax banner is used."
       - { label: "Executive Summary", name: "summary", widget: "text" }
-      - { label: "Full Statutory Brief / Body", name: "body", widget: "markdown" }
+      - label: "Full Statutory Brief / Body"
+        name: "body"
+        widget: "markdown"
+        hint: "Paste the full text, Facebook caption, or press release notes here."

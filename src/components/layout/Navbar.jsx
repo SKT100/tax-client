@@ -11,6 +11,7 @@ import { SITE_CONFIG } from "../../data/siteConfig";
 const MEGA_MENU_CONTENT = {
   about: {
     title: "About the Firm",
+    route: "/about",
     description:
       "Expert tax consultancy and statutory compliance solutions tailored for businesses and individuals across West Bengal.",
     links: [
@@ -22,6 +23,7 @@ const MEGA_MENU_CONTENT = {
   },
   services: {
     title: "Practice Catalogue",
+    route: "/services",
     description:
       "Full-spectrum statutory compliance, direct tax advocacy, GST lifecycle management, and enterprise regulatory directives.",
     links: [
@@ -36,6 +38,7 @@ const MEGA_MENU_CONTENT = {
   },
   compliance: {
     title: "Statutory Due Dates",
+    route: "/compliance",
     description:
       "Statutory compliance calendar, tax filing deadlines, advance tax schedules, and penalty prevention matrices for FY 2026-27.",
     links: [
@@ -46,8 +49,22 @@ const MEGA_MENU_CONTENT = {
       { name: "EPF, ESIC & WB P-Tax", path: "/compliance" },
     ],
   },
+  insights: {
+    title: "Statutory Insights & Blog",
+    route: "/blog",
+    description:
+      "Directives, procedural notice defenses, and regulatory legal analyses curated by Matrix Tax Solutions.",
+    links: [
+      { name: "All Articles & Briefs", path: "/blog" },
+      { name: "Direct Tax & ITR Filing", path: "/blog" },
+      { name: "GST Law & SCN Defense", path: "/blog" },
+      { name: "Company Law & Incorporation", path: "/blog" },
+      { name: "Municipal Licences & P-Tax", path: "/blog" },
+    ],
+  },
   locations: {
     title: "Chambers & Regional Desks",
+    route: "/locations",
     description:
       "Municipal on-ground support and direct tax representation covering Baidyabati, Serampore, Hooghly corridor, and Greater Kolkata.",
     links: [
@@ -72,13 +89,11 @@ function Navbar() {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
 
-  // Close mobile drawer on route changes
   useEffect(() => {
     setIsMobileMenuOpen(false);
     setActiveMenu(null);
   }, [location.pathname]);
 
-  // Scroll listener
   useEffect(() => {
     let rAF = null;
     const handleScroll = () => {
@@ -98,7 +113,6 @@ function Navbar() {
     };
   }, []);
 
-  // Hash anchor navigation with timeout
   useEffect(() => {
     if (location.hash) {
       const id = location.hash.replace("#", "");
@@ -165,25 +179,25 @@ function Navbar() {
         
         {/* Desktop Navigation Links */}
         <ul
-          className={`hidden md:flex gap-8 lg:gap-10 font-mono text-xs font-semibold uppercase tracking-widest transition-colors duration-300 ${textClasses}`}
+          className={`hidden md:flex gap-6 lg:gap-8 font-mono text-xs font-semibold uppercase tracking-widest transition-colors duration-300 ${textClasses}`}
         >
-          {Object.keys(MEGA_MENU_CONTENT).map((item) => (
+          {Object.entries(MEGA_MENU_CONTENT).map(([key, item]) => (
             <li
-              key={item}
+              key={key}
               className="relative group"
-              onMouseEnter={() => setActiveMenu(item)}
+              onMouseEnter={() => setActiveMenu(key)}
             >
               <Link
-                to={`/${item}`}
-                onClick={() => handleLinkClick(`/${item}`)}
+                to={item.route}
+                onClick={() => handleLinkClick(item.route)}
                 className={`block py-4 transition-opacity duration-150 ${
-                  activeMenu === item
+                  activeMenu === key
                     ? "opacity-100 font-bold"
                     : "opacity-70 group-hover:opacity-100"
                 }`}
               >
-                {item}
-                {activeMenu === item && (
+                {key}
+                {activeMenu === key && (
                   <motion.div
                     layoutId="nav-underline"
                     className="absolute bottom-2 left-0 right-0 h-[1.5px] bg-current"
@@ -295,6 +309,7 @@ function Navbar() {
                   { name: "About Profile", path: "/about" },
                   { name: "Services Catalogue", path: "/services" },
                   { name: "Compliance Due Dates", path: "/compliance" },
+                  { name: "Statutory Insights", path: "/blog" },
                   { name: "Chambers & Locations", path: "/locations" },
                   { name: "Schedule Advisory", path: "/schedule" },
                 ].map((item) => (

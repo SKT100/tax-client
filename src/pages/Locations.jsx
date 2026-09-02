@@ -2,7 +2,7 @@
 
 import { useState, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {ChevronDown} from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import ChamberMapCard from "../components/ui/ChamberMapCard";
 import ScrollVelocityRibbon from "../components/ui/ribbon/ScrollVelocityRibbon";
 import ServiceCard from "../components/sections/services/ServicesCard";
@@ -69,6 +69,7 @@ function Locations() {
             </span>
           </div>
 
+          {/* Correct Single Grid Container */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {MUNICIPAL_CLUSTERS.map((cluster, index) => (
               <ServiceCard
@@ -79,6 +80,7 @@ function Locations() {
                 description={`${cluster.zone} • ${cluster.jurisdiction}. Transit: ${cluster.transit}`}
                 footerLabel={`PIN: ${cluster.pinCodes.join(", ")}`}
                 buttonText="Engage Desk"
+                bgImage="/images/location-bg.svg"
                 onClick={() => handleWhatsAppConsult(cluster)}
               />
             ))}

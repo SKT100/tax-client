@@ -2,7 +2,7 @@
 
 import { useRef, memo } from "react";
 import { Link } from "react-router-dom";
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import PillButton from "../ui/PillButton";
 import { SITE_CONFIG } from "../../data/siteConfig";
@@ -32,10 +32,7 @@ const staggerItem = {
 
 function Footer() {
   const footerRef = useRef(null);
-  const isInView = useInView(footerRef, {
-    once: true,
-    margin: "0px 0px -100px 0px",
-  });
+
   const { scrollYProgress } = useScroll({
     target: footerRef,
     offset: ["start end", "start start"],
@@ -50,13 +47,10 @@ function Footer() {
       {/* Background Graphic Watermark */}
       <motion.div
         className="absolute right-0 top-0 bottom-0 w-full md:w-[75%] lg:w-[62%] pointer-events-none z-0 overflow-hidden flex items-center justify-end will-change-transform"
-        initial={{ opacity: 0, x: 220, scale: 1.04 }}
-        animate={
-          isInView
-            ? { opacity: 0.2, x: 0, scale: 1 }
-            : { opacity: 0, x: 220, scale: 1.04 }
-        }
-        transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+        initial={{ opacity: 0, x: 180, scale: 1.04 }}
+        whileInView={{ opacity: 0.2, x: 0, scale: 1 }}
+        viewport={{ once: false, amount: 0.15 }}
+        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
         style={{
           maskImage:
             "radial-gradient(ellipse 85% 75% at 65% 50%, rgba(0,0,0,1) 10%, rgba(0,0,0,0.65) 40%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0) 78%)",
@@ -83,7 +77,8 @@ function Footer() {
         <motion.div
           className="flex flex-col items-center justify-center pt-16 sm:pt-20 md:pt-24 lg:pt-28 pb-12 sm:pb-16 text-center"
           initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.2 }}
           variants={staggerContainer}
         >
           <motion.h2
@@ -112,7 +107,8 @@ function Footer() {
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-12 lg:gap-8 pt-10 pb-16 md:pb-24 border-t border-white/10"
           initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.15 }}
           variants={staggerContainer}
         >
           {/* Brand Column */}
@@ -151,6 +147,11 @@ function Footer() {
                 </Link>
               </li>
               <li>
+                <Link to="/blog" className="hover:text-white transition-colors">
+                  Statutory Insights
+                </Link>
+              </li>
+              <li>
                 <Link to="/locations" className="hover:text-white transition-colors">
                   Chambers &amp; Locations
                 </Link>
@@ -168,7 +169,7 @@ function Footer() {
             </ul>
           </motion.div>
 
-          {/* Legal Column (Preserved as Links) */}
+          {/* Legal Column */}
           <motion.div variants={staggerItem}>
             <h4 className="font-mono font-bold text-[10px] sm:text-xs uppercase tracking-[0.2em] text-white/50 mb-5 sm:mb-6">
               Legal
@@ -231,9 +232,10 @@ function Footer() {
         {/* Bottom Section: Copyright Bar */}
         <motion.div
           className="flex flex-col sm:flex-row items-center justify-between py-6 sm:py-8 border-t border-white/10 text-[10px] sm:text-xs font-mono text-white/50 uppercase tracking-[0.2em] gap-3 text-center sm:text-left"
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.5 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
         >
           <span>© 2026 {SITE_CONFIG.firm.name.toUpperCase()}. ALL RIGHTS RESERVED.</span>
           <span>ACCURACY • COMPLIANCE • GROWTH</span>

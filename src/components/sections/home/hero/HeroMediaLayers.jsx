@@ -1,5 +1,3 @@
-// src/components/sections/home/hero/HeroMediaLayers.jsx
-
 import { memo, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { HERO_SLIDES } from "../../../../data/heroSlides";
@@ -7,64 +5,51 @@ import { HERO_SLIDES } from "../../../../data/heroSlides";
 function HeroMediaLayers({ index, nextIndex, lensClipPath }) {
   const videoRefs = useRef({});
 
+  // Only keep the current + upcoming preview video decoders active.
+  // Loading/playing every slide's video at once is what was killing performance.
   useEffect(() => {
-    HERO_SLIDES.forEach((slide, idx) => {
+    [index, nextIndex].forEach((idx) => {
       const videoEl = videoRefs.current[idx];
-      if (!videoEl || slide.type !== "video") return;
+      const slide = HERO_SLIDES[idx];
+      if (!videoEl || slide?.type !== "video") return;
 
       videoEl.muted = true;
       videoEl.defaultMuted = true;
       videoEl.playsInline = true;
-      videoEl.setAttribute("playsinline", "");
-      videoEl.setAttribute("webkit-playsinline", "true");
 
       const playPromise = videoEl.play();
       if (playPromise !== undefined) {
         playPromise.catch(() => {
-          // Autoplay fallback: start playback upon first touch or click
-          const enablePlayback = () => {
+          const forcePlay = () => {
             videoEl.play().catch(() => {});
-            window.removeEventListener("pointerdown", enablePlayback);
-            window.removeEventListener("touchstart", enablePlayback);
+            window.removeEventListener("pointerdown", forcePlay);
           };
-          window.addEventListener("pointerdown", enablePlayback, { once: true });
-          window.addEventListener("touchstart", enablePlayback, { once: true });
+          window.addEventListener("pointerdown", forcePlay, { once: true });
         });
       }
     });
-  }, []);
+  }, [index, nextIndex]);
 
   return (
     <div className="absolute inset-0 w-full h-full overflow-hidden select-none pointer-events-none">
       {HERO_SLIDES.map((slide, slideIdx) => {
         const isCurrent = slideIdx === index;
         const isNext = slideIdx === nextIndex;
+        const isActive = isCurrent || isNext;
 
-        let zIndex = 0;
-        let isVisible = false;
-        let applyLensClip = false;
-
-        if (isCurrent) {
-          zIndex = 1;
-          isVisible = true;
-          applyLensClip = false;
-        } else if (isNext) {
-          zIndex = 10;
-          isVisible = true;
-          applyLensClip = true;
-        }
+        // Current slide is at z-0; Upcoming preview slide is at z-10 with clipPath
+        const zIndex = isNext ? 10 : isCurrent ? 1 : -1;
+        const applyLensClip = isNext;
 
         return (
           <motion.div
-            key={slide.id || `slide-${slideIdx}`}
+            key={slide.id || `slide-media-${slideIdx}`}
             className="absolute inset-0 w-full h-full transform-gpu"
             style={{
               zIndex,
-              opacity: isVisible ? 1 : 0,
-              WebkitClipPath: applyLensClip ? lensClipPath : "none",
-              clipPath: applyLensClip ? lensClipPath : "none",
-              willChange: applyLensClip ? "clip-path, -webkit-clip-path" : "auto",
-              visibility: isVisible ? "visible" : "hidden",
+              clipPath: applyLensClip ? lensClipPath : "circle(100% at 50% 50%)",
+              WebkitClipPath: applyLensClip ? lensClipPath : "circle(100% at 50% 50%)",
+              willChange: "clip-path, -webkit-clip-path",
             }}
           >
             {slide.type === "video" ? (
@@ -72,20 +57,26 @@ function HeroMediaLayers({ index, nextIndex, lensClipPath }) {
                 ref={(el) => {
                   if (el) videoRefs.current[slideIdx] = el;
                 }}
-                src={slide.src}
+                // Only current + next get a real src; others stay unloaded
+                src={isActive ? slide.src : undefined}
+                poster={slide.poster}
                 muted
-                autoPlay
+                autoPlay={isActive}
                 loop
                 playsInline
-                webkit-playsinline="true"
-                preload="auto"
+                preload={isActive ? "auto" : "none"}
                 className="w-full h-full object-cover filter brightness-105 contrast-110"
-              />
+              >
+                {isActive && slide.srcWebm && (
+                  <source src={slide.srcWebm} type="video/webm" />
+                )}
+                {isActive && <source src={slide.src} type="video/mp4" />}
+              </video>
             ) : (
               <img
                 src={slide.src}
                 alt={slide.text || "Matrix Tax Solutions"}
-                loading="eager"
+                loading={isActive ? "eager" : "lazy"}
                 decoding="async"
                 className="w-full h-full object-cover filter grayscale brightness-90 contrast-125"
               />

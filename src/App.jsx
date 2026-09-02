@@ -14,6 +14,7 @@ const Services = lazy(() => import('./pages/Services'));
 const Compliance = lazy(() => import('./pages/Compliance'));
 const Locations = lazy(() => import('./pages/Locations'));
 const Schedule = lazy(() => import('./pages/Schedule'));
+const Blog = lazy(() => import('./pages/Blog'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 function AppContent() {
@@ -70,7 +71,11 @@ function AppContent() {
 
     setTimeout(() => {
       navigate(toPath);
-      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      if (window.lenis) {
+        window.lenis.scrollTo(0, { immediate: true });
+      } else {
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      }
       setStage('counting');
 
       runCounter(() => {
@@ -133,6 +138,8 @@ function AppContent() {
               <Route path="/due-dates" element={<Compliance />} />
               <Route path="/locations" element={<Locations />} />
               <Route path="/chambers" element={<Locations />} />
+              <Route path="/insights" element={<Blog />} />
+              <Route path="/blog" element={<Blog />} />
               <Route path="/schedule" element={<Schedule />} />
               {/* 404 Catch-All Fallback */}
               <Route path="*" element={<NotFound />} />
@@ -166,6 +173,8 @@ export default function App() {
       touchMultiplier: 1.8,
     });
 
+    window.lenis = lenis;
+
     let rafId = null;
 
     function raf(time) {
@@ -177,6 +186,7 @@ export default function App() {
 
     return () => {
       if (rafId) cancelAnimationFrame(rafId);
+      window.lenis = null;
       lenis.destroy();
     };
   }, []);

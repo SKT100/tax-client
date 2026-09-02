@@ -1,0 +1,8 @@
+﻿{
+    "body":  "Claiming Input Tax Credit (ITC) without strict reconciliation against GSTR-2B invites automatic DRC-01B notices. Under Section 16(2)(aa) of the CGST Act, 2017, no assessee can avail credit unless the invoice is furnished by the supplier in their GSTR-1.\\n\\nMandatory Compliance Protocols:\\n• Monthly invoice-level automated matching against GSTR-2B JSON dumps.\\n• Tracking non-compliant suppliers failing to remit tax under Section 16(2)(c).\\n• Timely issuance of debit/credit notes prior to the November 30 annual deadline.\\n\\nMaintain rigorous vendor verification records to prevent ITC reversals with penal interest under Section 50.",
+    "thumbnail":  "/images/gst-lifestyle.webp",
+    "date":  "2026-08-14T14:15:00",
+    "category":  "GST Law",
+    "title":  "GSTR-2B vs Books Reconciliation: Securing 100% Legitimate Input Tax Credit",
+    "summary":  "Procedural steps for resolving ITC mismatches under Rule 36(4) and defending against Section 73 discrepancy notices."
+}
