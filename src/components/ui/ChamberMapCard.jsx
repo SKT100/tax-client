@@ -6,7 +6,7 @@ import { ExternalLink, MapPin, Phone, Mail } from "lucide-react";
 import { CONTACT_INFO } from "../../data/taxData";
 
 const CHAMBERS_LIST = [
- {
+  {
     id: "baidyabati-ho",
     number: "01",
     tabLabel: "Head Office",
@@ -32,7 +32,7 @@ const CHAMBERS_LIST = [
       "Remote advisory and virtual filing desk providing dedicated consultation to individuals and businesses across Kolkata, Howrah, Nadia, and 24 Parganas.",
     locationName: "Online Video & Document Desk",
     locationAddress: "Virtual Advisory & Remote Compliance Portal",
-    directLine: CONTACT_INFO?.phone || "+91 9007064088",
+    directLine: CONTACT_INFO?.phone || "+91 74392 19943",
     email: CONTACT_INFO?.email || "tcparthahalder1984@gmail.com",
     mapEmbedUrl:
       "https://maps.google.com/maps?q=Kolkata%20West%20Bengal&t=&z=11&ie=UTF8&iwloc=&output=embed",
@@ -48,7 +48,7 @@ const CHAMBERS_LIST = [
       "Local client assistance and on-ground compliance support covering municipal trade licences, PF/ESI registrations, and audit documentation.",
     locationName: "Hooghly & Greater Kolkata Belt",
     locationAddress: "Active Service Across 6 Target Districts",
-    directLine: CONTACT_INFO?.phone || "+91 9007064088",
+    directLine: CONTACT_INFO?.phone || "+91 74392 19943",
     email: CONTACT_INFO?.email || "tcparthahalder1984@gmail.com",
     mapEmbedUrl:
       "https://maps.google.com/maps?q=Serampore%20Hooghly%20West%20Bengal&t=&z=13&ie=UTF8&iwloc=&output=embed",
@@ -63,7 +63,7 @@ function ChamberMapCard() {
 
   return (
     <div className="glass-card border border-theme rounded-3xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 shadow-2xl transition-all duration-300">
-      
+
       {/* Left Column: Segmented Switcher & Details */}
       <div className="lg:col-span-6 p-6 sm:p-8 md:p-10 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-theme">
         <div>
@@ -78,6 +78,7 @@ function ChamberMapCard() {
               return (
                 <button
                   key={chamber.id}
+                  id={`chamber-tab-${chamber.id}`}
                   type="button"
                   role="tab"
                   aria-selected={isSelected}
@@ -109,6 +110,7 @@ function ChamberMapCard() {
               key={activeChamber.id}
               id={`chamber-panel-${activeChamber.id}`}
               role="tabpanel"
+              aria-labelledby={`chamber-tab-${activeChamber.id}`}
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
@@ -177,16 +179,16 @@ function ChamberMapCard() {
       {/* Right Column: Map Frame */}
       <div className="lg:col-span-6 relative min-h-[280px] sm:min-h-[340px] lg:min-h-[420px] bg-surface-dark/5 dark:bg-surface-light/5 group">
         <iframe
-          key={activeChamber.id}
-          title={`Google Map view for ${activeChamber.title}`}
+          title={`${activeChamber.title} Interactive Map`}
           src={activeChamber.mapEmbedUrl}
           width="100%"
           height="100%"
+          style={{ border: 0 }}
+          allowFullScreen=""
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          className="w-full h-full min-h-[280px] sm:min-h-[340px] lg:min-h-full border-0 filter grayscale contrast-125 opacity-80 dark:invert dark:hue-rotate-180 dark:contrast-150 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
+          className="w-full h-full min-h-[300px] sm:min-h-[380px] filter grayscale contrast-125 dark:invert-[0.88] dark:hue-rotate-180"
         />
-
         <a
           href={activeChamber.mapDirectLink}
           target="_blank"

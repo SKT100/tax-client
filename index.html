@@ -43,10 +43,32 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Typography Fonts -->
+    <!-- Non-Blocking Asynchronous Typography Fonts -->
     <link
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&display=swap"
+    />
+    <link
       rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&display=swap"
+      />
+    </noscript>
+
+    <!-- Immediate LCP Discovery Preload -->
+    <link
+      rel="preload"
+      as="image"
+      type="image/webp"
+      href="/images/pritam-img.webp"
+      fetchpriority="high"
     />
 
     <!-- Local SEO & AEO Structured Data (JSON-LD) -->
@@ -58,11 +80,11 @@
         "alternateName": "Matrix Tax Chambers",
         "image": "https://matrixtaxsolutions.com/images/Matrix-tax-logo.svg",
         "url": "https://matrixtaxsolutions.com",
-        "telephone": "+919007064088",
+        "telephone": "+917439219943",
         "priceRange": "$$",
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "GT Road West",
+          "streetAddress": "461, N.C. Banerjee Road",
           "addressLocality": "Baidyabati",
           "addressRegion": "West Bengal",
           "postalCode": "712222",
@@ -73,19 +95,36 @@
           "latitude": 22.7933,
           "longitude": 88.3228
         },
-        "openingHoursSpecification": {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday"
-          ],
-          "opens": "10:00",
-          "closes": "20:00"
-        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+              "Sunday"
+            ],
+            "opens": "07:00",
+            "closes": "10:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+              "Sunday"
+            ],
+            "opens": "18:00",
+            "closes": "22:00"
+          }
+        ],
         "areaServed": [
           "Baidyabati",
           "Serampore",
