@@ -7,7 +7,7 @@ import {
   useMotionTemplate,
   animate,
 } from "framer-motion";
-import { Award, ShieldCheck } from "lucide-react";
+import { Award } from "lucide-react";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -64,13 +64,16 @@ export default function AboutProfileHero() {
   return (
     <section className="relative w-full bg-surface-light dark:bg-surface-dark text-primary-light dark:text-primary-dark transition-colors duration-300 overflow-hidden pt-12 md:pt-16 lg:pt-20 pb-12">
       
-      {/* 🌟 1. Mobile/Tablet Backdrop Portrait */}
+      {/* 🌟 1. Mobile/Tablet Backdrop Portrait (High Priority LCP) */}
       <div className="absolute top-0 right-0 w-full sm:w-[85%] h-[560px] sm:h-[650px] lg:hidden pointer-events-none z-0 overflow-hidden">
         <img
-          loading="eager"
-          decoding="async"
           src="/images/pritam-img.webp"
           alt="Partha Pratim Halder Backdrop"
+          width="600"
+          height="650"
+          loading="eager"
+          fetchPriority="high"
+          decoding="sync"
           className="w-full h-full object-cover object-[82%_top] filter grayscale contrast-125 brightness-95 opacity-75 dark:opacity-65 dark:brightness-90 transition-opacity duration-300"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-surface-light/50 to-surface-light dark:via-surface-dark/50 dark:to-surface-dark" />
@@ -150,12 +153,15 @@ export default function AboutProfileHero() {
             variants={fadeUp}
             className="grid grid-cols-2 gap-4 max-w-md pt-2"
           >
-            {/* Card 1 */}
+            {/* Card 1: GST Practitioner */}
             <div className="relative aspect-square p-5 sm:p-6 rounded-2xl glass-card border border-theme flex flex-col justify-end overflow-hidden transition-all duration-300 hover:border-black/20 dark:hover:border-white/20 group">
-              <div className="absolute -right-4 -top-4 w-32 h-32 opacity-10 dark:opacity-15 pointer-events-none transition-transform duration-500 group-hover:scale-105">
+              <div className="absolute -right-6 -top-6 w-36 h-36 sm:w-40 sm:h-40 opacity-[0.08] dark:opacity-[0.12] pointer-events-none transition-transform duration-700 ease-out group-hover:scale-110 group-hover:rotate-6">
                 <img
                   loading="lazy"
-                  src="/images/ashok-emblem-icon.svg"
+                  decoding="async"
+                  width="160"
+                  height="160"
+                  src="/images/seal.webp"
                   alt=""
                   aria-hidden="true"
                   className="w-full h-full object-contain filter grayscale invert dark:invert-0"
@@ -175,12 +181,15 @@ export default function AboutProfileHero() {
               </div>
             </div>
 
-            {/* Card 2 */}
+            {/* Card 2: Tax Practitioner */}
             <div className="relative aspect-square p-5 sm:p-6 rounded-2xl glass-card border border-theme flex flex-col justify-end overflow-hidden transition-all duration-300 hover:border-black/20 dark:hover:border-white/20 group">
-              <div className="absolute -right-4 -top-4 w-32 h-32 opacity-10 dark:opacity-15 pointer-events-none transition-transform duration-500 group-hover:scale-105">
+              <div className="absolute -right-6 -top-6 w-36 h-36 sm:w-40 sm:h-40 opacity-[0.08] dark:opacity-[0.12] pointer-events-none transition-transform duration-700 ease-out group-hover:scale-110 group-hover:rotate-6">
                 <img
                   loading="lazy"
-                  src="/images/ashok-emblem-icon.svg"
+                  decoding="async"
+                  width="160"
+                  height="160"
+                  src="/images/seal.webp"
                   alt=""
                   aria-hidden="true"
                   className="w-full h-full object-contain filter grayscale invert dark:invert-0"
@@ -227,6 +236,8 @@ export default function AboutProfileHero() {
             <img
               loading="lazy"
               decoding="async"
+              width="600"
+              height="750"
               src="/images/pritam-img.webp"
               alt="Partha Pratim Halder Grayscale"
               className="w-full h-full object-cover object-top filter grayscale contrast-125 brightness-90"
@@ -240,6 +251,8 @@ export default function AboutProfileHero() {
               <img
                 loading="lazy"
                 decoding="async"
+                width="600"
+                height="750"
                 src="/images/pritam-img.webp"
                 alt="Partha Pratim Halder Color Lens"
                 className="w-full h-full object-cover object-top filter-none brightness-100 contrast-100"

@@ -6,7 +6,7 @@ import { ExternalLink, MapPin, Phone, Mail } from "lucide-react";
 import { CONTACT_INFO } from "../../data/taxData";
 
 const CHAMBERS_LIST = [
-  {
+ {
     id: "baidyabati-ho",
     number: "01",
     tabLabel: "Head Office",
@@ -14,13 +14,14 @@ const CHAMBERS_LIST = [
     description:
       "Principal tax and advisory office managing direct tax e-filing, GST periodic compliance, business licensing, and statutory notice defense.",
     locationName: "Matrix Tax Solutions HQ",
-    locationAddress: "Baidyabati, Hooghly, West Bengal — 712222",
-    directLine: CONTACT_INFO?.phone || "+91 9007064088",
+    locationAddress: "461, N.C. Banerjee Road, Baidyabati, Hooghly — 712222",
+    timing: "7:00 AM – 10:00 AM & 6:00 PM – 10:00 PM",
+    directLine: CONTACT_INFO?.phone || "+91 74392 19943",
     email: CONTACT_INFO?.email || "tcparthahalder1984@gmail.com",
     mapEmbedUrl:
-      "https://maps.google.com/maps?q=Baidyabati%20Hooghly%20West%20Bengal%20712222&t=&z=14&ie=UTF8&iwloc=&output=embed",
+      "https://maps.google.com/maps?q=461%20N%20C%20Banerjee%20Road%20Baidyabati%20Hooghly%20712222&t=&z=16&ie=UTF8&iwloc=&output=embed",
     mapDirectLink:
-      "https://maps.google.com/?q=Baidyabati+Hooghly+West+Bengal+712222",
+      "https://maps.google.com/?q=461+N+C+Banerjee+Road+Baidyabati+Hooghly+712222",
   },
   {
     id: "digital-desk",
@@ -67,13 +68,20 @@ function ChamberMapCard() {
       <div className="lg:col-span-6 p-6 sm:p-8 md:p-10 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-theme">
         <div>
           {/* Segmented Track */}
-          <div className="p-1 sm:p-1.5 bg-black/[0.04] dark:bg-white/[0.05] rounded-full border border-theme grid grid-cols-3 gap-1 mb-6 sm:mb-8">
+          <div
+            role="tablist"
+            aria-label="Chamber Location Tabs"
+            className="p-1 sm:p-1.5 bg-black/[0.04] dark:bg-white/[0.05] rounded-full border border-theme grid grid-cols-3 gap-1 mb-6 sm:mb-8"
+          >
             {CHAMBERS_LIST.map((chamber, index) => {
               const isSelected = activeIndex === index;
               return (
                 <button
                   key={chamber.id}
                   type="button"
+                  role="tab"
+                  aria-selected={isSelected}
+                  aria-controls={`chamber-panel-${chamber.id}`}
                   onClick={() => setActiveIndex(index)}
                   className={`relative py-2 sm:py-2.5 px-1.5 sm:px-3 rounded-full text-[10px] sm:text-xs font-mono font-medium tracking-wider uppercase transition-colors duration-200 text-center z-10 cursor-pointer ${
                     isSelected
@@ -88,7 +96,7 @@ function ChamberMapCard() {
                       className="absolute inset-0 bg-surface-light dark:bg-surface-secondary-dark rounded-full shadow-sm -z-10 border border-theme"
                     />
                   )}
-                  <span className="opacity-50 mr-1 hidden xs:inline">{chamber.number}.</span>
+                  <span className="opacity-60 mr-1 hidden xs:inline">{chamber.number}.</span>
                   <span>{chamber.tabLabel}</span>
                 </button>
               );
@@ -99,6 +107,8 @@ function ChamberMapCard() {
           <AnimatePresence mode="wait">
             <motion.div
               key={activeChamber.id}
+              id={`chamber-panel-${activeChamber.id}`}
+              role="tabpanel"
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
@@ -156,6 +166,7 @@ function ChamberMapCard() {
           </div>
           <a
             href={`mailto:${activeChamber.email}`}
+            aria-label={`Send inquiry email to ${activeChamber.email}`}
             className="font-mono text-xs sm:text-sm text-primary-light dark:text-primary-dark hover:underline transition-all"
           >
             {activeChamber.email}
@@ -167,16 +178,20 @@ function ChamberMapCard() {
       <div className="lg:col-span-6 relative min-h-[280px] sm:min-h-[340px] lg:min-h-[420px] bg-surface-dark/5 dark:bg-surface-light/5 group">
         <iframe
           key={activeChamber.id}
-          title={activeChamber.title}
+          title={`Google Map view for ${activeChamber.title}`}
           src={activeChamber.mapEmbedUrl}
-          className="w-full h-full min-h-[280px] sm:min-h-[340px] lg:min-h-full border-0 filter grayscale contrast-125 opacity-80 dark:invert dark:hue-rotate-180 dark:contrast-150 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
+          width="100%"
+          height="100%"
           loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          className="w-full h-full min-h-[280px] sm:min-h-[340px] lg:min-h-full border-0 filter grayscale contrast-125 opacity-80 dark:invert dark:hue-rotate-180 dark:contrast-150 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
         />
 
         <a
           href={activeChamber.mapDirectLink}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label={`Open Google Map directions for ${activeChamber.title}`}
           className="absolute bottom-4 right-4 backdrop-blur-xl bg-surface-light/90 dark:bg-surface-dark/90 border border-theme px-3.5 py-1.5 rounded-full text-[10px] sm:text-[11px] font-mono tracking-widest uppercase text-primary-light dark:text-primary-dark flex items-center gap-1.5 shadow-xl hover:bg-primary-light hover:text-surface-light dark:hover:bg-primary-dark dark:hover:text-primary-light transition-all duration-300 group-hover:scale-105 no-underline"
         >
           <span>OPEN MAP</span>

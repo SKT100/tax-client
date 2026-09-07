@@ -10,67 +10,72 @@ import { SITE_CONFIG } from "../../data/siteConfig";
 
 const MEGA_MENU_CONTENT = {
   about: {
-    title: "About the Firm",
+    label: "About",
+    title: "About Matrix Tax Solutions",
     route: "/about",
     description:
-      "Expert tax consultancy and statutory compliance solutions tailored for businesses and individuals across West Bengal.",
+      "Expert tax consultancy, GST compliance, and dispute resolution led by Partha Pratim Halder across West Bengal.",
     links: [
-      { name: SITE_CONFIG.principal.name, path: "/about" },
+      { name: "Principal Profile", path: "/about" },
       { name: "Professional Pedigree", path: "/about#pedigree" },
       { name: "Compliance Vault", path: "/about#compliance-vault" },
-      { name: "Chamber Network", path: "/locations" },
+      { name: "Chambers Network", path: "/locations" },
     ],
   },
   services: {
-    title: "Practice Catalogue",
+    label: "Services",
+    title: "Tax & Advisory Services",
     route: "/services",
     description:
-      "Full-spectrum statutory compliance, direct tax advocacy, GST lifecycle management, and enterprise regulatory directives.",
+      "Comprehensive tax defense, GST lifecycle management, company registrations, and financial bookkeeping.",
     links: [
-      { name: "Accounts & Audit", path: "/services#accounts-audit" },
-      { name: "Goods & Services Tax (GST)", path: "/services#gst" },
       { name: "Income Tax & Notice Scrutiny", path: "/services#income-tax" },
+      { name: "Goods & Services Tax (GST)", path: "/services#gst" },
+      { name: "Accounts & Financial Audit", path: "/services#accounts-audit" },
       { name: "TDS & Payroll Compliance", path: "/services#tds-payroll" },
-      { name: "Company Registration", path: "/services#company-registration" },
-      { name: "PF & ESIC Advisory", path: "/services#pf-esic" },
+      { name: "Company & LLP Registration", path: "/services#company-registration" },
       { name: "Trade Licences & MSME", path: "/services#licences-advisory" },
+      { name: "PF & ESIC Registration", path: "/services#pf-esic" },
     ],
   },
   compliance: {
-    title: "Statutory Due Dates",
+    label: "Due Dates",
+    title: "Tax Deadlines & Calendar",
     route: "/compliance",
     description:
-      "Statutory compliance calendar, tax filing deadlines, advance tax schedules, and penalty prevention matrices for FY 2026-27.",
+      "Monthly and annual statutory compliance due dates, tax filing cutoffs, and penalty avoidance schedules for FY 2026-27.",
     links: [
       { name: "Complete Due Date Matrix", path: "/compliance" },
       { name: "GST Monthly Deadlines", path: "/compliance" },
       { name: "Income Tax & Advance Tax", path: "/compliance" },
-      { name: "TDS / TCS Deposit Cutoffs", path: "/compliance" },
+      { name: "TDS / TCS Deposit Dates", path: "/compliance" },
       { name: "EPF, ESIC & WB P-Tax", path: "/compliance" },
     ],
   },
   insights: {
-    title: "Statutory Insights & Blog",
+    label: "Blog",
+    title: "Blog",
     route: "/blog",
     description:
-      "Directives, procedural notice defenses, and regulatory legal analyses curated by Matrix Tax Solutions.",
+      "Practical explanations, notice defense strategies, and regulatory legal bulletins.",
     links: [
-      { name: "All Articles & Briefs", path: "/blog" },
-      { name: "Direct Tax & ITR Filing", path: "/blog" },
-      { name: "GST Law & SCN Defense", path: "/blog" },
-      { name: "Company Law & Incorporation", path: "/blog" },
-      { name: "Municipal Licences & P-Tax", path: "/blog" },
+      { name: "All Articles & Guides", path: "/blog" },
+      { name: "Income Tax & ITR Help", path: "/blog" },
+      { name: "GST Notices & SCN Defense", path: "/blog" },
+      { name: "Business Incorporation", path: "/blog" },
+      { name: "Trade License & P-Tax", path: "/blog" },
     ],
   },
   locations: {
-    title: "Chambers & Regional Desks",
+    label: "Offices",
+    title: "Chambers & Local Desks",
     route: "/locations",
     description:
-      "Municipal on-ground support and direct tax representation covering Baidyabati, Serampore, Hooghly corridor, and Greater Kolkata.",
+      "Local presence and direct tax consultation covering Baidyabati HQ, Serampore, Hooghly corridor, and Greater Kolkata.",
     links: [
       { name: "Baidyabati HQ Chambers", path: "/locations" },
       { name: "Serampore & Rishra Belt", path: "/locations" },
-      { name: "Uttarpara & Konnagar", path: "/locations" },
+      { name: "Uttarpara & Konnagar Desk", path: "/locations" },
       { name: "Chandannagar Hub", path: "/locations" },
       { name: "Kolkata Corporate Desk", path: "/locations" },
     ],
@@ -177,9 +182,9 @@ function Navbar() {
 
       <div className="relative flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-container-max-width mx-auto h-20">
         
-        {/* Desktop Navigation Links */}
+        {/* Desktop Navigation Links (Visible only on 1024px+ screens) */}
         <ul
-          className={`hidden md:flex gap-6 lg:gap-8 font-mono text-xs font-semibold uppercase tracking-widest transition-colors duration-300 ${textClasses}`}
+          className={`hidden lg:flex gap-6 xl:gap-8 font-mono text-xs font-semibold uppercase tracking-widest transition-colors duration-300 ${textClasses}`}
         >
           {Object.entries(MEGA_MENU_CONTENT).map(([key, item]) => (
             <li
@@ -196,7 +201,7 @@ function Navbar() {
                     : "opacity-70 group-hover:opacity-100"
                 }`}
               >
-                {key}
+                {item.label}
                 {activeMenu === key && (
                   <motion.div
                     layoutId="nav-underline"
@@ -208,23 +213,23 @@ function Navbar() {
           ))}
         </ul>
 
-        {/* Mobile Hamburger Toggle */}
+        {/* Mobile & Tablet Hamburger Toggle (Visible under 1024px) */}
         <button
           type="button"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className={`md:hidden p-2 text-primary-light dark:text-primary-dark transition-colors z-20 cursor-pointer ${
+          className={`lg:hidden p-2 text-primary-light dark:text-primary-dark transition-colors z-20 cursor-pointer ${
             isSolid ? "" : "text-white"
           }`}
-          aria-label="Toggle Mobile Menu"
+          aria-label="Toggle Navigation Menu"
         >
-          {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
 
         {/* Centered Brand Logo */}
         <Link
           to="/"
           onClick={() => handleLinkClick("/")}
-          className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center transition-transform hover:scale-105 duration-200"
+          className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center transition-transform hover:scale-105 duration-200 z-10"
         >
           <img
             src="/images/Matrix-tax-logo.svg"
@@ -236,17 +241,17 @@ function Navbar() {
         </Link>
 
         {/* Actions Dock */}
-        <div className="flex items-center gap-3 sm:gap-6">
+        <div className="flex items-center gap-3 sm:gap-5 z-20">
           <ThemeToggle onToggle={handleThemeToggle} />
           
           <Link
             to="/schedule"
             onClick={() => handleLinkClick("/schedule")}
-            className="hidden md:inline-flex no-underline"
+            className="hidden sm:inline-flex no-underline"
           >
             <PillButton
               variant="auto"
-              className="px-6 py-2.5 rounded-full font-mono text-xs font-bold tracking-widest uppercase whitespace-nowrap bg-primary-light text-surface-light hover:bg-obsidian dark:bg-primary-dark dark:text-primary-light dark:hover:bg-slate-100 border border-theme shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
+              className="px-5 sm:px-6 py-2.5 rounded-full font-mono text-[11px] sm:text-xs font-bold tracking-widest uppercase whitespace-nowrap bg-primary-light text-surface-light hover:bg-obsidian dark:bg-primary-dark dark:text-primary-light dark:hover:bg-slate-100 border border-theme shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
             >
               FILE RETURN NOW
             </PillButton>
@@ -254,7 +259,7 @@ function Navbar() {
         </div>
       </div>
 
-      {/* Desktop Mega Menu Overlay */}
+      {/* Desktop Mega Menu Overlay (1024px+) */}
       <AnimatePresence>
         {activeMenu && (
           <motion.div
@@ -262,11 +267,11 @@ function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="hidden md:block absolute top-full left-0 w-full bg-surface-light dark:bg-surface-dark border-b border-theme shadow-2xl transition-colors duration-300"
+            className="hidden lg:block absolute top-full left-0 w-full bg-surface-light dark:bg-surface-dark border-b border-theme shadow-2xl transition-colors duration-300"
           >
             <div className="max-w-container-max-width mx-auto px-margin-desktop py-10 sm:py-12 flex flex-row gap-16">
               <div className="w-1/3 shrink-0">
-                <h3 className="font-serif text-3xl font-light text-primary-light dark:text-primary-dark mb-3 tracking-tight capitalize">
+                <h3 className="font-serif text-3xl font-light text-primary-light dark:text-primary-dark mb-3 tracking-tight">
                   {MEGA_MENU_CONTENT[activeMenu].title}
                 </h3>
                 <p className="font-body font-light text-secondary-light dark:text-secondary-dark text-sm leading-relaxed">
@@ -293,7 +298,7 @@ function Navbar() {
         )}
       </AnimatePresence>
 
-      {/* Mobile Slide-Out Drawer */}
+      {/* Mobile & Tablet Slide-Out Drawer (< 1024px) */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -301,17 +306,17 @@ function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="md:hidden border-b border-theme bg-surface-light/95 dark:bg-surface-dark/95 backdrop-blur-xl px-margin-mobile py-6 shadow-2xl overflow-hidden"
+            className="lg:hidden border-b border-theme bg-surface-light/95 dark:bg-surface-dark/95 backdrop-blur-xl px-margin-mobile py-6 shadow-2xl overflow-hidden"
           >
             <div className="flex flex-col gap-4">
               <nav className="flex flex-col divide-y divide-theme">
                 {[
                   { name: "About Profile", path: "/about" },
-                  { name: "Services Catalogue", path: "/services" },
-                  { name: "Compliance Due Dates", path: "/compliance" },
-                  { name: "Statutory Insights", path: "/blog" },
+                  { name: "Tax & GST Services", path: "/services" },
+                  { name: "Filing Due Dates", path: "/compliance" },
+                  { name: "Tax Guides & Blog", path: "/blog" },
                   { name: "Chambers & Locations", path: "/locations" },
-                  { name: "Schedule Advisory", path: "/schedule" },
+                  { name: "Schedule Consultation", path: "/schedule" },
                 ].map((item) => (
                   <Link
                     key={item.name}
@@ -329,7 +334,7 @@ function Navbar() {
                 <Link
                   to="/schedule"
                   onClick={() => handleLinkClick("/schedule")}
-                  className="w-full no-underline"
+                  className="w-full sm:hidden no-underline"
                 >
                   <PillButton
                     variant="auto"

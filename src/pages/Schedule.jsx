@@ -12,7 +12,6 @@ import {
 import TaxScheduler from "../components/sections/consultation/TaxScheduler";
 import ChamberMapCard from "../components/ui/ChamberMapCard";
 import FAQSection from "../components/sections/shared/FAQSection";
-import PillButton from "../components/ui/PillButton";
 import { SITE_CONFIG } from "../data/siteConfig";
 
 const fadeUp = {
@@ -99,12 +98,12 @@ function Schedule() {
     <div className="relative bg-surface-light dark:bg-surface-dark text-primary-light dark:text-primary-dark transition-colors duration-300 min-h-screen">
       <main className="relative z-10 w-full pt-8 sm:pt-12 md:pt-16 pb-16 sm:pb-24">
         <div className="max-w-container-max-width mx-auto px-margin-mobile md:px-margin-desktop space-y-16 sm:space-y-24">
-          
+
           {/* ========================================================= */}
           {/*   1. HERO SECTION: BALANCED 2-COLUMN GRID                */}
           {/* ========================================================= */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-            
+
             {/* Left Column: Heading, Emergency WhatsApp & Pre-Meeting Checklist */}
             <motion.div
               className="lg:col-span-5 flex flex-col space-y-6 pt-1"
@@ -129,7 +128,7 @@ function Schedule() {
                 </motion.p>
               </div>
 
-              {/* Emergency WhatsApp Notice Action Card */}
+              {/* Emergency WhatsApp Notice Action Card (Valid <a> Tag Styling) */}
               <motion.div
                 variants={fadeUp}
                 className="p-5 sm:p-6 rounded-2xl md:rounded-3xl border border-emerald-500/30 bg-emerald-500/[0.04] space-y-4"
@@ -148,27 +147,21 @@ function Schedule() {
                   If you have an impending 7-day or 15-day statutory notice cutoff (GST DRC-01 / Section 148), message our emergency desk directly.
                 </p>
 
-                <a
-                  href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-                    "*URGENT STATUTORY NOTICE DEFENSE*\n------------------------\nI have received a time-sensitive notice and require immediate assistance."
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block no-underline pt-1"
-                >
-                  <PillButton
-                    variant="custom"
-                    bgClass="bg-emerald-600 dark:bg-emerald-500 shadow-md"
-                    borderClass="border border-emerald-600 dark:border-emerald-500"
-                    fillClass="bg-slate-950 dark:bg-white"
-                    hoverTextClass="text-white group-hover:text-white dark:group-hover:text-slate-950"
-                    className="px-6 py-2.5 text-xs font-mono font-bold tracking-widest uppercase"
+                <div className="pt-1">
+                  <a
+                    href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+                      "*URGENT STATUTORY NOTICE DEFENSE*\n------------------------\nI have received a time-sensitive notice and require immediate assistance."
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Connect with Emergency Notice Defense on WhatsApp"
+                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-mono font-bold tracking-widest uppercase bg-emerald-600 dark:bg-emerald-500 text-white hover:bg-emerald-700 dark:hover:bg-emerald-600 shadow-md transition-all duration-300 group no-underline"
                   >
                     <WhatsAppIcon className="w-4 h-4 shrink-0 fill-current" />
                     <span>WhatsApp Emergency Desk</span>
                     <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
-                  </PillButton>
-                </a>
+                  </a>
+                </div>
               </motion.div>
 
               {/* Document Preparation Checklist Box */}
@@ -191,36 +184,26 @@ function Schedule() {
                   ))}
                 </div>
               </motion.div>
-
-              {/* Direct Reach Pill Buttons */}
               <motion.div
                 variants={fadeUp}
                 className="pt-2 flex flex-wrap items-center gap-3"
               >
                 <a
-                  href={`tel:${SITE_CONFIG?.contact?.phoneRaw || "+919007064088"}`}
-                  className="no-underline"
+                  href={`tel:${SITE_CONFIG?.contact?.phoneRaw || "+917439219943"}`}
+                  aria-label={`Call Chambers at ${SITE_CONFIG?.contact?.phone || "+91 74392 19943"}`}
+                  className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-theme bg-transparent hover:bg-black/[0.04] dark:hover:bg-white/[0.05] text-primary-light dark:text-primary-dark font-mono text-[11px] font-semibold tracking-wider transition-all duration-200 no-underline"
                 >
-                  <PillButton
-                    variant="outline"
-                    className="px-5 py-2 text-[11px]"
-                  >
-                    <Phone className="w-3.5 h-3.5" />
-                    <span>{SITE_CONFIG?.contact?.phone || "+91 9007064088"}</span>
-                  </PillButton>
+                  <Phone className="w-3.5 h-3.5 text-secondary-light dark:text-secondary-dark" />
+                  <span>{SITE_CONFIG?.contact?.phone || "+91 74392 19943"}</span>
                 </a>
 
                 <a
                   href={`mailto:${SITE_CONFIG?.contact?.email || "tcparthahalder1984@gmail.com"}`}
-                  className="no-underline"
+                  aria-label="Send direct email to Matrix Tax Solutions Chambers"
+                  className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-theme bg-transparent hover:bg-black/[0.04] dark:hover:bg-white/[0.05] text-primary-light dark:text-primary-dark font-mono text-[11px] font-semibold tracking-wider transition-all duration-200 no-underline"
                 >
-                  <PillButton
-                    variant="outline"
-                    className="px-5 py-2 text-[11px]"
-                  >
-                    <Mail className="w-3.5 h-3.5" />
-                    <span>Email Chambers</span>
-                  </PillButton>
+                  <Mail className="w-3.5 h-3.5 text-secondary-light dark:text-secondary-dark" />
+                  <span className="lowercase">{SITE_CONFIG?.contact?.email || "tcparthahalder1984@gmail.com"}</span>
                 </a>
               </motion.div>
 
@@ -252,7 +235,10 @@ function Schedule() {
                   key={item.step}
                   className="glass-card border border-theme rounded-2xl md:rounded-3xl p-6 sm:p-8 space-y-3 relative overflow-hidden shadow-sm hover:border-black/20 dark:hover:border-white/20 transition-colors"
                 >
-                  <span className="font-mono text-3xl sm:text-4xl font-light text-secondary-light/30 dark:text-secondary-dark/30 block">
+                  <span
+                    aria-hidden="true"
+                    className="font-mono text-3xl sm:text-4xl font-light text-secondary-light/40 dark:text-secondary-dark/40 block select-none"
+                  >
                     {item.step}
                   </span>
                   <h3 className="font-serif text-xl sm:text-2xl font-light text-primary-light dark:text-primary-dark">

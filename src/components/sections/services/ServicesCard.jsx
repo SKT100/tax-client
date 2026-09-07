@@ -27,19 +27,11 @@ function ServiceCard({
   const targetUrl = to || (item?.id ? `/schedule?service=${item.id}` : null);
   const cardBg = bgImage || item?.bgImage || null;
 
-  const renderButton = () => (
-    <PillButton
-      variant="custom"
-      bgClass="bg-white dark:bg-slate-950 shadow-md"
-      borderClass="border border-white/20 dark:border-black/20"
-      fillClass="bg-slate-950 dark:bg-white"
-      hoverTextClass="text-slate-950 group-hover:text-white dark:text-white dark:group-hover:text-slate-950"
-      className="px-6 sm:px-7 py-2.5 min-w-[130px] text-xs font-mono font-bold tracking-widest uppercase cursor-pointer"
-      onClick={onClick}
-    >
+  const buttonContent = (
+    <span className="flex items-center gap-2">
       <span>{buttonText}</span>
       <ArrowRight className="w-3.5 h-3.5 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
-    </PillButton>
+    </span>
   );
 
   return (
@@ -57,6 +49,9 @@ function ServiceCard({
           <img
             src={cardBg}
             alt=""
+            aria-hidden="true"
+            width="400"
+            height="300"
             loading="lazy"
             decoding="async"
             onError={(e) => {
@@ -64,7 +59,7 @@ function ServiceCard({
             }}
             className="w-full h-full object-cover object-top mix-blend-screen opacity-80 brightness-[2.2] contrast-125 group-hover/card:scale-105 group-hover/card:opacity-95 dark:mix-blend-multiply dark:invert dark:opacity-70 dark:brightness-[2.2] dark:contrast-125 dark:group-hover/card:opacity-90 transition-all duration-700 transform-gpu"
           />
-          {/* Subtle Bottom Shade strictly behind action bar */}
+          {/* Bottom Shade strictly behind action bar */}
           <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#0F0F12]/80 dark:from-[#F2F1ED]/80 to-transparent pointer-events-none" />
         </div>
       )}
@@ -77,7 +72,7 @@ function ServiceCard({
               {displayTag}
             </span>
           )}
-          <span className="font-mono text-[10px] font-semibold text-white/60 dark:text-slate-600">
+          <span className="font-mono text-[10px] font-semibold text-white/75 dark:text-slate-700">
             {formattedIndex}
           </span>
         </div>
@@ -90,25 +85,39 @@ function ServiceCard({
           children
         ) : (
           displayDescription && (
-            <p className="font-sans font-light text-xs sm:text-sm leading-relaxed text-white/80 dark:text-slate-700">
+            <p className="font-sans font-light text-xs sm:text-sm leading-relaxed text-white/85 dark:text-slate-700">
               {displayDescription}
             </p>
           )
         )}
       </div>
 
-      {/* Card Footer */}
+      {/* Card Footer (Clean link/button separation) */}
       <div className="relative z-10 mt-6 pt-5 border-t border-white/10 dark:border-black/10 flex items-center justify-between gap-4">
-        <span className="font-mono text-[10px] uppercase tracking-widest text-white/60 dark:text-slate-600 truncate">
+        <span className="font-mono text-[10px] uppercase tracking-widest text-white/75 dark:text-slate-700 truncate">
           {displayFooterLabel}
         </span>
 
         {targetUrl ? (
-          <Link to={targetUrl} className="inline-flex items-center no-underline shrink-0">
-            {renderButton()}
+          <Link
+            to={targetUrl}
+            aria-label={`Book advisory for ${displayTitle}`}
+            className="inline-flex items-center justify-center px-6 sm:px-7 py-2.5 min-w-[130px] rounded-full text-xs font-mono font-bold tracking-widest uppercase bg-white text-slate-950 hover:bg-slate-200 dark:bg-slate-950 dark:text-white dark:hover:bg-slate-800 shadow-md transition-all duration-300 no-underline group shrink-0"
+          >
+            {buttonContent}
           </Link>
         ) : (
-          <div className="shrink-0">{renderButton()}</div>
+          <PillButton
+            variant="custom"
+            bgClass="bg-white dark:bg-slate-950 shadow-md"
+            borderClass="border border-white/20 dark:border-black/20"
+            fillClass="bg-slate-950 dark:bg-white"
+            hoverTextClass="text-slate-950 group-hover:text-white dark:text-white dark:group-hover:text-slate-950"
+            className="px-6 sm:px-7 py-2.5 min-w-[130px] text-xs font-mono font-bold tracking-widest uppercase cursor-pointer"
+            onClick={onClick}
+          >
+            {buttonContent}
+          </PillButton>
         )}
       </div>
     </div>

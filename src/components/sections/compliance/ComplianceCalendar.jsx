@@ -51,10 +51,9 @@ export default function ComplianceCalendar() {
   }, [activeCategory, frequencyFilter, searchQuery]);
 
   const handleConsultWhatsApp = (item) => {
-    const rawNumber = (SITE_CONFIG?.contact?.phoneRaw || "919007064088").replace(
-      "+",
-      ""
-    );
+    const rawNumber = (
+      SITE_CONFIG?.contact?.phoneRaw || "+917439219943"
+    ).replace("+", "");
     const message = `*COMPLIANCE DIRECTIVE INQUIRY*\n--------------------------------\n*Directive:* ${item.title}\n*Statutory Act:* ${item.act}\n*Due Date:* ${item.dueDate}\n*Assessee Type:* ${item.targetAssessees || item.targetAssessee}\n--------------------------------\n_I require assistance with return filing / reconciliation for this statutory deadline._`;
     const encoded = encodeURIComponent(message);
     window.open(`https://wa.me/${rawNumber}?text=${encoded}`, "_blank");
@@ -77,6 +76,10 @@ export default function ComplianceCalendar() {
       { id: "annual", label: "Annual" },
     ],
   };
+
+  const rawContactNumber = (
+    SITE_CONFIG?.contact?.phoneRaw || "+917439219943"
+  ).replace("+", "");
 
   return (
     <section
@@ -187,7 +190,7 @@ export default function ComplianceCalendar() {
                         </p>
                       </div>
 
-                      {/* Column 4: Penalty Consequence & Reusable PillButton */}
+                      {/* Column 4: Penalty Consequence & Action */}
                       <div className="lg:col-span-3 flex flex-col items-start lg:items-end justify-between gap-3.5 border-t lg:border-t-0 pt-3 lg:pt-0 border-theme">
                         <div className="flex items-start gap-1.5 text-rose-600/90 dark:text-rose-400/90 text-[11px] font-body text-left lg:text-right">
                           <AlertTriangle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
@@ -197,6 +200,7 @@ export default function ComplianceCalendar() {
                         <PillButton
                           onClick={() => handleConsultWhatsApp(item)}
                           variant="auto"
+                          aria-label={`Inquire about ${item.title} statutory filing on WhatsApp`}
                           className="px-5 py-2 text-[11px]"
                         >
                           <span>File / Reconcile</span>
@@ -223,9 +227,10 @@ export default function ComplianceCalendar() {
               </p>
             </div>
             <a
-              href={`https://wa.me/${(SITE_CONFIG?.contact?.phoneRaw || "919007064088").replace("+", "")}?text=${encodeURIComponent("Requesting Annual Statutory Tax Calendar Brief for our enterprise.")}`}
+              href={`https://wa.me/${rawContactNumber}?text=${encodeURIComponent("Requesting Annual Statutory Tax Calendar Brief for our enterprise.")}`}
               target="_blank"
               rel="noreferrer"
+              aria-label="Request custom corporate calendar on WhatsApp"
               className="font-mono text-xs uppercase tracking-wider underline text-primary-light dark:text-primary-dark whitespace-nowrap hover:opacity-80 transition-opacity"
             >
               Get Custom Corporate Calendar

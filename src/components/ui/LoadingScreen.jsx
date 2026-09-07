@@ -1,9 +1,9 @@
 // src/components/ui/LoadingScreen.jsx
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function LoadingScreen({ stage, progress }) {
+function LoadingScreen({ stage, progress }) {
   const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
@@ -26,15 +26,14 @@ export default function LoadingScreen({ stage, progress }) {
   const curtainEase = [0.83, 0, 0.17, 1];
 
   const bgClass = isDarkMode
-    ? "bg-surface-dark text-primary-dark border-white/10"
-    : "bg-surface-light text-primary-light border-black/10";
+    ? "bg-[#0F0F12] text-white"
+    : "bg-[#F2F1ED] text-slate-900";
 
-  const seamBorderClass = isDarkMode ? "border-white/10" : "border-black/10";
-  const barTrackClass = isDarkMode ? "bg-white/10" : "bg-black/10";
+  const barTrackClass = isDarkMode ? "bg-white/15" : "bg-black/10";
 
   const barGradientClass = isDarkMode
-    ? "bg-gradient-to-r from-slate-400 via-white to-slate-200 shadow-[0_0_12px_rgba(255,255,255,0.35)]"
-    : "bg-gradient-to-r from-slate-900 via-slate-800 to-black shadow-[0_0_8px_rgba(15,23,42,0.15)]";
+    ? "bg-gradient-to-r from-slate-400 via-white to-slate-100 shadow-[0_0_10px_rgba(255,255,255,0.4)]"
+    : "bg-gradient-to-r from-slate-800 via-slate-950 to-black shadow-[0_0_8px_rgba(15,23,42,0.2)]";
 
   const percentAccentClass = isDarkMode ? "text-white/80" : "text-slate-900/80";
   const mottoSubtextClass = isDarkMode ? "text-white/45" : "text-black/45";
@@ -48,7 +47,7 @@ export default function LoadingScreen({ stage, progress }) {
   return (
     <div className="fixed inset-0 z-[9999] pointer-events-auto select-none overflow-hidden font-sans">
       
-      {/* 1. TOP HALF CURTAIN */}
+      {/* 1. TOP HALF CURTAIN (Border removed to prevent double line) */}
       <motion.div
         initial={{ y: stage === "initial" ? "0%" : "-100%" }}
         animate={{ y: isClosed ? "0%" : "-100%" }}
@@ -56,7 +55,7 @@ export default function LoadingScreen({ stage, progress }) {
           duration: stage === "closing" ? 0.45 : 0.85,
           ease: curtainEase,
         }}
-        className={`absolute top-0 left-0 right-0 h-[50vh] ${bgClass} ${seamBorderClass} border-b z-20 flex flex-col justify-between p-8 md:p-14 transform-gpu will-change-transform`}
+        className={`absolute top-0 left-0 right-0 h-[50vh] ${bgClass} z-20 flex flex-col justify-between p-8 md:p-14 transform-gpu will-change-transform`}
       >
         <AnimatePresence>
           {showContent && (
@@ -79,14 +78,14 @@ export default function LoadingScreen({ stage, progress }) {
         </AnimatePresence>
       </motion.div>
 
-      {/* 2. CENTER SEAM PROGRESS TRACK */}
+      {/* 2. UNIFIED CENTER SEAM PROGRESS TRACK (Single 2px line) */}
       <AnimatePresence>
         {showContent && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, scaleY: 0 }}
-            transition={{ duration: 0.18, ease: "easeOut" }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
             className="absolute top-1/2 -translate-y-1/2 left-0 right-0 z-30 pointer-events-none w-full"
           >
             <div className={`w-full h-[2px] ${barTrackClass} relative overflow-hidden`}>
@@ -95,7 +94,7 @@ export default function LoadingScreen({ stage, progress }) {
                 initial={{ width: "0%" }}
                 animate={{ width: `${progress}%` }}
                 transition={{
-                  duration: 0.25,
+                  duration: 0.2,
                   ease: [0.25, 1, 0.5, 1],
                 }}
               />
@@ -104,7 +103,7 @@ export default function LoadingScreen({ stage, progress }) {
         )}
       </AnimatePresence>
 
-      {/* 3. BOTTOM HALF CURTAIN */}
+      {/* 3. BOTTOM HALF CURTAIN (Border removed to prevent double line) */}
       <motion.div
         initial={{ y: stage === "initial" ? "0%" : "100%" }}
         animate={{ y: isClosed ? "0%" : "100%" }}
@@ -112,7 +111,7 @@ export default function LoadingScreen({ stage, progress }) {
           duration: stage === "closing" ? 0.45 : 0.85,
           ease: curtainEase,
         }}
-        className={`absolute bottom-0 left-0 right-0 h-[50vh] ${bgClass} ${seamBorderClass} border-t flex items-end justify-between p-8 md:p-14 z-20 transform-gpu will-change-transform`}
+        className={`absolute bottom-0 left-0 right-0 h-[50vh] ${bgClass} flex items-end justify-between p-8 md:p-14 z-20 transform-gpu will-change-transform`}
       >
         <AnimatePresence>
           {showContent && (
@@ -151,3 +150,5 @@ export default function LoadingScreen({ stage, progress }) {
     </div>
   );
 }
+
+export default memo(LoadingScreen);

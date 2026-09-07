@@ -1,17 +1,11 @@
 
 
 export const CONTACT_INFO = {
-  name: "Partha Pratim Halder",
-  firm: "Matrix Tax Solutions",
-  title: "Principal Tax Consultant & Statutory Advocate",
+  phone: "+91 74392 19943",
+  phoneRaw: "+917439219943",
   email: "tcparthahalder1984@gmail.com",
-  phone: "+91 90070 64088",
-  address: {
-    line1: "GT Road West, Baidyabati",
-    city: "Baidyabati, Hooghly",
-    state: "West Bengal",
-    pincode: "712222",
-  },
+  address: "461, N.C. Banerjee Road, Baidyabati, Hooghly, West Bengal — 712222",
+  hours: "Morning: 7:00 AM – 10:00 AM | Evening: 6:00 PM – 10:00 PM",
   regionalOffices: [
     {
       city: "Baidyabati (Head Office)",

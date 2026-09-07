@@ -30,7 +30,7 @@ function RegionalReachMap() {
           className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 md:mb-16 gap-4 pb-6 border-b border-theme"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.2 }}
           variants={staggerContainer}
         >
           <div>

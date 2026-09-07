@@ -1,3 +1,5 @@
+// src/components/sections/home/hero/HeroMediaLayers.jsx
+
 import { memo, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { HERO_SLIDES } from "../../../../data/heroSlides";
@@ -5,8 +7,6 @@ import { HERO_SLIDES } from "../../../../data/heroSlides";
 function HeroMediaLayers({ index, nextIndex, lensClipPath }) {
   const videoRefs = useRef({});
 
-  // Only keep the current + upcoming preview video decoders active.
-  // Loading/playing every slide's video at once is what was killing performance.
   useEffect(() => {
     [index, nextIndex].forEach((idx) => {
       const videoEl = videoRefs.current[idx];
@@ -28,6 +28,13 @@ function HeroMediaLayers({ index, nextIndex, lensClipPath }) {
         });
       }
     });
+
+    Object.keys(videoRefs.current).forEach((key) => {
+      const numKey = Number(key);
+      if (numKey !== index && numKey !== nextIndex && videoRefs.current[numKey]) {
+        videoRefs.current[numKey].pause();
+      }
+    });
   }, [index, nextIndex]);
 
   return (
@@ -37,9 +44,10 @@ function HeroMediaLayers({ index, nextIndex, lensClipPath }) {
         const isNext = slideIdx === nextIndex;
         const isActive = isCurrent || isNext;
 
-        // Current slide is at z-0; Upcoming preview slide is at z-10 with clipPath
         const zIndex = isNext ? 10 : isCurrent ? 1 : -1;
         const applyLensClip = isNext;
+
+        if (!isActive) return null;
 
         return (
           <motion.div
@@ -57,26 +65,23 @@ function HeroMediaLayers({ index, nextIndex, lensClipPath }) {
                 ref={(el) => {
                   if (el) videoRefs.current[slideIdx] = el;
                 }}
-                // Only current + next get a real src; others stay unloaded
-                src={isActive ? slide.src : undefined}
+                src={slide.src}
                 poster={slide.poster}
                 muted
-                autoPlay={isActive}
+                autoPlay
                 loop
                 playsInline
-                preload={isActive ? "auto" : "none"}
+                preload="metadata"
                 className="w-full h-full object-cover filter brightness-105 contrast-110"
-              >
-                {isActive && slide.srcWebm && (
-                  <source src={slide.srcWebm} type="video/webm" />
-                )}
-                {isActive && <source src={slide.src} type="video/mp4" />}
-              </video>
+              />
             ) : (
               <img
                 src={slide.src}
                 alt={slide.text || "Matrix Tax Solutions"}
-                loading={isActive ? "eager" : "lazy"}
+                width="1920"
+                height="1080"
+                loading={isCurrent ? "eager" : "lazy"}
+                fetchPriority={isCurrent ? "high" : "auto"}
                 decoding="async"
                 className="w-full h-full object-cover filter grayscale brightness-90 contrast-125"
               />

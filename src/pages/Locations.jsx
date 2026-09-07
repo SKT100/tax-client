@@ -80,7 +80,7 @@ function Locations() {
                 description={`${cluster.zone} • ${cluster.jurisdiction}. Transit: ${cluster.transit}`}
                 footerLabel={`PIN: ${cluster.pinCodes.join(", ")}`}
                 buttonText="Engage Desk"
-                bgImage="/images/location-bg.svg"
+                bgImage="/images/location-bg.webp"
                 onClick={() => handleWhatsAppConsult(cluster)}
               />
             ))}
