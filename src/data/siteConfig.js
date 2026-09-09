@@ -14,15 +14,16 @@ export const SITE_CONFIG = {
     experience: "10+ Years Hands-on Practice",
   },
   contact: {
-    phone: "+91 90070 64088",
-    phoneRaw: "+919007064088",
+    phone: "+91 74392 19943",
+    phoneRaw: "+917439219943",
     email: "tcparthahalder1984@gmail.com",
-    whatsappUrl: "https://wa.me/919007064088",
+    whatsappUrl: "https://wa.me/917439219943",
+    calLink: "matrixx/consultation",
   },
   chambers: {
     headOffice: {
       name: "Baidyabati Head Office",
-      address: "Baidyabati, Hooghly, West Bengal — 712222",
+      address: "461, N.C. Banerjee Road, Baidyabati, Hooghly, West Bengal — 712222",
       jurisdiction: "Hooghly, Howrah & Kolkata North",
     },
     kolkataLiaison: {

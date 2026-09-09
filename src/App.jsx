@@ -15,6 +15,9 @@ const Compliance = lazy(() => import('./pages/Compliance'));
 const Locations = lazy(() => import('./pages/Locations'));
 const Schedule = lazy(() => import('./pages/Schedule'));
 const Blog = lazy(() => import('./pages/Blog'));
+const Terms = lazy(() => import('./pages/Terms'));
+const Privacy = lazy(() => import('./pages/Privacy'));
+const Disclaimer = lazy(() => import('./pages/Disclaimer'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 function AppContent() {
@@ -141,6 +144,12 @@ function AppContent() {
               <Route path="/insights" element={<Blog />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/schedule" element={<Schedule />} />
+              
+              {/* Legal & Statutory Pages */}
+              <Route path="/terms" element={<Terms />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/disclaimer" element={<Disclaimer />} />
+
               {/* 404 Catch-All Fallback */}
               <Route path="*" element={<NotFound />} />
             </Routes>

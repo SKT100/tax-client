@@ -13,7 +13,7 @@ const FONT_FAMILY =
 const DESIGN_W = 1440;
 const DESIGN_H = 5000;
 
-// Original Start & Placement Coordinates (Starting at Y: 560)
+// Start & Placement Coordinates (Starting at Y: 560)
 const CURVE_POINTS = [
   { x: -140, y: 560 },
   { cp1x: -40, cp1y: 530, cp2x: 80, cp2y: 590, x: 200, y: 550 },
@@ -145,7 +145,7 @@ function PracticeScrollThread({ containerRef }) {
   const currentProgressRef = useRef(0);
   const lastDrawnProgressRef = useRef(-1);
   const containerDocTopRef = useRef(0);
-  const dimensionsRef = useRef({ width: 0, viewportH: 0, fontSize: 14, dpr: 1 });
+  const dimensionsRef = useRef({ width: 0, viewportH: 0, fontSize: 14.5, dpr: 1 });
   const anchorHeightRef = useRef(0);
 
   const { scrollYProgress } = useScroll(
@@ -161,6 +161,8 @@ function PracticeScrollThread({ containerRef }) {
   };
 
   const rebuildCanvasData = () => {
+    if (window.innerWidth < 768) return; // Bypass on mobile
+
     const canvas = canvasRef.current;
     const container = containerRef?.current || document.body;
     if (!canvas) return;
@@ -174,9 +176,8 @@ function PracticeScrollThread({ containerRef }) {
     const widthChanged = w !== dimensionsRef.current.width;
     const grew = totalH > anchorHeightRef.current;
 
-    const isMobile = w < 768;
-    const fontSize = isMobile ? 12 : 14.5;
-    const letterSpacing = isMobile ? 4.0 : 6.0;
+    const fontSize = 14.5;
+    const letterSpacing = 6.0;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
     dimensionsRef.current = { width: w, viewportH, fontSize, dpr };
@@ -236,7 +237,7 @@ function PracticeScrollThread({ containerRef }) {
 
     const tick = () => {
       rafRef.current = requestAnimationFrame(tick);
-      if (!inViewRef.current || !dataRef.current) return;
+      if (window.innerWidth < 768 || !inViewRef.current || !dataRef.current) return;
 
       const targetProgress = scrollYProgress.get();
       const delta = targetProgress - currentProgressRef.current;
@@ -260,7 +261,6 @@ function PracticeScrollThread({ containerRef }) {
       const currentScrollY = window.scrollY;
       const docTop = containerDocTopRef.current;
 
-      // Ensure illumination smoothly tracks through the entire curve length
       const litDistance = Math.max(0, Math.min(1, progress * 1.05)) * totalLen;
       const isDark = document.documentElement.classList.contains("dark");
 
@@ -282,12 +282,10 @@ function PracticeScrollThread({ containerRef }) {
       const dimGlyphs = [];
       const litGlyphs = [];
 
-      // Single-pass collector for all glyphs from start (y: 560) down to the bottom
       for (let i = 0; i < glyphs.length; i++) {
         const g = glyphs[i];
         const screenY = docTop + g.y - currentScrollY;
 
-        // Viewport bounds culling
         if (screenY < -80 || screenY > viewportH + 80) continue;
 
         if (g.dist <= litDistance) {
@@ -330,7 +328,7 @@ function PracticeScrollThread({ containerRef }) {
 
   return (
     <div
-      className="fixed inset-0 w-full h-full pointer-events-none z-[2] select-none overflow-hidden"
+      className="hidden md:block fixed inset-0 w-full h-full pointer-events-none z-[2] select-none overflow-hidden"
       style={{
         width: "100vw",
         height: "100vh",

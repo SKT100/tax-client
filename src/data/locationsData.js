@@ -5,7 +5,7 @@ export const MUNICIPAL_CLUSTERS = [
     title: "Baidyabati & Sheoraphuli",
     pinCodes: ["712222", "712223"],
     status: "Principal Chambers (HQ)",
-    jurisdiction: "Baidyabati Municipality • Ward 1–22 • GT Road West",
+    jurisdiction: "Baidyabati Municipality • Ward 1–22 • 461 N.C. Banerjee Road / GT Road",
     targetAssessees: "Wholesale Traders, MSME Units, Agro-Distributors & Retail Assessees",
     statutoryServices: [
       "Municipal Trade Licence Application & Renewal",
@@ -13,7 +13,7 @@ export const MUNICIPAL_CLUSTERS = [
       "GST Registration, GSTR-1 & 3B Periodic Reconciliations",
       "West Bengal Professional Tax (P-Tax) Enrolment",
     ],
-    transit: "2 mins from Baidyabati Railway Station (Howrah-Bandel Line) • Direct GT Road Access",
+    transit: "2 mins from Baidyabati Railway Station (Howrah-Bandel Line) • Direct N.C. Banerjee Rd Access",
   },
   {
     id: "serampore-rishra",

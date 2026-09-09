@@ -267,7 +267,11 @@ function Footer() {
           transition={{ duration: 0.6, delay: 0.1 }}
         >
           <span>© 2026 {SITE_CONFIG.firm.name.toUpperCase()}. ALL RIGHTS RESERVED.</span>
-          <span>ACCURACY • STATUTORY COMPLIANCE • PEACE OF MIND</span>
+          <div className="flex flex-wrap justify-center sm:justify-end gap-3 sm:gap-6">
+            <Link to="/terms" className="hover:underline no-underline">Terms of Service</Link>
+            <Link to="/privacy" className="hover:underline no-underline">Privacy Policy</Link>
+            <Link to="/disclaimer" className="hover:underline no-underline">Disclaimer</Link>
+          </div>
         </motion.div>
       </motion.div>
     </footer>

@@ -78,28 +78,28 @@ function WhyChooseUs() {
             </div>
           </div>
 
-          {/* RIGHT: 4 PILLARS */}
-          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0">
+          {/* RIGHT: 4 PILLARS (2x2 Grid on Mobile, 4-Cols on Desktop) */}
+          <div className="lg:col-span-7 grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-0">
             {PILLARS.map((pillar, idx) => {
               const IconComp = pillar.icon;
               return (
                 <div
                   key={idx}
-                  className={`flex flex-col items-center text-center px-4 sm:px-5 py-2 ${
+                  className={`flex flex-col items-center text-center px-2 sm:px-5 py-2 ${
                     idx !== PILLARS.length - 1
                       ? "lg:border-r border-white/10"
                       : ""
                   }`}
                 >
-                  <div className="w-14 h-14 mb-4 flex items-center justify-center text-white">
-                    <IconComp className="w-8 h-8 stroke-[1.3]" />
+                  <div className="w-10 h-10 sm:w-14 sm:h-14 mb-3 sm:mb-4 flex items-center justify-center text-white">
+                    <IconComp className="w-6 h-6 sm:w-8 sm:h-8 stroke-[1.3]" />
                   </div>
 
-                  <h3 className="font-serif text-xl sm:text-2xl font-light text-white mb-2.5 tracking-tight">
+                  <h3 className="font-serif text-lg sm:text-2xl font-light text-white mb-2 tracking-tight">
                     {pillar.title}
                   </h3>
 
-                  <p className="font-body font-light text-xs sm:text-sm text-white/70 leading-relaxed max-w-[170px]">
+                  <p className="font-body font-light text-[11px] sm:text-sm text-white/70 leading-relaxed max-w-[160px] sm:max-w-[170px]">
                     {pillar.description}
                   </p>
                 </div>
