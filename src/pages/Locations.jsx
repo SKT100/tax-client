@@ -1,30 +1,23 @@
 // src/pages/Locations.jsx
 
 import { useState, memo } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import ChamberMapCard from "../components/ui/ChamberMapCard";
 import ScrollVelocityRibbon from "../components/ui/ribbon/ScrollVelocityRibbon";
 import ServiceCard from "../components/sections/services/ServicesCard";
 import { MUNICIPAL_CLUSTERS, REGIONAL_FAQS } from "../data/locationsData";
-import { SITE_CONFIG } from "../data/siteConfig";
 
 function Locations() {
   const [openFaq, setOpenFaq] = useState(null);
-
-  const handleWhatsAppConsult = (cluster) => {
-    const rawNumber = (SITE_CONFIG?.contact?.phoneRaw || "919007064088").replace("+", "");
-    const message = `*REGIONAL DESK INQUIRY — ${cluster.title.toUpperCase()}*\n--------------------------------\n*Zone:* ${cluster.zone}\n*PIN Code:* ${cluster.pinCodes.join(", ")}\n*Assessee Category:* ${cluster.targetAssessees}\n--------------------------------\n_Requesting tax filing & statutory compliance assistance in this municipal jurisdiction._`;
-
-    const encoded = encodeURIComponent(message);
-    window.open(`https://wa.me/${rawNumber}?text=${encoded}`, "_blank");
-  };
+  const navigate = useNavigate();
 
   return (
     <div className="relative w-full min-h-screen bg-surface-light dark:bg-surface-dark text-primary-light dark:text-primary-dark transition-colors duration-300">
-      
-      {/* Dynamic Ribbon Banner */}
-      <div className="pt-6 pb-2 border-b border-theme bg-black/[0.02] dark:bg-white/[0.02]">
+
+      {/* Dynamic Ribbon Banner (Flushed to Navbar) */}
+      <div className="pt-2 pb-2 border-b border-theme bg-black/[0.02] dark:bg-white/[0.02]">
         <ScrollVelocityRibbon baseVelocity={0.3}>
           <span className="font-mono text-xs tracking-[0.25em] uppercase text-secondary-light dark:text-secondary-dark px-4">
             GRAND TRUNK ROAD INDUSTRIAL BELT ✦ HOOGHLY MUNICIPAL DESKS ✦ GREATER KOLKATA CORPORATE NETWORK ✦ BAIDYABATI CHAMBERS ✦
@@ -32,18 +25,20 @@ function Locations() {
         </ScrollVelocityRibbon>
       </div>
 
-      <main className="relative z-10 max-w-container-max-width mx-auto px-margin-mobile md:px-margin-desktop py-12 sm:py-16 md:py-20 space-y-16 sm:space-y-24">
-        
+      <main className="relative z-10 max-w-container-max-width mx-auto px-margin-mobile md:px-margin-desktop pt-6 sm:pt-8 md:pt-10 pb-16 sm:pb-20 space-y-12 sm:space-y-16 md:space-y-20">
+
         {/* Section 1: Hero Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-theme bg-black/5 dark:bg-white/5 font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest text-secondary-light dark:text-secondary-dark">
-            <span>Regional Jurisdictional Network</span>
+        <div className="text-center max-w-4xl mx-auto space-y-3">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <span className="font-mono text-[10px] sm:text-xs tracking-[0.25em] uppercase text-secondary-light dark:text-secondary-dark font-bold">
+              REGIONAL JURISDICTIONAL NETWORK
+            </span>
           </div>
-          <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight text-primary-light dark:text-primary-dark leading-[1.08]">
+          <h1 className="font-serif text-5xl sm:text-7xl lg:text-8xl leading-[0.95] font-light tracking-tight text-primary-light dark:text-primary-dark max-w-4xl mx-auto mb-3">
             Grand Trunk Road &amp; <br />
             <span className="italic font-light opacity-90">Municipal Desks</span>
           </h1>
-          <p className="font-body text-xs sm:text-sm md:text-base text-secondary-light dark:text-secondary-dark font-light leading-relaxed max-w-2xl mx-auto">
+          <p className="font-body font-light text-base md:text-lg text-secondary-light dark:text-secondary-dark max-w-2xl mx-auto leading-relaxed">
             Statutory tax representation, municipal licensing, and GST advisory across the Hooghly industrial corridor and Greater Kolkata.
           </p>
         </div>
@@ -53,7 +48,7 @@ function Locations() {
           <ChamberMapCard />
         </div>
 
-        {/* Section 3: Municipal Jurisdictional Grid */}
+        {/* Section 3: Municipal Jurisdictional Grid with PillButton Navigation */}
         <div className="space-y-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-theme">
             <div>
@@ -69,7 +64,6 @@ function Locations() {
             </span>
           </div>
 
-          {/* Correct Single Grid Container */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {MUNICIPAL_CLUSTERS.map((cluster, index) => (
               <ServiceCard
@@ -77,11 +71,11 @@ function Locations() {
                 index={index}
                 tag={cluster.status}
                 title={cluster.title}
-                description={`${cluster.zone} • ${cluster.jurisdiction}. Transit: ${cluster.transit}`}
+                description={`${cluster.zone} • ${cluster.jurisdiction}`}
                 footerLabel={`PIN: ${cluster.pinCodes.join(", ")}`}
-                buttonText="Engage Desk"
+                buttonText="View Desk"
+                to={`/locations/${cluster.id}`} // 👈 Generates real HTML <a href="..."> for Googlebot
                 bgImage="/images/location-bg.webp"
-                onClick={() => handleWhatsAppConsult(cluster)}
               />
             ))}
           </div>
@@ -112,9 +106,8 @@ function Locations() {
                       {faq.q}
                     </span>
                     <ChevronDown
-                      className={`w-4 h-4 text-secondary-light dark:text-secondary-dark transition-transform duration-300 shrink-0 ${
-                        isOpen ? "rotate-180 text-amber-500" : ""
-                      }`}
+                      className={`w-4 h-4 text-secondary-light dark:text-secondary-dark transition-transform duration-300 shrink-0 ${isOpen ? "rotate-180 text-amber-500" : ""
+                        }`}
                     />
                   </button>
                   <AnimatePresence>

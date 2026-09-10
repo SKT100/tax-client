@@ -1,6 +1,6 @@
 // src/components/sections/about/AboutProfileHero.jsx
 
-import { useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   motion,
   useMotionValue,
@@ -29,7 +29,24 @@ const PRACTICE_STANDARDS = [
   "AUDIT-READY",
 ];
 
-export default function AboutProfileHero() {
+// Hook to prevent mounting interactive hooks on mobile
+function useIsDesktop() {
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    setIsDesktop(mq.matches);
+
+    const handler = (e) => setIsDesktop(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  return isDesktop;
+}
+
+// Sub-component containing motion values — ONLY mounted on desktop viewports
+function DesktopColorLensPortrait() {
   const portraitRef = useRef(null);
   const mouseX = useMotionValue(-500);
   const mouseY = useMotionValue(-500);
@@ -62,9 +79,62 @@ export default function AboutProfileHero() {
   };
 
   return (
+    <motion.div
+      ref={portraitRef}
+      variants={fadeUp}
+      onMouseEnter={handleMouseEnter}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="relative w-full h-full rounded-3xl overflow-hidden glass-card shadow-2xl cursor-crosshair select-none"
+    >
+      {/* Base Grayscale Portrait */}
+      <img
+        loading="lazy"
+        decoding="async"
+        width="600"
+        height="750"
+        src="/images/pritam-img.webp"
+        alt="Partha Pratim Halder Grayscale"
+        className="w-full h-full object-cover object-top filter grayscale contrast-125 brightness-90"
+      />
+
+      {/* Color Lens Overlay */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none z-10"
+        style={{ clipPath: lensClipPath }}
+      >
+        <img
+          loading="lazy"
+          decoding="async"
+          width="600"
+          height="750"
+          src="/images/pritam-img.webp"
+          alt="Partha Pratim Halder Color Lens"
+          className="w-full h-full object-cover object-top filter-none brightness-100 contrast-100"
+        />
+      </motion.div>
+
+      {/* Dark Mode Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-surface-dark/90 via-surface-dark/30 to-transparent hidden dark:block pointer-events-none z-10" />
+
+      {/* Desktop Quote Badge */}
+      <div className="absolute bottom-6 right-6 glass-card p-6 rounded-2xl max-w-xs shadow-2xl z-20 pointer-events-auto border border-theme">
+        <Award className="w-5 h-5 text-primary-light dark:text-primary-dark mb-2" />
+        <p className="font-serif italic text-sm text-primary-light dark:text-primary-dark leading-snug">
+          &ldquo;Accurate Advice, Proper Compliance, Complete Peace of Mind.&rdquo;
+        </p>
+      </div>
+    </motion.div>
+  );
+}
+
+export default function AboutProfileHero() {
+  const isDesktop = useIsDesktop();
+
+  return (
     <section className="relative w-full bg-surface-light dark:bg-surface-dark text-primary-light dark:text-primary-dark transition-colors duration-300 overflow-hidden pt-12 md:pt-16 lg:pt-20 pb-12">
       
-      {/* 🌟 1. Mobile/Tablet Backdrop Portrait (High Priority LCP) */}
+      {/* 1. Mobile/Tablet Backdrop Portrait */}
       <div className="absolute top-0 right-0 w-full sm:w-[85%] h-[560px] sm:h-[650px] lg:hidden pointer-events-none z-0 overflow-hidden">
         <img
           src="/images/pritam-img.webp"
@@ -90,7 +160,6 @@ export default function AboutProfileHero() {
         {/* Left Column: Narrative & Credentials */}
         <div className="w-full lg:w-[55%] flex flex-col justify-center gap-5 z-20">
           
-          {/* Main Headline */}
           <motion.h1
             variants={fadeUp}
             className="font-serif text-6xl sm:text-7xl lg:text-8xl leading-[0.92] sm:leading-[0.98] font-light tracking-tight text-primary-light dark:text-primary-dark"
@@ -99,7 +168,6 @@ export default function AboutProfileHero() {
             <span className="italic font-light opacity-90">Halder</span>
           </motion.h1>
 
-          {/* Subhead Designation */}
           <motion.div
             variants={fadeUp}
             className="flex items-center gap-2 font-mono text-xs tracking-widest uppercase text-secondary-light dark:text-secondary-dark"
@@ -108,7 +176,6 @@ export default function AboutProfileHero() {
             <span>GST &amp; Tax Consultant — 10+ Years Experience</span>
           </motion.div>
 
-          {/* Strategic Narrative */}
           <motion.div
             variants={fadeUp}
             className="font-body font-light text-base md:text-lg leading-relaxed text-secondary-light dark:text-secondary-dark space-y-3.5 max-w-2xl"
@@ -125,7 +192,6 @@ export default function AboutProfileHero() {
             </p>
           </motion.div>
 
-          {/* Practice Benchmarks */}
           <motion.div
             id="pedigree"
             variants={fadeUp}
@@ -148,12 +214,10 @@ export default function AboutProfileHero() {
             </div>
           </motion.div>
 
-          {/* Practice Badges */}
           <motion.div
             variants={fadeUp}
             className="grid grid-cols-2 gap-4 max-w-md pt-2"
           >
-            {/* Card 1: GST Practitioner */}
             <div className="relative aspect-square p-5 sm:p-6 rounded-2xl glass-card border border-theme flex flex-col justify-end overflow-hidden transition-all duration-300 hover:border-black/20 dark:hover:border-white/20 group">
               <div className="absolute -right-6 -top-6 w-36 h-36 sm:w-40 sm:h-40 opacity-[0.08] dark:opacity-[0.12] pointer-events-none transition-transform duration-700 ease-out group-hover:scale-110 group-hover:rotate-6">
                 <img
@@ -181,7 +245,6 @@ export default function AboutProfileHero() {
               </div>
             </div>
 
-            {/* Card 2: Tax Practitioner */}
             <div className="relative aspect-square p-5 sm:p-6 rounded-2xl glass-card border border-theme flex flex-col justify-end overflow-hidden transition-all duration-300 hover:border-black/20 dark:hover:border-white/20 group">
               <div className="absolute -right-6 -top-6 w-36 h-36 sm:w-40 sm:h-40 opacity-[0.08] dark:opacity-[0.12] pointer-events-none transition-transform duration-700 ease-out group-hover:scale-110 group-hover:rotate-6">
                 <img
@@ -210,7 +273,6 @@ export default function AboutProfileHero() {
             </div>
           </motion.div>
 
-          {/* Mobile Quote Card */}
           <motion.div
             variants={fadeUp}
             className="lg:hidden glass-card p-5 rounded-2xl border border-theme max-w-md mt-2 shadow-lg"
@@ -222,54 +284,9 @@ export default function AboutProfileHero() {
           </motion.div>
         </div>
 
-        {/* 🌟 2. Desktop Interactive Color Lens Portrait */}
+        {/* 2. Desktop Interactive Color Lens Portrait (Conditional Mount) */}
         <div className="hidden lg:flex w-full lg:w-[45%] relative min-h-[640px] items-center justify-center">
-          <motion.div
-            ref={portraitRef}
-            variants={fadeUp}
-            onMouseEnter={handleMouseEnter}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            className="relative w-full h-full rounded-3xl overflow-hidden glass-card shadow-2xl cursor-crosshair select-none"
-          >
-            {/* Base Grayscale Portrait */}
-            <img
-              loading="lazy"
-              decoding="async"
-              width="600"
-              height="750"
-              src="/images/pritam-img.webp"
-              alt="Partha Pratim Halder Grayscale"
-              className="w-full h-full object-cover object-top filter grayscale contrast-125 brightness-90"
-            />
-
-            {/* Color Lens Overlay */}
-            <motion.div
-              className="absolute inset-0 pointer-events-none z-10"
-              style={{ clipPath: lensClipPath }}
-            >
-              <img
-                loading="lazy"
-                decoding="async"
-                width="600"
-                height="750"
-                src="/images/pritam-img.webp"
-                alt="Partha Pratim Halder Color Lens"
-                className="w-full h-full object-cover object-top filter-none brightness-100 contrast-100"
-              />
-            </motion.div>
-
-            {/* Dark Mode Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-surface-dark/90 via-surface-dark/30 to-transparent hidden dark:block pointer-events-none z-10" />
-
-            {/* Desktop Quote Badge */}
-            <div className="absolute bottom-6 right-6 glass-card p-6 rounded-2xl max-w-xs shadow-2xl z-20 pointer-events-auto border border-theme">
-              <Award className="w-5 h-5 text-primary-light dark:text-primary-dark mb-2" />
-              <p className="font-serif italic text-sm text-primary-light dark:text-primary-dark leading-snug">
-                &ldquo;Accurate Advice, Proper Compliance, Complete Peace of Mind.&rdquo;
-              </p>
-            </div>
-          </motion.div>
+          {isDesktop && <DesktopColorLensPortrait />}
         </div>
       </motion.div>
     </section>

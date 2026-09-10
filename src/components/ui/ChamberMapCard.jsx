@@ -59,7 +59,13 @@ const CHAMBERS_LIST = [
 
 function ChamberMapCard() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [mapLoaded, setMapLoaded] = useState(false);
   const activeChamber = CHAMBERS_LIST[activeIndex];
+
+  const handleTabSelect = (index) => {
+    setActiveIndex(index);
+    setMapLoaded(false);
+  };
 
   return (
     <div className="glass-card border border-theme rounded-3xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 shadow-2xl transition-all duration-300">
@@ -83,7 +89,7 @@ function ChamberMapCard() {
                   role="tab"
                   aria-selected={isSelected}
                   aria-controls={`chamber-panel-${chamber.id}`}
-                  onClick={() => setActiveIndex(index)}
+                  onClick={() => handleTabSelect(index)}
                   className={`relative py-2 sm:py-2.5 px-1.5 sm:px-3 rounded-full text-[10px] sm:text-xs font-mono font-medium tracking-wider uppercase transition-colors duration-200 text-center z-10 cursor-pointer ${
                     isSelected
                       ? "text-primary-light dark:text-primary-dark font-bold"
@@ -176,25 +182,51 @@ function ChamberMapCard() {
         </div>
       </div>
 
-      {/* Right Column: Map Frame */}
-      <div className="lg:col-span-6 relative min-h-[280px] sm:min-h-[340px] lg:min-h-[420px] bg-surface-dark/5 dark:bg-surface-light/5 group">
-        <iframe
-          title={`${activeChamber.title} Interactive Map`}
-          src={activeChamber.mapEmbedUrl}
-          width="100%"
-          height="100%"
-          style={{ border: 0 }}
-          allowFullScreen=""
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          className="w-full h-full min-h-[300px] sm:min-h-[380px] filter grayscale contrast-125 dark:invert-[0.88] dark:hue-rotate-180"
-        />
+      {/* Right Column: Modern Minimal Defer-Gated Map Frame */}
+      <div className="lg:col-span-6 relative min-h-[280px] sm:min-h-[340px] lg:min-h-[420px] bg-black/[0.02] dark:bg-white/[0.02] group overflow-hidden">
+        {mapLoaded ? (
+          <iframe
+            title={`${activeChamber.title} Interactive Map`}
+            src={activeChamber.mapEmbedUrl}
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen=""
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="w-full h-full min-h-[300px] sm:min-h-[380px] filter grayscale contrast-125 dark:invert-[0.88] dark:hue-rotate-180 transition-opacity duration-300"
+          />
+        ) : (
+          <button
+            type="button"
+            onClick={() => setMapLoaded(true)}
+            className="absolute inset-0 w-full h-full flex flex-col items-center justify-center gap-3 bg-transparent hover:bg-black/[0.03] dark:hover:bg-white/[0.03] transition-all duration-500 cursor-pointer group p-6 text-center select-none"
+            aria-label={`Click to open map for ${activeChamber.title}`}
+          >
+            {/* Minimal Large Pin with Ultra-Fine Stroke */}
+            <MapPin
+              strokeWidth={1.15}
+              className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 text-primary-light/35 dark:text-primary-dark/35 group-hover:text-primary-light dark:group-hover:text-primary-dark group-hover:scale-105 transition-all duration-500 ease-out"
+            />
+
+            {/* Micro Monospaced Prompt */}
+            <div className="space-y-1">
+              <span className="font-mono text-[10px] sm:text-xs tracking-[0.25em] uppercase font-bold text-primary-light/80 dark:text-primary-dark/80 group-hover:text-primary-light dark:group-hover:text-primary-dark transition-colors block">
+                Click to Open Map
+              </span>
+              <span className="font-mono text-[9px] sm:text-[10px] text-secondary-light/60 dark:text-secondary-dark/60 tracking-widest uppercase block">
+                {activeChamber.locationName}
+              </span>
+            </div>
+          </button>
+        )}
+
         <a
           href={activeChamber.mapDirectLink}
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`Open Google Map directions for ${activeChamber.title}`}
-          className="absolute bottom-4 right-4 backdrop-blur-xl bg-surface-light/90 dark:bg-surface-dark/90 border border-theme px-3.5 py-1.5 rounded-full text-[10px] sm:text-[11px] font-mono tracking-widest uppercase text-primary-light dark:text-primary-dark flex items-center gap-1.5 shadow-xl hover:bg-primary-light hover:text-surface-light dark:hover:bg-primary-dark dark:hover:text-primary-light transition-all duration-300 group-hover:scale-105 no-underline"
+          className="absolute bottom-4 right-4 backdrop-blur-xl bg-surface-light/90 dark:bg-surface-dark/90 border border-theme px-3.5 py-1.5 rounded-full text-[10px] sm:text-[11px] font-mono tracking-widest uppercase text-primary-light dark:text-primary-dark flex items-center gap-1.5 shadow-xl hover:bg-primary-light hover:text-surface-light dark:hover:bg-primary-dark dark:hover:text-primary-light transition-all duration-300 group-hover:scale-105 no-underline z-10"
         >
           <span>OPEN MAP</span>
           <ExternalLink className="w-3 h-3" />

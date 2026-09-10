@@ -1,6 +1,6 @@
 // src/components/sections/services/TaxHero.jsx
 
-import { memo } from "react";
+import { useState, useEffect, memo } from "react";
 import { motion } from "framer-motion";
 import { ShieldCheck } from "lucide-react";
 import AsciiArt from "../../ui/AsciiArt";
@@ -14,26 +14,64 @@ const fadeUp = {
   },
 };
 
+// Immediate Paint Variant for H1 (LCP Element) — opacity 1 from frame 1
+const lcpHeading = {
+  hidden: { y: 20 },
+  visible: {
+    y: 0,
+    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
 const staggerContainer = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
 };
 
 function TaxHero() {
+  const [showAscii, setShowAscii] = useState(false);
+  const [charSize, setCharSize] = useState(8);
+
+  useEffect(() => {
+    // Adaptive Density: 16px charSize on mobile cuts canvas cell calculations by 4x
+    if (typeof window !== "undefined") {
+      setCharSize(window.innerWidth < 768 ? 16 : 8);
+    }
+
+    // Deferred Execution: Mounts ASCII canvas after critical initial paint
+    const idleId = window.requestIdleCallback
+      ? window.requestIdleCallback(() => setShowAscii(true), { timeout: 800 })
+      : setTimeout(() => setShowAscii(true), 200);
+
+    return () => {
+      if (window.cancelIdleCallback) {
+        window.cancelIdleCallback(idleId);
+      } else {
+        clearTimeout(idleId);
+      }
+    };
+  }, []);
+
   return (
     <section
       className="relative w-full min-h-[72vh] md:min-h-[80vh] bg-surface-light dark:bg-surface-dark text-primary-light dark:text-primary-dark transition-colors duration-300 flex items-center justify-center overflow-hidden pt-32 md:pt-40 pb-16 md:pb-24 transform-gpu"
       style={{ contain: "paint layout" }}
     >
-      {/* High-Contrast Howrah Cantilever ASCII Background */}
-      <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
-        <AsciiArt
-          imageSrc="/images/howrah-bridge.webp"
-          charSize={8}
-          contrast={1.55}
-          threshold={0.16}
-          className="w-full h-full object-cover"
-        />
+      {/* Background ASCII Canvas (Smooth 1000ms Cross-Fade) */}
+      <div
+        className={`absolute inset-0 z-0 flex items-center justify-center pointer-events-none transition-opacity duration-1000 ease-out ${
+          showAscii ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        {showAscii && (
+          <AsciiArt
+            imageSrc="/images/howrah-bridge.webp"
+            charSize={charSize}
+            contrast={1.55}
+            threshold={0.16}
+            className="w-full h-full object-cover"
+          />
+        )}
       </div>
 
       {/* Subtle Center Readability Aura */}
@@ -57,8 +95,9 @@ function TaxHero() {
           </span>
         </motion.div>
 
+        {/* LCP Heading: Full opacity from frame 1 */}
         <motion.h1
-          variants={fadeUp}
+          variants={lcpHeading}
           className="font-serif text-5xl sm:text-7xl lg:text-8xl leading-[0.95] font-light tracking-tight text-primary-light dark:text-primary-dark max-w-4xl mx-auto mb-5 drop-shadow-[0_2px_12px_rgba(0,0,0,0.08)] dark:drop-shadow-none"
         >
           Specialized <br />

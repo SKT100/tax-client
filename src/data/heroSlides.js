@@ -1,32 +1,38 @@
+// src/data/heroSlides.js
+
 export const HERO_SLIDES = [
   {
     type: "video",
     src: "/videos/calculator.mp4",
+    poster: "/images/calculator-img.webp",
     text: "Income Tax & ITR E-Filing",
   },
   {
     type: "image",
-    src: "images/calculator-img.webp",
+    src: "/images/calculator-img.webp",
     text: "GST Compliance & Periodic Returns",
   },
   {
     type: "video",
     src: "/videos/paper.mp4",
+    poster: "/images/calculator-img.webp",
     text: "Notice Defense & Scrutiny Appeals",
   },
   {
     type: "image",
-    src: "images/laptop-img.webp",
+    src: "/images/laptop-img.webp",
     text: "TDS / TCS Advisory & Form 26AS",
   },
   {
     type: "video",
     src: "/videos/laptop.mp4",
+    poster: "/images/laptop-img.webp",
     text: "Bookkeeping on Tally & Financial Statements",
   },
   {
     type: "video",
     src: "/videos/window.mp4",
+    poster: "/images/calculator-img.webp",
     text: "MSME, Trade Licences & Business Registrations",
   },
 ];

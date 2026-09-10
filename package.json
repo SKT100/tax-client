@@ -18,6 +18,7 @@
     "puppeteer": "^25.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-helmet-async": "^3.0.0",
     "react-router-dom": "^7.18.2",
     "tailwind-merge": "^3.6.0"
   },
@@ -27,6 +28,7 @@
     "postcss": "^8.4.40",
     "sharp": "^0.35.4",
     "tailwindcss": "^3.4.7",
-    "vite": "^6.4.3"
+    "vite": "^6.4.3",
+    "docx": "^9.7.1"
   }
 }

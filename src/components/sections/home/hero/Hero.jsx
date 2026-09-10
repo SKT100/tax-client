@@ -16,7 +16,7 @@ import HeroContent from "./HeroContent";
 import HeroLandmarkCard from "./HeroLandmarkCard";
 import HeroCursorBadge from "./HeroCursorBadge";
 
-const AUTO_EXPAND_DELAY = 5500; // 5.5s idle interval
+const AUTO_EXPAND_DELAY = 5500;
 
 export default function Hero() {
   const targetRef = useRef(null);
@@ -26,8 +26,8 @@ export default function Hero() {
   const [isExpanding, setIsExpanding] = useState(false);
   const [isHoveringHero, setIsHoveringHero] = useState(false);
   const [isOverUI, setIsOverUI] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Synchronous refs to prevent animation race conditions
   const isExpandingRef = useRef(false);
   const isHoveringHeroRef = useRef(false);
   const isOverUIRef = useRef(false);
@@ -36,6 +36,18 @@ export default function Hero() {
   const mouseY = useMotionValue(-500);
   const radius = useMotionValue(0);
   const lensClipPath = useMotionTemplate`circle(${radius}px at ${mouseX}px ${mouseY}px)`;
+
+  // Mobile & Touch Device Detector
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobileQuery = window.matchMedia("(max-width: 767px), (hover: none) and (pointer: coarse)");
+      setIsMobile(mobileQuery.matches);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     isExpandingRef.current = isExpanding;
@@ -48,14 +60,26 @@ export default function Hero() {
       ? (index - 1 + HERO_SLIDES.length) % HERO_SLIDES.length
       : (index + 1) % HERO_SLIDES.length;
 
-  // Unified circular expansion trigger
   const triggerTransition = useCallback(
     (targetIdx, origin) => {
       if (isExpandingRef.current) return;
+
+      // Mobile: Instant crossfade without animating circle clip-path
+      if (isMobile) {
+        setIsExpanding(true);
+        isExpandingRef.current = true;
+        setIndex(targetIdx);
+        setTimeout(() => {
+          setIsExpanding(false);
+          isExpandingRef.current = false;
+        }, 500);
+        return;
+      }
+
+      // Desktop: Circular Lens Expansion
       isExpandingRef.current = true;
       setIsExpanding(true);
 
-      // If expanding without an active cursor (mouse outside), expand from center
       if (origin) {
         mouseX.set(origin.x);
         mouseY.set(origin.y);
@@ -70,18 +94,19 @@ export default function Hero() {
           setIsExpanding(false);
           isExpandingRef.current = false;
 
-          // If user is actively hovering over the hero, smoothly restore the 100px lens
           if (isHoveringHeroRef.current && !isOverUIRef.current) {
             animate(radius, 100, { duration: 0.35, ease: "easeOut" });
           }
         },
       });
     },
-    [mouseX, mouseY, radius]
+    [mouseX, mouseY, radius, isMobile]
   );
 
-  // Mouse coordinate and interactive boundary tracker
+  // Pointer Tracker (Desktop Only)
   useEffect(() => {
+    if (isMobile) return;
+
     let lastX = -500;
     let lastY = -500;
     let currentZone = ZONE.OUTSIDE;
@@ -153,17 +178,15 @@ export default function Hero() {
       document.removeEventListener("mouseout", handleWindowMouseLeave);
       if (rAF) cancelAnimationFrame(rAF);
     };
-  }, [radius, mouseX, mouseY]);
+  }, [radius, mouseX, mouseY, isMobile]);
 
-  // Manual click trigger
   const handleHeroClick = (e) => {
-    if (isExpanding || !isHoveringHero || isOverUI) return;
+    if (isExpanding || (!isMobile && (!isHoveringHero || isOverUI))) return;
     if (e.target.closest("button, a, [data-interactive]")) return;
 
     triggerTransition(nextIndex, null);
   };
 
-  // 5.5-second idle auto-expansion
   useEffect(() => {
     if (isExpanding || isOverUI) return;
 
@@ -195,7 +218,8 @@ export default function Hero() {
     mass: 0.5,
   });
   const borderRadius = useTransform(smoothBorderRadius, (val) => `${val}px`);
-  const showCustomCursor = isHoveringHero && !isOverUI && !isExpanding;
+
+  const showCustomCursor = !isMobile && isHoveringHero && !isOverUI && !isExpanding;
 
   return (
     <section
@@ -217,6 +241,7 @@ export default function Hero() {
             isHoveringHero={isHoveringHero}
             isExpanding={isExpanding}
             lensClipPath={lensClipPath}
+            isMobile={isMobile}
           />
           <div className="absolute inset-0 bg-black/45 z-20 pointer-events-none" />
           <HeroContent index={index} />

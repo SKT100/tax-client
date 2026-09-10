@@ -3,7 +3,7 @@
 import { useRef, memo } from "react";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { MapPin, Clock, Phone, Mail, ArrowUpRight } from "lucide-react";
+import { MapPin, Clock, Phone, Mail, ArrowUpRight, Download } from "lucide-react";
 import PillButton from "../ui/PillButton";
 import { SITE_CONFIG } from "../../data/siteConfig";
 
@@ -126,8 +126,8 @@ function Footer() {
           variants={staggerContainer}
         >
           {/* Column 1: Brand & Principal (4 Cols) */}
-          <motion.div variants={staggerItem} className="lg:col-span-4 pr-2">
-            <Link to="/" className="inline-block mb-4">
+          <motion.div variants={staggerItem} className="lg:col-span-4 pr-2 space-y-4">
+            <Link to="/" className="inline-block">
               <img
                 src="/images/Matrix-tax-logo.svg"
                 alt={SITE_CONFIG.firm.name}
@@ -141,6 +141,23 @@ function Footer() {
             <p className="text-white/70 text-xs sm:text-sm font-body font-light leading-relaxed">
               {SITE_CONFIG.principal.name} • {SITE_CONFIG.principal.designation}. Providing trusted statutory income tax filings, GST lifecycle compliance, notice defense, and business licensing.
             </p>
+
+            {/* Persistent PDF Download Trigger */}
+            <div className="pt-1">
+              <PillButton
+                href="/docs/Matrix_Tax_Compliance_Brief.pdf"
+                download="Matrix_Tax_Compliance_Brief.pdf"
+                variant="custom"
+                bgClass="bg-white shadow-2xl"
+                borderClass="border border-white"
+                fillClass="bg-slate-950"
+                hoverTextClass="text-slate-950 group-hover:text-white"
+                className="text-[10px] sm:text-[11px] py-2 px-4 border-white/20 text-white/90 hover:text-white hover:border-white/50"
+              >
+                <Download className="w-3.5 h-3.5 shrink-0" />
+                <span>Compliance Brief (PDF)</span>
+              </PillButton>
+            </div>
           </motion.div>
 
           {/* Column 2: Quick Links (2 Cols) */}

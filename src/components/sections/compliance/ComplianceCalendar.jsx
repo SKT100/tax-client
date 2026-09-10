@@ -12,6 +12,7 @@ import {
   Users2,
   Layers,
   Building2,
+  Download,
 } from "lucide-react";
 import {
   COMPLIANCE_CATEGORIES,
@@ -84,26 +85,36 @@ export default function ComplianceCalendar() {
   return (
     <section
       id="compliance-calendar"
-      className="relative z-10 w-full py-16 sm:py-24 md:py-32"
+      className="relative z-10 w-full pt-6 sm:pt-8 md:pt-10 pb-16 sm:pb-20"
     >
       <div className="max-w-container-max-width mx-auto px-margin-mobile md:px-margin-desktop">
         
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 md:mb-14 gap-6 pb-6 border-b border-theme">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="font-mono text-[10px] sm:text-xs font-bold tracking-[0.25em] uppercase text-secondary-light dark:text-secondary-dark">
-                STATUTORY DUE DATE CALENDAR • FY 2026-27
-              </span>
-            </div>
-            <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-light text-primary-light dark:text-primary-dark tracking-tight leading-tight">
-              Compliance <span className="italic font-light opacity-90">Deadlines</span>
-            </h2>
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="font-mono text-xs tracking-widest uppercase text-secondary-light dark:text-secondary-dark font-bold">
-              {filteredDirectives.length} ACTIVE STATUTORY CUTOFFS
+        {/* Standardized Hero Header */}
+        <div className="text-center max-w-4xl mx-auto space-y-4 mb-10 sm:mb-14">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <span className="font-mono text-[10px] sm:text-xs tracking-[0.25em] uppercase text-secondary-light dark:text-secondary-dark font-bold">
+              STATUTORY DUE DATE CALENDAR • FY 2026-27
             </span>
+          </div>
+          <h2 className="font-serif text-5xl sm:text-7xl lg:text-8xl leading-[0.95] font-light tracking-tight text-primary-light dark:text-primary-dark max-w-4xl mx-auto mb-3">
+            Compliance <br />
+            <span className="italic font-light opacity-90">Deadlines</span>
+          </h2>
+          <p className="font-body font-light text-base md:text-lg text-secondary-light dark:text-secondary-dark max-w-2xl mx-auto leading-relaxed">
+            Real-time statutory filing tracking for CBDT Income Tax, CBIC GST Returns, TRACES TDS cutoffs, and West Bengal P-Tax compliance.
+          </p>
+
+          {/* Hero PDF Download Button */}
+          <div className="flex items-center justify-center pt-2">
+            <PillButton
+              href="/docs/Matrix_Tax_Compliance_Brief.pdf"
+              download="Matrix_Tax_Compliance_Brief.pdf"
+              variant="auto"
+              className="text-xs py-2.5 px-6 shadow-xl"
+            >
+              <span>Download Compliance Brief (PDF)</span>
+              <Download className="w-3.5 h-3.5 shrink-0" />
+            </PillButton>
           </div>
         </div>
 
@@ -222,19 +233,30 @@ export default function ComplianceCalendar() {
           <div className="p-6 bg-black/[0.02] dark:bg-white/[0.02] border-t border-theme flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <ShieldCheck className="w-5 h-5 text-primary-light dark:text-primary-dark shrink-0" />
-              <p className="font-body text-xs text-secondary-light dark:text-secondary-dark">
+              <p className="font-body text-xs text-secondary-light dark:text-secondary-dark max-w-xl">
                 Statutory cutoffs are periodically updated in accordance with CBDT, CBIC &amp; West Bengal Departmental Notifications.
               </p>
             </div>
-            <a
-              href={`https://wa.me/${rawContactNumber}?text=${encodeURIComponent("Requesting Annual Statutory Tax Calendar Brief for our enterprise.")}`}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Request custom corporate calendar on WhatsApp"
-              className="font-mono text-xs uppercase tracking-wider underline text-primary-light dark:text-primary-dark whitespace-nowrap hover:opacity-80 transition-opacity"
-            >
-              Get Custom Corporate Calendar
-            </a>
+            <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto shrink-0">
+              <PillButton
+                href="/docs/Matrix_Tax_Compliance_Brief.pdf"
+                download="Matrix_Tax_Compliance_Brief.pdf"
+                variant="outline"
+                className="w-full sm:w-auto text-[11px] py-2.5 px-4"
+              >
+                <Download className="w-3.5 h-3.5 shrink-0" />
+                <span>Download Brief (PDF)</span>
+              </PillButton>
+              <a
+                href={`https://wa.me/${rawContactNumber}?text=${encodeURIComponent("Requesting Annual Statutory Tax Calendar Brief for our enterprise.")}`}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Request custom corporate calendar on WhatsApp"
+                className="font-mono text-xs uppercase tracking-wider underline text-primary-light dark:text-primary-dark whitespace-nowrap hover:opacity-80 transition-opacity"
+              >
+                Custom Calendar
+              </a>
+            </div>
           </div>
         </div>
 

@@ -3,7 +3,6 @@
 import { useEffect, useRef, memo } from "react";
 import { useScroll } from "framer-motion";
 
-// Bengali Statutory Maxims with Four-Point Star (✦) Dividers
 const BENGALI_STATUTORY_MOTTO =
   "ন্যায্য করদান ও বিধিবদ্ধ দায়বদ্ধতা ✦ রাজস্ব দেশের মেরুদণ্ড ও প্রগতির ভিত্তি ✦ সত্য ও নিষ্ঠার সহিত আর্থিক সমৃদ্ধি ✦ যথাকালে সঠিক কর পরিশোধই উন্নতির চাবিকাঠি ✦ স্বচ্ছ হিসাব ও সুদৃঢ় আইনি প্রতিরক্ষা ✦ সততাই সর্বোত্তম নীতি ও আস্থার প্রতীক ✦ ধর্মেণ সংহৃতং দ্রব্যং প্রজাকল্যাণে যুজ্যতে ✦ ";
 
@@ -13,7 +12,6 @@ const FONT_FAMILY =
 const DESIGN_W = 1440;
 const DESIGN_H = 5000;
 
-// Start & Placement Coordinates (Starting at Y: 560)
 const CURVE_POINTS = [
   { x: -140, y: 560 },
   { cp1x: -40, cp1y: 530, cp2x: 80, cp2y: 590, x: 200, y: 550 },
@@ -148,11 +146,11 @@ function PracticeScrollThread({ containerRef }) {
   const dimensionsRef = useRef({ width: 0, viewportH: 0, fontSize: 14.5, dpr: 1 });
   const anchorHeightRef = useRef(0);
 
-  const { scrollYProgress } = useScroll(
-    containerRef?.current
-      ? { target: containerRef, offset: ["start start", "end end"] }
-      : { offset: ["start start", "end end"] }
-  );
+  // Directly pass containerRef so Framer Motion internal listener attaches accurately
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
 
   const measureDocTop = () => {
     if (!containerRef?.current) return;
@@ -161,7 +159,7 @@ function PracticeScrollThread({ containerRef }) {
   };
 
   const rebuildCanvasData = () => {
-    if (window.innerWidth < 768) return; // Bypass on mobile
+    if (window.innerWidth < 768) return;
 
     const canvas = canvasRef.current;
     const container = containerRef?.current || document.body;
@@ -275,9 +273,6 @@ function PracticeScrollThread({ containerRef }) {
         ? "rgba(212, 175, 55, 0.22)"
         : "rgba(180, 130, 20, 0.26)";
       const litColor = isDark ? "#FBBF24" : "#D97706";
-      const litShadow = isDark
-        ? "rgba(251, 191, 36, 0.65)"
-        : "rgba(217, 119, 6, 0.45)";
 
       const dimGlyphs = [];
       const litGlyphs = [];
@@ -297,7 +292,6 @@ function PracticeScrollThread({ containerRef }) {
 
       // Draw Dim Base Track
       ctx.fillStyle = dimColor;
-      ctx.shadowBlur = 0;
       for (let i = 0; i < dimGlyphs.length; i++) {
         const { g, screenY } = dimGlyphs[i];
         ctx.save();
@@ -307,10 +301,8 @@ function PracticeScrollThread({ containerRef }) {
         ctx.restore();
       }
 
-      // Draw Illuminated Overlay
+      // Draw Illuminated Overlay (No Canvas Shadow Blur)
       ctx.fillStyle = litColor;
-      ctx.shadowColor = litShadow;
-      ctx.shadowBlur = isDark ? 6 : 3;
       for (let i = 0; i < litGlyphs.length; i++) {
         const { g, screenY } = litGlyphs[i];
         ctx.save();
@@ -319,7 +311,6 @@ function PracticeScrollThread({ containerRef }) {
         ctx.fillText(g.ch, 0, 0);
         ctx.restore();
       }
-      ctx.shadowBlur = 0;
     };
 
     rafRef.current = requestAnimationFrame(tick);

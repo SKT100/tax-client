@@ -28,7 +28,7 @@
 /*.ico
   Cache-Control: public, max-age=31536000, immutable
 
-# 5. Dynamic HTML & CMS Data (Prevents Stale Cache on New Deploys)
+# 5. Dynamic HTML, SEO Crawl Files & CMS Data
 /index.html
   Cache-Control: public, max-age=0, must-revalidate
 
@@ -36,4 +36,12 @@
   Cache-Control: public, max-age=0, must-revalidate
 
 /*.json
+  Cache-Control: public, max-age=0, must-revalidate
+
+/sitemap.xml
+  Content-Type: application/xml; charset=utf-8
+  Cache-Control: public, max-age=0, must-revalidate
+
+/robots.txt
+  Content-Type: text/plain; charset=utf-8
   Cache-Control: public, max-age=0, must-revalidate

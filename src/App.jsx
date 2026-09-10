@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import Lenis from 'lenis';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
@@ -13,12 +14,19 @@ const About = lazy(() => import('./pages/About'));
 const Services = lazy(() => import('./pages/Services'));
 const Compliance = lazy(() => import('./pages/Compliance'));
 const Locations = lazy(() => import('./pages/Locations'));
+const LocationCity = lazy(() => import('./pages/LocationCity'));
 const Schedule = lazy(() => import('./pages/Schedule'));
 const Blog = lazy(() => import('./pages/Blog'));
 const Terms = lazy(() => import('./pages/Terms'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const Disclaimer = lazy(() => import('./pages/Disclaimer'));
 const NotFound = lazy(() => import('./pages/NotFound'));
+
+// Tuned timing constants
+const COUNT_DURATION = 320;      // Fixed rAF fill duration
+const OPEN_PAUSE = 40;           // Brief beat before curtain starts opening
+const CURTAIN_DURATION = 500;    // Curtain animation duration
+const SAFETY_TIMEOUT = 900;      // Fallback timeout
 
 function AppContent() {
   const navigate = useNavigate();
@@ -30,21 +38,25 @@ function AppContent() {
 
   const runCounter = useCallback((onFinish) => {
     setProgress(0);
-    let current = 0;
-    const interval = setInterval(() => {
-      const step = current > 75 ? Math.floor(Math.random() * 8) + 6 : Math.floor(Math.random() * 6) + 4;
-      current = Math.min(current + step, 100);
-      setProgress(current);
+    const start = performance.now();
+    let rafId = null;
 
-      if (current >= 100) {
-        clearInterval(interval);
-        setTimeout(() => {
-          if (onFinish) onFinish();
-        }, 120);
+    const tick = (now) => {
+      const elapsed = now - start;
+      const pct = Math.min(Math.round((elapsed / COUNT_DURATION) * 100), 100);
+      setProgress(pct);
+
+      if (pct < 100) {
+        rafId = requestAnimationFrame(tick);
+      } else if (onFinish) {
+        onFinish();
       }
-    }, 20);
+    };
 
-    return () => clearInterval(interval);
+    rafId = requestAnimationFrame(tick);
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   useEffect(() => {
@@ -52,12 +64,12 @@ function AppContent() {
       setStage('opening');
       setTimeout(() => {
         setStage('idle');
-      }, 700);
+      }, CURTAIN_DURATION);
     });
 
     const safetyTimeout = setTimeout(() => {
       setStage('idle');
-    }, 1500);
+    }, SAFETY_TIMEOUT);
 
     return () => {
       cleanup();
@@ -86,9 +98,9 @@ function AppContent() {
         setTimeout(() => {
           setStage('idle');
           isTransitioningRef.current = false;
-        }, 700);
+        }, CURTAIN_DURATION);
       });
-    }, 450);
+    }, OPEN_PAUSE + 260);
   }, [location.pathname, location.search, navigate, runCounter]);
 
   useEffect(() => {
@@ -140,11 +152,12 @@ function AppContent() {
               <Route path="/compliance" element={<Compliance />} />
               <Route path="/due-dates" element={<Compliance />} />
               <Route path="/locations" element={<Locations />} />
+              <Route path="/locations/:citySlug" element={<LocationCity />} />
               <Route path="/chambers" element={<Locations />} />
               <Route path="/insights" element={<Blog />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/schedule" element={<Schedule />} />
-              
+
               {/* Legal & Statutory Pages */}
               <Route path="/terms" element={<Terms />} />
               <Route path="/privacy" element={<Privacy />} />
@@ -173,9 +186,15 @@ export default function App() {
     }
   }, []);
 
+  // Optimized Lenis Smooth Scroll Instantiation
   useEffect(() => {
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (isTouchDevice || prefersReducedMotion) return;
+
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
       wheelMultiplier: 1.1,
@@ -185,24 +204,36 @@ export default function App() {
     window.lenis = lenis;
 
     let rafId = null;
-
     function raf(time) {
       lenis.raf(time);
       rafId = requestAnimationFrame(raf);
     }
-
     rafId = requestAnimationFrame(raf);
+
+    // Native Lenis stop/start on tab visibility toggle
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        lenis.stop();
+      } else {
+        lenis.start();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
       if (rafId) cancelAnimationFrame(rafId);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.lenis = null;
       lenis.destroy();
     };
   }, []);
 
   return (
-    <BrowserRouter>
-      <AppContent />
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <AppContent />
+      </BrowserRouter>
+    </HelmetProvider>
   );
 }

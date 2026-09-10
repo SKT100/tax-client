@@ -1,6 +1,7 @@
 // src/pages/Schedule.jsx
 
 import { memo } from "react";
+import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import {
   Phone,
@@ -13,6 +14,8 @@ import TaxScheduler from "../components/sections/consultation/TaxScheduler";
 import ChamberMapCard from "../components/ui/ChamberMapCard";
 import FAQSection from "../components/sections/shared/FAQSection";
 import { SITE_CONFIG } from "../data/siteConfig";
+
+
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -91,11 +94,20 @@ function WhatsAppIcon({ className = "w-3.5 h-3.5" }) {
 
 function Schedule() {
   const whatsappNumber = (
-    SITE_CONFIG?.contact?.phoneRaw || "919007064088"
+    SITE_CONFIG?.contact?.phoneRaw || "917439219943"
   ).replace("+", "");
 
   return (
     <div className="relative bg-surface-light dark:bg-surface-dark text-primary-light dark:text-primary-dark transition-colors duration-300 min-h-screen">
+      <Helmet>
+        <title>Schedule Tax Consultation | Matrix Tax Solutions</title>
+        <meta
+          name="description"
+          content="Book an in-person chamber consultation or virtual advisory session with Principal Consultant Partha Pratim Halder."
+        />
+        <link rel="canonical" href="https://matrixtaxx.com/schedule" />
+      </Helmet>
+
       <main className="relative z-10 w-full pt-8 sm:pt-12 md:pt-16 pb-16 sm:pb-24">
         <div className="max-w-container-max-width mx-auto px-margin-mobile md:px-margin-desktop space-y-16 sm:space-y-24">
 
@@ -150,7 +162,7 @@ function Schedule() {
                 <div className="pt-1">
                   <a
                     href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-                      "*URGENT STATUTORY NOTICE DEFENSE*\n------------------------\nI have received a time-sensitive notice and require immediate assistance."
+                      "*URGENT!!*\n------------------------\nI have received a time-sensitive notice and require immediate assistance."
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"

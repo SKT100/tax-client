@@ -64,7 +64,7 @@ export default function ComplianceVault() {
     <div id="compliance-vault" ref={trackRef} className="relative h-[280vh] md:h-[300vh] w-full">
       {/* Sticky Stage */}
       <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden z-20">
-        
+
         {/* Inverted Card Structure */}
         <motion.div
           style={{
@@ -91,9 +91,9 @@ export default function ComplianceVault() {
 
           {/* Vault Inner Workspace */}
           <div className="relative z-20 w-full h-full flex flex-col justify-between px-4 sm:px-8 md:px-16 pt-20 sm:pt-24 md:pt-28 pb-6 sm:pb-8 md:pb-12 max-w-5xl mx-auto">
-            
+
             <div className="w-full flex flex-col justify-start">
-              
+
               {/* Header */}
               <motion.div
                 style={{
@@ -105,7 +105,7 @@ export default function ComplianceVault() {
                 <span className="font-mono font-bold text-[9px] sm:text-xs tracking-[0.25em] uppercase text-white/60 dark:text-secondary-light block mb-1.5">
                   INSTITUTIONAL TRUST
                 </span>
-                
+
                 <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white dark:text-primary-light leading-tight tracking-tight">
                   The Tax &amp; Compliance Vault
                 </h2>
@@ -131,11 +131,10 @@ export default function ComplianceVault() {
                       key={cat.category}
                       type="button"
                       onClick={() => setActiveTab(cat.category)}
-                      className={`px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-full font-mono font-semibold text-[10px] sm:text-[11px] md:text-xs tracking-wider uppercase transition-all duration-300 border active:scale-95 cursor-pointer ${
-                        isActive
-                          ? "bg-white text-slate-950 border-white shadow-md dark:bg-primary-light dark:text-surface-light dark:border-primary-light"
-                          : "bg-white/[0.05] border-white/10 text-white/70 hover:text-white hover:bg-white/[0.1] hover:border-white/25 dark:bg-black/[0.04] dark:border-black/10 dark:text-secondary-light dark:hover:text-primary-light dark:hover:bg-black/[0.08] dark:hover:border-black/25"
-                      }`}
+                      className={`px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-full font-mono font-semibold text-[10px] sm:text-[11px] md:text-xs tracking-wider uppercase transition-all duration-300 border active:scale-95 cursor-pointer ${isActive
+                        ? "bg-white text-slate-950 border-white shadow-md dark:bg-primary-light dark:text-surface-light dark:border-primary-light"
+                        : "bg-white/[0.05] border-white/10 text-white/70 hover:text-white hover:bg-white/[0.1] hover:border-white/25 dark:bg-black/[0.04] dark:border-black/10 dark:text-secondary-light dark:hover:text-primary-light dark:hover:bg-black/[0.08] dark:hover:border-black/25"
+                        }`}
                     >
                       {cat.category}
                     </button>
@@ -163,9 +162,8 @@ export default function ComplianceVault() {
                     {activeCategory?.items.map((item, idx) => (
                       <div
                         key={idx}
-                        className={`p-2.5 sm:p-3.5 md:p-4 bg-white/[0.06] dark:bg-black/[0.04] rounded-lg sm:rounded-xl border border-white/10 dark:border-black/10 items-center shadow-sm hover:border-white/30 dark:hover:border-black/30 hover:bg-white/[0.1] dark:hover:bg-black/[0.08] transition-all min-h-[42px] sm:min-h-[50px] md:min-h-[58px] ${
-                          idx >= 7 ? "hidden sm:flex" : "flex"
-                        }`}
+                        className={`p-2.5 sm:p-3.5 md:p-4 bg-white/[0.06] dark:bg-black/[0.04] rounded-lg sm:rounded-xl border border-white/10 dark:border-black/10 items-center shadow-sm hover:border-white/30 dark:hover:border-black/30 hover:bg-white/[0.1] dark:hover:bg-black/[0.08] transition-all min-h-[42px] sm:min-h-[50px] md:min-h-[58px] ${idx >= 7 ? "hidden sm:flex" : "flex"
+                          }`}
                       >
                         <h3 className="font-body font-normal text-xs sm:text-sm text-white/90 dark:text-primary-light leading-snug">
                           {item}
@@ -198,7 +196,7 @@ export default function ComplianceVault() {
                 <FileText className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-white dark:text-primary-light shrink-0 hidden xs:block" />
                 <div>
                   <h3 className="font-serif text-sm sm:text-lg md:text-xl font-light text-white dark:text-primary-light leading-tight">
-                    Download Tax Compliance Checklist &amp; Fee Structure
+                    Download Tax Compliance Checklist
                   </h3>
                   <p className="font-body font-light text-[10px] sm:text-xs text-white/60 dark:text-secondary-light hidden sm:block">
                     Complete official brief featuring statutory filing schedules and documentation guidelines
@@ -206,25 +204,22 @@ export default function ComplianceVault() {
                 </div>
               </div>
 
-              <a
-                href="/docs/Matrix_Tax_Compliance_Checklist.pdf"
-                download="Matrix_Tax_Compliance_Checklist.pdf"
-                className="shrink-0 w-full sm:w-auto no-underline"
+              {/* Replace lines 218-237 in ComplianceVault.jsx */}
+              <PillButton
+                href="/docs/Matrix_Tax_Compliance_Brief.pdf"
+                download="Matrix_Tax_Compliance_Brief.pdf"
+                variant="custom"
+                bgClass="bg-white text-slate-950 dark:bg-slate-950 dark:text-white shadow-md"
+                borderClass="border border-white dark:border-slate-950"
+                fillClass="bg-slate-950 dark:bg-white"
+                hoverTextClass="text-slate-950 group-hover:text-white dark:text-white dark:group-hover:text-slate-950"
+                className="w-full sm:w-auto justify-center text-xs py-2.5 px-5 sm:py-3 sm:px-6 shadow-md"
               >
-                <PillButton
-                  variant="custom"
-                  bgClass="bg-white text-slate-950 dark:bg-slate-950 dark:text-white shadow-md"
-                  borderClass="border border-white dark:border-slate-950"
-                  fillClass="bg-slate-950 dark:bg-white"
-                  hoverTextClass="text-slate-950 group-hover:text-white dark:text-white dark:group-hover:text-slate-950"
-                  className="w-full sm:w-auto justify-center text-xs py-2.5 px-5 sm:py-3 sm:px-6 shadow-md"
-                >
-                  <span className="flex items-center gap-2">
-                    <span>Download PDF</span>
-                    <Download className="w-3.5 h-3.5" />
-                  </span>
-                </PillButton>
-              </a>
+                <span className="flex items-center gap-2">
+                  <span>Download PDF</span>
+                  <Download className="w-3.5 h-3.5" />
+                </span>
+              </PillButton>
             </motion.div>
 
           </div>

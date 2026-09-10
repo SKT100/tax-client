@@ -44,15 +44,17 @@ function LoadingScreen({ stage, progress }) {
   const isClosed = stage === "closing" || stage === "counting" || stage === "initial";
   const showContent = stage === "counting" || stage === "initial";
 
+  // Curtain durations tightened: 0.85s/0.45s -> 0.5s/0.35s.
+  // Same wipe motion, same easing curve, just doesn't linger.
   return (
     <div className="fixed inset-0 z-[9999] pointer-events-auto select-none overflow-hidden font-sans">
-      
-      {/* 1. TOP HALF CURTAIN (Border removed to prevent double line) */}
+
+      {/* 1. TOP HALF CURTAIN */}
       <motion.div
         initial={{ y: stage === "initial" ? "0%" : "-100%" }}
         animate={{ y: isClosed ? "0%" : "-100%" }}
         transition={{
-          duration: stage === "closing" ? 0.45 : 0.85,
+          duration: stage === "closing" ? 0.35 : 0.5,
           ease: curtainEase,
         }}
         className={`absolute top-0 left-0 right-0 h-[50vh] ${bgClass} z-20 flex flex-col justify-between p-8 md:p-14 transform-gpu will-change-transform`}
@@ -63,7 +65,7 @@ function LoadingScreen({ stage, progress }) {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.15 }}
               className="flex items-center w-full"
             >
               <img
@@ -78,14 +80,14 @@ function LoadingScreen({ stage, progress }) {
         </AnimatePresence>
       </motion.div>
 
-      {/* 2. UNIFIED CENTER SEAM PROGRESS TRACK (Single 2px line) */}
+      {/* 2. UNIFIED CENTER SEAM PROGRESS TRACK */}
       <AnimatePresence>
         {showContent && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, scaleY: 0 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
+            transition={{ duration: 0.15, ease: "easeOut" }}
             className="absolute top-1/2 -translate-y-1/2 left-0 right-0 z-30 pointer-events-none w-full"
           >
             <div className={`w-full h-[2px] ${barTrackClass} relative overflow-hidden`}>
@@ -94,7 +96,7 @@ function LoadingScreen({ stage, progress }) {
                 initial={{ width: "0%" }}
                 animate={{ width: `${progress}%` }}
                 transition={{
-                  duration: 0.2,
+                  duration: 0.12,
                   ease: [0.25, 1, 0.5, 1],
                 }}
               />
@@ -103,12 +105,12 @@ function LoadingScreen({ stage, progress }) {
         )}
       </AnimatePresence>
 
-      {/* 3. BOTTOM HALF CURTAIN (Border removed to prevent double line) */}
+      {/* 3. BOTTOM HALF CURTAIN */}
       <motion.div
         initial={{ y: stage === "initial" ? "0%" : "100%" }}
         animate={{ y: isClosed ? "0%" : "100%" }}
         transition={{
-          duration: stage === "closing" ? 0.45 : 0.85,
+          duration: stage === "closing" ? 0.35 : 0.5,
           ease: curtainEase,
         }}
         className={`absolute bottom-0 left-0 right-0 h-[50vh] ${bgClass} flex items-end justify-between p-8 md:p-14 z-20 transform-gpu will-change-transform`}
@@ -119,7 +121,7 @@ function LoadingScreen({ stage, progress }) {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 12 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.15 }}
               className={`font-mono text-[10px] sm:text-xs tracking-[0.2em] uppercase ${mottoSubtextClass} hidden sm:flex flex-col gap-1`}
             >
               <span>ন্যায্য করদান • বিধিবদ্ধ দায়বদ্ধতা</span>
@@ -134,7 +136,7 @@ function LoadingScreen({ stage, progress }) {
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.96 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.15 }}
               className="flex items-baseline gap-1.5 font-serif leading-none ml-auto text-primary-light dark:text-primary-dark"
             >
               <span className="text-7xl sm:text-9xl md:text-[10.5rem] font-light tracking-tighter tabular-nums">

@@ -2,8 +2,9 @@
 
 import { useState, useEffect, memo } from "react";
 import Cal, { getCalApi } from "@calcom/embed-react";
-import { ArrowRight, Phone, MessageSquare } from "lucide-react";
+import { ArrowRight, Phone, MessageSquare, Download, FileText } from "lucide-react";
 import { SITE_CONFIG } from "../../../data/siteConfig";
+import PillButton from "../../ui/PillButton";
 
 function TaxScheduler() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -42,59 +43,89 @@ function TaxScheduler() {
   }, [isLoaded, calLink]);
 
   return (
-    <div
-      id="tax-scheduler-frame"
-      className="glass-card rounded-3xl border border-theme p-4 sm:p-6 shadow-2xl overflow-hidden min-h-[580px] flex flex-col justify-center"
-    >
-      {isLoaded && calLink ? (
-        <Cal
-          calLink={calLink}
-          title="Matrix Tax Solutions Appointment Booking Calendar"
-          style={{ width: "100%", height: "100%", minHeight: "560px", overflow: "auto" }}
-          config={{ layout: "month_view", theme: "dark" }}
-        />
-      ) : isLoaded && !calLink ? (
-        <div className="flex flex-col items-center justify-center space-y-5 py-16 text-center max-w-md mx-auto px-4">
-          <div className="w-12 h-12 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-500">
-            <MessageSquare className="w-6 h-6" />
+    <div className="space-y-4 w-full">
+      {/* Pre-Consultation Preparation Banner */}
+      <div className="glass-card rounded-2xl border border-theme p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-500 shrink-0">
+            <FileText className="w-4 h-4" />
           </div>
-          <div className="space-y-2">
-            <h3 className="font-serif text-2xl font-light text-primary-light dark:text-primary-dark">
-              Direct Chamber Booking
-            </h3>
-            <p className="font-body text-xs text-secondary-light dark:text-secondary-dark leading-relaxed">
-              Schedule your 1-on-1 direct tax or GST consultation directly with the principal desk via WhatsApp or direct chamber phone.
+          <div>
+            <h4 className="font-serif text-sm sm:text-base font-light text-primary-light dark:text-primary-dark">
+              Preparing for your advisory session?
+            </h4>
+            <p className="font-body text-xs text-secondary-light dark:text-secondary-dark">
+              Download our official statutory document checklist before confirming your slot.
             </p>
           </div>
-          <div className="flex flex-col sm:flex-row gap-3 w-full pt-2">
-            <a
-              href={SITE_CONFIG.contact.whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Book consultation via WhatsApp"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-xs font-mono font-bold tracking-widest uppercase bg-emerald-600 text-white shadow-md hover:bg-emerald-700 transition-all no-underline w-full"
-            >
-              <span>WhatsApp Booking</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </a>
-            <a
-              href={`tel:${SITE_CONFIG.contact.phoneRaw}`}
-              aria-label={`Call Chambers at ${SITE_CONFIG.contact.phone}`}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-xs font-mono font-bold tracking-widest uppercase border border-theme text-primary-light dark:text-primary-dark hover:bg-black/5 dark:hover:bg-white/5 transition-all no-underline w-full"
-            >
-              <Phone className="w-3.5 h-3.5" />
-              <span>Call Desk</span>
-            </a>
+        </div>
+
+        <PillButton
+          href="/docs/Matrix_Tax_Compliance_Brief.pdf"
+          download="Matrix_Tax_Compliance_Brief.pdf"
+          variant="outline"
+          className="text-[11px] py-2 px-4 shrink-0 w-full sm:w-auto justify-center"
+        >
+          <Download className="w-3.5 h-3.5 shrink-0" />
+          <span>Document Checklist (PDF)</span>
+        </PillButton>
+      </div>
+
+      {/* Main Calendar Frame */}
+      <div
+        id="tax-scheduler-frame"
+        className="glass-card rounded-3xl border border-theme p-4 sm:p-6 shadow-2xl overflow-hidden min-h-[580px] flex flex-col justify-center"
+      >
+        {isLoaded && calLink ? (
+          <Cal
+            calLink={calLink}
+            title="Matrix Tax Solutions Appointment Booking Calendar"
+            style={{ width: "100%", height: "100%", minHeight: "560px", overflow: "auto" }}
+            config={{ layout: "month_view", theme: "dark" }}
+          />
+        ) : isLoaded && !calLink ? (
+          <div className="flex flex-col items-center justify-center space-y-5 py-16 text-center max-w-md mx-auto px-4">
+            <div className="w-12 h-12 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-500">
+              <MessageSquare className="w-6 h-6" />
+            </div>
+            <div className="space-y-2">
+              <h3 className="font-serif text-2xl font-light text-primary-light dark:text-primary-dark">
+                Direct Chamber Booking
+              </h3>
+              <p className="font-body text-xs text-secondary-light dark:text-secondary-dark leading-relaxed">
+                Schedule your 1-on-1 direct tax or GST consultation directly with the principal desk via WhatsApp or direct chamber phone.
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3 w-full pt-2">
+              <a
+                href={SITE_CONFIG.contact.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Book consultation via WhatsApp"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-xs font-mono font-bold tracking-widest uppercase bg-emerald-600 text-white shadow-md hover:bg-emerald-700 transition-all no-underline w-full"
+              >
+                <span>WhatsApp Booking</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </a>
+              <a
+                href={`tel:${SITE_CONFIG.contact.phoneRaw}`}
+                aria-label={`Call Chambers at ${SITE_CONFIG.contact.phone}`}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-xs font-mono font-bold tracking-widest uppercase border border-theme text-primary-light dark:text-primary-dark hover:bg-black/5 dark:hover:bg-white/5 transition-all no-underline w-full"
+              >
+                <Phone className="w-3.5 h-3.5" />
+                <span>Call Desk</span>
+              </a>
+            </div>
           </div>
-        </div>
-      ) : (
-        <div className="flex flex-col items-center justify-center space-y-4 py-24 text-center">
-          <div className="w-8 h-8 rounded-full border-2 border-theme border-t-emerald-500 animate-spin" />
-          <span className="font-mono text-xs text-secondary-light dark:text-secondary-dark tracking-widest uppercase">
-            Loading Statutory Calendar...
-          </span>
-        </div>
-      )}
+        ) : (
+          <div className="flex flex-col items-center justify-center space-y-4 py-24 text-center">
+            <div className="w-8 h-8 rounded-full border-2 border-theme border-t-emerald-500 animate-spin" />
+            <span className="font-mono text-xs text-secondary-light dark:text-secondary-dark tracking-widest uppercase">
+              Loading Statutory Calendar...
+            </span>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
