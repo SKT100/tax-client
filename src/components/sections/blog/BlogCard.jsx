@@ -6,7 +6,7 @@ import { ArrowUpRight } from "lucide-react";
 const DEFAULT_COVER = "/images/tax.webp";
 
 function BlogCard({ post, index, onClick }) {
-  const formattedIndex = String(index).padStart(2, "0");
+  const formattedIndex = String(index + 1).padStart(2, "0");
   const postDate = post.date
     ? new Date(post.date).toLocaleDateString("en-IN", {
         day: "2-digit",
@@ -16,6 +16,9 @@ function BlogCard({ post, index, onClick }) {
     : "Active Circular";
 
   const coverImage = post.thumbnail || DEFAULT_COVER;
+
+  // Eager load initial cards visible in the mobile viewport (first 2 cards)
+  const isAboveFold = typeof index === "number" && index < 2;
 
   return (
     <article
@@ -38,8 +41,11 @@ function BlogCard({ post, index, onClick }) {
           <img
             src={coverImage}
             alt={post.title}
-            loading="lazy"
-            decoding="async"
+            loading={isAboveFold ? "eager" : "lazy"}
+            fetchPriority={isAboveFold ? "high" : "auto"}
+            decoding={isAboveFold ? "sync" : "async"}
+            width={640}
+            height={360}
             className="w-full h-full object-cover filter grayscale contrast-125 brightness-90 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-300 transform-gpu"
             onError={(e) => {
               e.currentTarget.src = DEFAULT_COVER;
