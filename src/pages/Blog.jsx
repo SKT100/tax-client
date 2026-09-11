@@ -6,11 +6,11 @@ import { BLOG_POSTS } from "../data/blogData";
 import FilterDock from "../components/ui/FilterDock";
 import BlogCard from "../components/sections/blog/BlogCard";
 import BlogPagination from "../components/sections/blog/BlogPagination";
-import BlogReaderModal from "../components/sections/blog/BlogReaderModal";
 
 const POSTS_PER_PAGE = 6;
 
 const BLOG_CATEGORIES = [
+  { id: "income-tax", label: "Income Tax", icon: FileText },
   { id: "direct-tax", label: "Direct Tax", icon: FileText },
   { id: "gst-law", label: "GST Law", icon: Receipt },
   { id: "audit-defense", label: "Audit Defense", icon: ShieldAlert },
@@ -29,7 +29,6 @@ export default function Blog() {
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [activeArticle, setActiveArticle] = useState(null);
   
   const contentTopRef = useRef(null);
 
@@ -85,14 +84,6 @@ export default function Blog() {
     scrollToTop();
   }, [scrollToTop]);
 
-  const handleCardClick = useCallback((post) => {
-    setActiveArticle(post);
-  }, []);
-
-  const handleCloseModal = useCallback(() => {
-    setActiveArticle(null);
-  }, []);
-
   return (
     <div className="min-h-screen bg-surface-light dark:bg-surface-dark text-primary-light dark:text-primary-dark pt-32 pb-24 transition-colors duration-300">
       <div className="layout-container">
@@ -145,7 +136,6 @@ export default function Blog() {
                   key={post.slug || `post-${globalIndex}`}
                   post={post}
                   index={globalIndex}
-                  onClick={handleCardClick}
                 />
               );
             })}
@@ -157,12 +147,6 @@ export default function Blog() {
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={handlePageChange}
-        />
-
-        {/* Reading Modal */}
-        <BlogReaderModal
-          article={activeArticle}
-          onClose={handleCloseModal}
         />
       </div>
     </div>

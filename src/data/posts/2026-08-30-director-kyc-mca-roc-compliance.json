@@ -1,8 +1,8 @@
 ﻿{
-    "body":  "Every individual holding an approved Director Identification Number (DIN) must complete e-KYC annually.\\n\\nKey Rules:\\n- DIR-3 KYC Web: For directors whose details (email, mobile, address) have remained unchanged from the preceding year.\\n- DIR-3 KYC Form: Mandatory if contact details or personal identification documents require statutory modification (signed with DSC).\\n\\nNon-compliance results in immediate DIN deactivation, preventing company filings and freezing statutory corporate board actions.",
-    "thumbnail":  "/images/rupee-bg.webp",
-    "date":  "2026-08-30T10:00:00",
-    "category":  "Company Compliance",
-    "title":  "DIR-3 KYC Annual Director Compliance: Deactivation Risks \u0026 Penalty Mitigation",
-    "summary":  "Navigating annual director verification before the September 30 ROC cutoff to avoid ₹5,000 late fees."
+  "title": "DIR-3 KYC Annual Director Compliance: Deactivation Risks & Penalty Mitigation",
+  "date": "2026-08-30T10:00:00",
+  "category": "Company Compliance",
+  "thumbnail": "/images/kyc-compliance.webp",
+  "summary": "Navigating annual director verification before the September 30 ROC cutoff to avoid ₹5,000 late fees.",
+  "body": "Every individual holding an approved Director Identification Number (DIN) must complete e-KYC annually.\n\nKey Rules:\n- DIR-3 KYC Web: For directors whose details have remained unchanged from the preceding year.\n- DIR-3 KYC Form: Mandatory if contact details or personal identification documents require modification (signed with DSC).\n\nNon-compliance results in immediate DIN deactivation. Ensure your director status remains active by consulting our team at [Matrix Tax Chambers](/locations)."
 }

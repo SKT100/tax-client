@@ -3,43 +3,43 @@
   <!-- Core Navigation Pages -->
   <url>
     <loc>https://matrixtaxx.com/</loc>
-    <lastmod>2026-09-09</lastmod>
+    <lastmod>2026-09-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://matrixtaxx.com/services</loc>
-    <lastmod>2026-09-09</lastmod>
+    <lastmod>2026-09-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://matrixtaxx.com/compliance</loc>
-    <lastmod>2026-09-09</lastmod>
+    <lastmod>2026-09-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://matrixtaxx.com/schedule</loc>
-    <lastmod>2026-09-09</lastmod>
+    <lastmod>2026-09-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://matrixtaxx.com/blog</loc>
-    <lastmod>2026-09-09</lastmod>
+    <lastmod>2026-09-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://matrixtaxx.com/locations</loc>
-    <lastmod>2026-09-09</lastmod>
+    <lastmod>2026-09-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://matrixtaxx.com/about</loc>
-    <lastmod>2026-09-09</lastmod>
+    <lastmod>2026-09-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -47,94 +47,126 @@
   <!-- Statutory & Legal Pages -->
   <url>
     <loc>https://matrixtaxx.com/terms</loc>
-    <lastmod>2026-09-09</lastmod>
+    <lastmod>2026-09-11</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://matrixtaxx.com/privacy</loc>
-    <lastmod>2026-09-09</lastmod>
+    <lastmod>2026-09-11</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://matrixtaxx.com/disclaimer</loc>
-    <lastmod>2026-09-09</lastmod>
+    <lastmod>2026-09-11</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
 
-  <!-- Regional Municipal & Local SEO Routes -->
+  <!-- Regional Municipal Chamber SEO Routes (Matching locationsData.js slugs) -->
   <url>
-    <loc>https://matrixtaxx.com/locations/baidyabati</loc>
+    <loc>https://matrixtaxx.com/locations/baidyabati-sheoraphuli</loc>
     <lastmod>2026-09-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://matrixtaxx.com/locations/serampore</loc>
+    <loc>https://matrixtaxx.com/locations/serampore-rishra</loc>
     <lastmod>2026-09-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://matrixtaxx.com/locations/rishra</loc>
+    <loc>https://matrixtaxx.com/locations/uttarpara-konnagar</loc>
     <lastmod>2026-09-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://matrixtaxx.com/locations/konnagar</loc>
-    <lastmod>2026-09-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://matrixtaxx.com/locations/uttarpara</loc>
-    <lastmod>2026-09-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://matrixtaxx.com/locations/chandannagar</loc>
+    <loc>https://matrixtaxx.com/locations/chandannagar-chinsurah</loc>
     <lastmod>2026-09-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://matrixtaxx.com/locations/chinsurah</loc>
-    <lastmod>2026-09-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-  </url>
-  <url>
-    <loc>https://matrixtaxx.com/locations/dankuni</loc>
+    <loc>https://matrixtaxx.com/locations/kolkata-metro</loc>
     <lastmod>2026-09-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
+
+  <!-- Indexable Blog Post Routes -->
   <url>
-    <loc>https://matrixtaxx.com/locations/howrah</loc>
+    <loc>https://matrixtaxx.com/blog/how-to-file-income-tax-return-online</loc>
     <lastmod>2026-09-11</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://matrixtaxx.com/locations/barrackpore</loc>
+    <loc>https://matrixtaxx.com/blog/west-bengal-panchayat-municipal-tax-online-payment</loc>
     <lastmod>2026-09-11</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://matrixtaxx.com/locations/kalyani</loc>
-    <lastmod>2026-09-11</lastmod>
+    <loc>https://matrixtaxx.com/blog/2026-08-10-section-148-income-tax-notice-defense</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://matrixtaxx.com/locations/kolkata</loc>
-    <lastmod>2026-09-11</lastmod>
+    <loc>https://matrixtaxx.com/blog/2026-08-14-gstr-2b-input-tax-credit-reconciliation</loc>
+    <lastmod>2026-08-14</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://matrixtaxx.com/blog/2026-08-18-section-44ab-tax-audit-thresholds</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://matrixtaxx.com/blog/2026-08-21-private-limited-company-incorporation-guide</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://matrixtaxx.com/blog/2026-08-24-west-bengal-municipal-trade-license-renewal</loc>
+    <lastmod>2026-08-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://matrixtaxx.com/blog/2026-08-26-tds-late-filing-section-234e-consequences</loc>
+    <lastmod>2026-08-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://matrixtaxx.com/blog/2026-08-28-gst-fake-invoicing-summons-defense</loc>
+    <lastmod>2026-08-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://matrixtaxx.com/blog/2026-08-30-director-kyc-mca-roc-compliance</loc>
+    <lastmod>2026-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://matrixtaxx.com/blog/2026-09-01-faceless-appeal-cit-appeals-process</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://matrixtaxx.com/blog/2026-09-02-west-bengal-ptax-statutory-enrolment</loc>
+    <lastmod>2026-09-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>

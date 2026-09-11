@@ -17,6 +17,7 @@ const Locations = lazy(() => import('./pages/Locations'));
 const LocationCity = lazy(() => import('./pages/LocationCity'));
 const Schedule = lazy(() => import('./pages/Schedule'));
 const Blog = lazy(() => import('./pages/Blog'));
+const BlogPost = lazy(() => import('./pages/BlogPost'));
 const Terms = lazy(() => import('./pages/Terms'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const Disclaimer = lazy(() => import('./pages/Disclaimer'));
@@ -156,6 +157,7 @@ function AppContent() {
               <Route path="/chambers" element={<Locations />} />
               <Route path="/insights" element={<Blog />} />
               <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/schedule" element={<Schedule />} />
 
               {/* Legal & Statutory Pages */}
