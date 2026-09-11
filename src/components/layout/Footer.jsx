@@ -207,13 +207,20 @@ function Footer() {
             <div className="flex flex-col gap-3 text-white/80 text-xs sm:text-sm font-body font-light">
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-white/60 shrink-0 mt-0.5" />
-                <address className="not-italic leading-relaxed text-white/80">
-                  461, N.C. Banerjee Road,
-                  <br />
-                  Baidyabati, Hooghly,
-                  <br />
-                  West Bengal — 712222
-                </address>
+                <a
+                  href="https://maps.app.goo.gl/fYv6thvva6ShzGMa6"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="not-italic leading-relaxed text-white/80 hover:text-white transition-colors block group"
+                  aria-label="View Matrix Tax Chambers on Google Maps"
+                >
+                  <span>461, N.C. Banerjee Road,</span><br />
+                  <span>Baidyabati, Hooghly,</span><br />
+                  <span>West Bengal — 712222</span>
+                  <span className="block font-mono text-[10px] text-emerald-400 mt-1 opacity-80 group-hover:opacity-100">
+                    Open in Google Maps ↗
+                  </span>
+                </a>
               </div>
 
               <div className="flex items-start gap-2.5">
@@ -223,8 +230,7 @@ function Footer() {
                     Chamber Timings
                   </span>
                   <p className="text-white/80">
-                    Morning: 7:00 AM – 10:00 AM
-                    <br />
+                    Morning: 7:00 AM – 10:00 AM<br />
                     Evening: 6:00 PM – 10:00 PM
                   </p>
                 </div>

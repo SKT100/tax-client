@@ -21,7 +21,7 @@ const CHAMBERS_LIST = [
     mapEmbedUrl:
       "https://maps.google.com/maps?q=461%20N%20C%20Banerjee%20Road%20Baidyabati%20Hooghly%20712222&t=&z=16&ie=UTF8&iwloc=&output=embed",
     mapDirectLink:
-      "https://maps.google.com/?q=461+N+C+Banerjee+Road+Baidyabati+Hooghly+712222",
+      "https://maps.app.goo.gl/fYv6thvva6ShzGMa6",
   },
   {
     id: "digital-desk",
