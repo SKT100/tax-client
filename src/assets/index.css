@@ -19,6 +19,7 @@
 }
 
 @layer utilities {
+
   /* Standard Layout & Spacing */
   .layout-container {
     @apply max-w-container-max-width mx-auto px-margin-mobile md:px-margin-desktop;
@@ -67,6 +68,12 @@
   .interactive:hover,
   .interactive:focus-visible {
     @apply bg-black/5 border-black/10 dark:bg-white/5 dark:border-white/20;
+  }
+
+  @media (hover: hover) {
+    .interactive:hover {
+      @apply bg-black/5 border-black/10 dark:bg-white/5 dark:border-white/20;
+    }
   }
 
   .link-hover {

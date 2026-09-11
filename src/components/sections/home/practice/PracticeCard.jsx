@@ -10,21 +10,21 @@ export function PracticeCard({ item, index }) {
 
   return (
     <div
-      className={`group relative w-[85vw] sm:w-[500px] md:w-[580px] lg:w-[640px] shrink-0 bg-[#0F0F12] border border-white/10 p-5 sm:p-7 transition-colors duration-300 flex flex-col justify-between hover:border-white/30 overflow-hidden max-h-[calc(100vh-210px)] ${
+      className={`group relative w-[85vw] sm:w-[500px] md:w-[580px] lg:w-[640px] shrink-0 bg-[#0F0F12] border border-white/10 p-5 sm:p-7 transition-colors duration-300 flex flex-col justify-between [@media(hover:hover)]:hover:border-white/30 overflow-hidden max-h-[calc(100vh-210px)] ${
         index !== 0 ? "-ml-[1px]" : ""
       }`}
     >
       {/* Top Header */}
       <Link
         to={targetUrl}
-        className="flex items-center justify-between pb-4 border-b border-white/10 transition-colors duration-300 group-hover:border-white/30 shrink-0"
+        className="flex items-center justify-between pb-4 border-b border-white/10 transition-colors duration-300 [@media(hover:hover)]:group-hover:border-white/30 shrink-0"
       >
-        <span className="font-mono text-xs font-semibold tracking-[0.2em] text-white/70 uppercase group-hover:text-white transition-colors">
+        <span className="font-mono text-xs font-semibold tracking-[0.2em] text-white/70 uppercase [@media(hover:hover)]:group-hover:text-white transition-colors">
           REF. {formattedIndex}
         </span>
         <ArrowUpRight
           size={18}
-          className="text-white/40 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300"
+          className="text-white/40 [@media(hover:hover)]:group-hover:text-white [@media(hover:hover)]:group-hover:translate-x-0.5 [@media(hover:hover)]:group-hover:-translate-y-0.5 transition-all duration-300"
         />
       </Link>
 
@@ -58,7 +58,7 @@ export function PracticeCard({ item, index }) {
               {(item.keyServices || [item.description]).slice(0, 3).map((serviceName, i) => (
                 <li
                   key={i}
-                  className="py-1.5 border-b border-white/10 text-xs font-sans font-light text-white/70 transition-colors duration-300 group-hover:text-white"
+                  className="py-1.5 border-b border-white/10 text-xs font-sans font-light text-white/70 transition-colors duration-300 [@media(hover:hover)]:group-hover:text-white"
                 >
                   {serviceName}
                 </li>
@@ -70,7 +70,7 @@ export function PracticeCard({ item, index }) {
         {/* Right: Hardware-Accelerated Image Container */}
         <Link
           to={targetUrl}
-          className="md:col-span-5 h-full min-h-[160px] md:min-h-[220px] border border-white/10 relative overflow-hidden bg-[#16161A] shrink-0 block group-hover:border-white/30 transition-colors duration-300"
+          className="md:col-span-5 h-full min-h-[160px] md:min-h-[220px] border border-white/10 relative overflow-hidden bg-[#16161A] shrink-0 block [@media(hover:hover)]:group-hover:border-white/30 transition-colors duration-300"
         >
           {item.image ? (
             <img
@@ -78,7 +78,7 @@ export function PracticeCard({ item, index }) {
               alt={item.title}
               loading="lazy"
               decoding="async"
-              className="absolute inset-0 w-full h-full object-cover object-center filter grayscale contrast-110 brightness-90 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500 will-change-transform"
+              className="absolute inset-0 w-full h-full object-cover object-center filter grayscale contrast-110 brightness-90 [@media(hover:hover)]:group-hover:grayscale-0 [@media(hover:hover)]:group-hover:scale-105 transition-all duration-500 will-change-transform"
             />
           ) : (
             <div className="flex items-center justify-center h-full text-white/10 text-6xl font-light">

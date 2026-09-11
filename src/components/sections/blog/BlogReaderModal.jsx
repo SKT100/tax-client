@@ -43,7 +43,6 @@ function BlogReaderModal({ article, onClose }) {
             onClick={(e) => e.stopPropagation()}
             className="bg-surface-light dark:bg-surface-dark border border-theme rounded-3xl max-w-2xl w-full max-h-[88vh] flex flex-col shadow-2xl overflow-hidden relative"
           >
-            {/* Modal Topbar */}
             <div className="p-6 sm:p-8 border-b border-theme flex items-start justify-between gap-4 shrink-0 bg-surface-light dark:bg-surface-dark">
               <div className="space-y-2">
                 <div className="flex items-center gap-3">
@@ -69,19 +68,17 @@ function BlogReaderModal({ article, onClose }) {
               <button
                 type="button"
                 onClick={onClose}
-                className="p-2 rounded-full border border-theme hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer shrink-0 text-secondary-light dark:text-secondary-dark hover:text-primary-light dark:hover:text-primary-dark"
+                className="p-2 rounded-full border border-theme [@media(hover:hover)]:hover:bg-black/5 [@media(hover:hover)]:dark:hover:bg-white/5 transition-colors cursor-pointer shrink-0 text-secondary-light dark:text-secondary-dark [@media(hover:hover)]:hover:text-primary-light [@media(hover:hover)]:dark:hover:text-primary-dark"
                 aria-label="Close reader"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            {/* Modal Content Scroll Area */}
             <div
               data-lenis-prevent
               className="custom-scrollbar p-6 sm:p-8 overflow-y-auto space-y-6 font-body text-sm sm:text-base leading-relaxed text-secondary-light dark:text-secondary-dark font-light overscroll-contain"
             >
-              {/* Header Image */}
               <div className="w-full aspect-[21/9] rounded-2xl overflow-hidden border border-theme bg-black/5 dark:bg-white/5">
                 <img
                   src={article.thumbnail || DEFAULT_COVER}
@@ -95,7 +92,6 @@ function BlogReaderModal({ article, onClose }) {
                 />
               </div>
 
-              {/* External Source Link Pill */}
               {article.external_link && (
                 <div className="p-4 rounded-2xl bg-black/[0.03] dark:bg-white/[0.04] border border-theme flex items-center justify-between gap-4">
                   <div className="font-mono text-xs text-secondary-light dark:text-secondary-dark">
@@ -108,7 +104,7 @@ function BlogReaderModal({ article, onClose }) {
                     href={article.external_link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-primary-light text-surface-light dark:bg-primary-dark dark:text-surface-dark font-mono text-[11px] font-bold uppercase tracking-wider hover:opacity-90 transition-opacity no-underline shrink-0"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-primary-light text-surface-light dark:bg-primary-dark dark:text-surface-dark font-mono text-[11px] font-bold uppercase tracking-wider [@media(hover:hover)]:hover:opacity-90 transition-opacity no-underline shrink-0"
                   >
                     <span>Open Source</span>
                     <ExternalLink className="w-3.5 h-3.5" />
@@ -116,12 +112,10 @@ function BlogReaderModal({ article, onClose }) {
                 </div>
               )}
 
-              {/* Body Text */}
               <div className="space-y-4 whitespace-pre-wrap leading-relaxed text-primary-light/90 dark:text-primary-dark/90 font-light text-sm sm:text-[15px] pt-2">
                 {article.body}
               </div>
 
-              {/* Bottom Consultation Banner */}
               <div className="pt-6 border-t border-theme mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 bg-black/[0.02] dark:bg-white/[0.02] -mx-6 -mb-6 sm:-mx-8 sm:-mb-8 p-6 sm:p-8">
                 <div className="flex items-center gap-2 text-xs font-mono text-secondary-light dark:text-secondary-dark">
                   <ShieldCheck className="w-4 h-4 text-primary-light dark:text-primary-dark shrink-0" />

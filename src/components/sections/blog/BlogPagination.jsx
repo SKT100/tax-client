@@ -12,7 +12,7 @@ function BlogPagination({ currentPage, totalPages, onPageChange }) {
         type="button"
         disabled={currentPage === 1}
         onClick={() => onPageChange(currentPage - 1)}
-        className="p-2.5 rounded-full border border-theme disabled:opacity-30 disabled:cursor-not-allowed hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer"
+        className="p-2.5 rounded-full border border-theme disabled:opacity-30 disabled:cursor-not-allowed [@media(hover:hover)]:hover:bg-black/5 [@media(hover:hover)]:dark:hover:bg-white/5 transition-colors cursor-pointer"
         aria-label="Previous page"
       >
         <ChevronLeft className="w-4 h-4" />
@@ -29,7 +29,7 @@ function BlogPagination({ currentPage, totalPages, onPageChange }) {
               className={`w-9 h-9 rounded-full font-bold flex items-center justify-center transition-all cursor-pointer ${
                 isCurrent
                   ? "bg-primary-light text-surface-light dark:bg-primary-dark dark:text-surface-dark shadow-md"
-                  : "border border-theme text-secondary-light dark:text-secondary-dark hover:border-black/30 dark:hover:border-white/30"
+                  : "border border-theme text-secondary-light dark:text-secondary-dark [@media(hover:hover)]:hover:border-black/30 [@media(hover:hover)]:dark:hover:border-white/30"
               }`}
             >
               {page}
@@ -42,7 +42,7 @@ function BlogPagination({ currentPage, totalPages, onPageChange }) {
         type="button"
         disabled={currentPage === totalPages}
         onClick={() => onPageChange(currentPage + 1)}
-        className="p-2.5 rounded-full border border-theme disabled:opacity-30 disabled:cursor-not-allowed hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer"
+        className="p-2.5 rounded-full border border-theme disabled:opacity-30 disabled:cursor-not-allowed [@media(hover:hover)]:hover:bg-black/5 [@media(hover:hover)]:dark:hover:bg-white/5 transition-colors cursor-pointer"
         aria-label="Next page"
       >
         <ChevronRight className="w-4 h-4" />
