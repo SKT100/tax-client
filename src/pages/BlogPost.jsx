@@ -6,18 +6,18 @@ import { ArrowLeft, Calendar, Tag, ArrowUpRight } from "lucide-react";
 import { BLOG_POSTS } from "../data/blogData";
 import NotFound from "./NotFound";
 
+const DEFAULT_COVER = "/images/tax.webp";
+
 // Lightweight helper to convert markdown links [text](url) into React Router Links
 function renderMarkdownContent(text) {
   if (!text) return null;
 
-  // Split by markdown link pattern: [Link Text](url)
   const regex = /\[([^\]]+)\]\(([^)]+)\)/g;
   const parts = [];
   let lastIndex = 0;
   let match;
 
   while ((match = regex.exec(text)) !== null) {
-    // Push preceding text plain content
     if (match.index > lastIndex) {
       parts.push(text.substring(lastIndex, match.index));
     }
@@ -71,6 +71,11 @@ export default function BlogPost() {
   const postUrl = `https://matrixtaxx.com/blog/${post.slug}`;
   const rawBody = post.body || post.content || "";
 
+  const coverImage = post.thumbnail || DEFAULT_COVER;
+  const absoluteOgImage = coverImage.startsWith("http")
+    ? coverImage
+    : `https://matrixtaxx.com${coverImage}`;
+
   return (
     <article className="relative w-full min-h-screen bg-surface-light dark:bg-surface-dark text-primary-light dark:text-primary-dark transition-colors duration-300 pt-8 pb-20">
       <Helmet>
@@ -81,6 +86,7 @@ export default function BlogPost() {
         <meta property="og:description" content={post.summary || post.excerpt} />
         <meta property="og:url" content={postUrl} />
         <meta property="og:type" content="article" />
+        <meta property="og:image" content={absoluteOgImage} />
       </Helmet>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 space-y-8">
@@ -99,7 +105,8 @@ export default function BlogPost() {
             </span>
             <span>•</span>
             <span className="flex items-center gap-1.5">
-              <Calendar className="w-3.5 h-3.5" /> {post.date ? new Date(post.date).toLocaleDateString() : 'Recent'}
+              <Calendar className="w-3.5 h-3.5" />{" "}
+              {post.date ? new Date(post.date).toLocaleDateString("en-IN") : "Recent"}
             </span>
           </div>
 
@@ -112,10 +119,10 @@ export default function BlogPost() {
           </p>
         </header>
 
-        {/* Article Body with Parsed Markdown Links */}
+        {/* Article Body with whitespace-pre-line preserved */}
         <div className="font-body leading-relaxed text-secondary-light dark:text-secondary-dark text-sm sm:text-base space-y-4">
           {rawBody.split("\n\n").map((paragraph, idx) => (
-            <p key={idx} className="leading-relaxed">
+            <p key={idx} className="leading-relaxed whitespace-pre-line">
               {renderMarkdownContent(paragraph)}
             </p>
           ))}

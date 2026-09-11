@@ -22,6 +22,7 @@ const BLOG_CATEGORIES = [
 const normalizeSlug = (str) =>
   (str || "")
     .toLowerCase()
+    .trim()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
