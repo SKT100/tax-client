@@ -1,6 +1,7 @@
 // src/components/sections/compliance/ComplianceCalendar.jsx
 
 import { useState, useMemo } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Calendar,
@@ -51,15 +52,6 @@ export default function ComplianceCalendar() {
     });
   }, [activeCategory, frequencyFilter, searchQuery]);
 
-  const handleConsultWhatsApp = (item) => {
-    const rawNumber = (
-      SITE_CONFIG?.contact?.phoneRaw || "+917439219943"
-    ).replace("+", "");
-    const message = `*COMPLIANCE DIRECTIVE INQUIRY*\n--------------------------------\n*Directive:* ${item.title}\n*Statutory Act:* ${item.act}\n*Due Date:* ${item.dueDate}\n*Assessee Type:* ${item.targetAssessees || item.targetAssessee}\n--------------------------------\n_I require assistance with return filing / reconciliation for this statutory deadline._`;
-    const encoded = encodeURIComponent(message);
-    window.open(`https://wa.me/${rawNumber}?text=${encoded}`, "_blank");
-  };
-
   const categoriesWithIcons = COMPLIANCE_CATEGORIES.filter(
     (c) => c.id !== "all"
   ).map((cat) => ({
@@ -101,7 +93,7 @@ export default function ComplianceCalendar() {
             <span className="italic font-light opacity-90">Deadlines</span>
           </h2>
           <p className="font-body font-light text-base md:text-lg text-secondary-light dark:text-secondary-dark max-w-2xl mx-auto leading-relaxed">
-            Real-time statutory filing tracking for CBDT Income Tax, CBIC GST Returns, TRACES TDS cutoffs, and West Bengal P-Tax compliance.
+            Real-time statutory filing tracking for CBDT Income Tax, CBIC GST Returns, TRACES TDS cutoffs, and West Bengal P-Tax compliance for FY 2026-27.
           </p>
 
           {/* Hero PDF Download Button */}
@@ -208,15 +200,17 @@ export default function ComplianceCalendar() {
                           <span>{item.consequence}</span>
                         </div>
                         
-                        <PillButton
-                          onClick={() => handleConsultWhatsApp(item)}
-                          variant="auto"
-                          aria-label={`Inquire about ${item.title} statutory filing on WhatsApp`}
-                          className="px-5 py-2 text-[11px]"
-                        >
-                          <span>File / Reconcile</span>
-                          <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
-                        </PillButton>
+                        {/* Direct internal link to /services */}
+                        <Link to="/services" className="no-underline">
+                          <PillButton
+                            variant="auto"
+                            aria-label={`View service offerings for ${item.title}`}
+                            className="px-5 py-2 text-[11px]"
+                          >
+                            <span>View Services</span>
+                            <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
+                          </PillButton>
+                        </Link>
                       </div>
                     </motion.div>
                   );

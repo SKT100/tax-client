@@ -142,7 +142,7 @@ export default function AboutProfileHero() {
           width="600"
           height="650"
           loading="eager"
-          fetchPriority="high"
+          fetchpriority="high"
           decoding="sync"
           className="w-full h-full object-cover object-[82%_top] filter grayscale contrast-125 brightness-95 opacity-75 dark:opacity-65 dark:brightness-90 transition-opacity duration-300"
         />

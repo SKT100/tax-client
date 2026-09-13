@@ -1,7 +1,7 @@
 // src/components/sections/shared/FAQSection.jsx
 
 import { useState, memo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Plus, Minus, ArrowRight, HelpCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import PillButton from "../../ui/PillButton";
@@ -125,23 +125,19 @@ function FAQSection({
                   </div>
                 </button>
 
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <div className="px-5 pb-5 sm:px-7 sm:pb-7 pt-0 pl-11 sm:pl-16 pr-6 sm:pr-12 border-t border-theme mt-1">
-                        <p className="font-body font-light text-xs sm:text-sm md:text-[15px] leading-relaxed text-secondary-light dark:text-secondary-dark pt-4">
-                          {faq.answer}
-                        </p>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {/* Unconditional Mount: Framer Motion manages height & opacity visually */}
+                <motion.div
+                  initial={false}
+                  animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
+                  transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                  className="overflow-hidden"
+                >
+                  <div className="px-5 pb-5 sm:px-7 sm:pb-7 pt-0 pl-11 sm:pl-16 pr-6 sm:pr-12 border-t border-theme mt-1">
+                    <p className="font-body font-light text-xs sm:text-sm md:text-[15px] leading-relaxed text-secondary-light dark:text-secondary-dark pt-4">
+                      {faq.answer}
+                    </p>
+                  </div>
+                </motion.div>
               </div>
             );
           })}

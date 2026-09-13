@@ -8,6 +8,7 @@ import AngledTicker from "../components/sections/shared/AngledTicker";
 import ComplianceVault from "../components/sections/about/ComplianceVault";
 import RegionalReachMap from "../components/sections/contact/RegionalReachMap";
 import FAQSection from "../components/sections/shared/FAQSection";
+import { ABOUT_FAQS } from "../data/faqsData";
 
 function About() {
   return (
@@ -36,13 +37,17 @@ function About() {
         {/* 2. Stats */}
         <Stats />
 
-        {/* 3. Vault, Ribbon & Regional Network */}
+        {/* 3. Vault, Ribbon, Route-Specific FAQs & Regional Network */}
         <div className="space-y-16 py-8">
           <ComplianceVault />
-          <AngledTicker />
+          <AngledTicker preset="about"/>
           <FAQSection
-            title="Frequently Asked Directives"
-            subtitle="Everything you need to know about retained tax compliance, bookkeeping schedules, and notice defense."
+            id="about-faq"
+            badge="FIRM DIRECTIVES"
+            title="Practice & Advisory Directives"
+            subtitle="Insights into our statutory credentials, representation models, confidential vault, and jurisdictional practice."
+            items={ABOUT_FAQS}
+            showCta={true}
           />
           <RegionalReachMap />
         </div>

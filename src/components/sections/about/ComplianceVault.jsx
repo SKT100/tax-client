@@ -1,6 +1,7 @@
 // src/components/sections/about/ComplianceVault.jsx
 
 import { useState, useRef } from "react";
+import { Link } from "react-router-dom";
 import {
   motion,
   AnimatePresence,
@@ -8,9 +9,16 @@ import {
   useTransform,
   useSpring,
 } from "framer-motion";
-import { FileText, Download, ChevronDown } from "lucide-react";
+import { FileText, Download, ChevronDown, ArrowUpRight } from "lucide-react";
 import { TAX_COMPLIANCE_VAULT } from "../../../data/taxData";
 import PillButton from "../../ui/PillButton";
+
+const VAULT_CATEGORY_MAP = {
+  "INCOME TAX": "income-tax",
+  "GST LIFECYCLE": "gst-compliance",
+  "WITHHOLDING TAX": "tds-payroll",
+  "CORPORATE & MSME": "company-registration",
+};
 
 export default function ComplianceVault() {
   const [activeTab, setActiveTab] = useState(
@@ -59,6 +67,8 @@ export default function ComplianceVault() {
 
   const footerOpacity = useTransform(smoothProgress, [0.62, 0.80], [0, 1]);
   const footerY = useTransform(smoothProgress, [0.62, 0.80], [12, 0]);
+
+  const activeCategorySlug = VAULT_CATEGORY_MAP[activeTab] || "income-tax";
 
   return (
     <div id="compliance-vault" ref={trackRef} className="relative h-[280vh] md:h-[300vh] w-full">
@@ -160,15 +170,17 @@ export default function ComplianceVault() {
                     className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 md:gap-4 w-full"
                   >
                     {activeCategory?.items.map((item, idx) => (
-                      <div
+                      <Link
                         key={idx}
-                        className={`p-2.5 sm:p-3.5 md:p-4 bg-white/[0.06] dark:bg-black/[0.04] rounded-lg sm:rounded-xl border border-white/10 dark:border-black/10 items-center shadow-sm hover:border-white/30 dark:hover:border-black/30 hover:bg-white/[0.1] dark:hover:bg-black/[0.08] transition-all min-h-[42px] sm:min-h-[50px] md:min-h-[58px] ${idx >= 7 ? "hidden sm:flex" : "flex"
+                        to={`/services/${activeCategorySlug}`}
+                        className={`group p-2.5 sm:p-3.5 md:p-4 bg-white/[0.06] dark:bg-black/[0.04] rounded-lg sm:rounded-xl border border-white/10 dark:border-black/10 items-center justify-between shadow-sm hover:border-white/30 dark:hover:border-black/30 hover:bg-white/[0.1] dark:hover:bg-black/[0.08] transition-all min-h-[42px] sm:min-h-[50px] md:min-h-[58px] no-underline ${idx >= 7 ? "hidden sm:flex" : "flex"
                           }`}
                       >
-                        <h3 className="font-body font-normal text-xs sm:text-sm text-white/90 dark:text-primary-light leading-snug">
+                        <h3 className="font-body font-normal text-xs sm:text-sm text-white/90 dark:text-primary-light group-hover:text-white dark:group-hover:text-black leading-snug transition-colors">
                           {item}
                         </h3>
-                      </div>
+                        <ArrowUpRight className="w-3.5 h-3.5 text-white/40 dark:text-black/40 group-hover:text-white dark:group-hover:text-black transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0 ml-2" />
+                      </Link>
                     ))}
 
                     {/* Mobile Cap Indicator */}
@@ -204,7 +216,6 @@ export default function ComplianceVault() {
                 </div>
               </div>
 
-              {/* Replace lines 218-237 in ComplianceVault.jsx */}
               <PillButton
                 href="/docs/Matrix_Tax_Compliance_Brief.pdf"
                 download="Matrix_Tax_Compliance_Brief.pdf"

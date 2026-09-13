@@ -1,3 +1,5 @@
+// src/data/locationsData.js
+
 export const MUNICIPAL_CLUSTERS = [
   {
     id: "baidyabati-sheoraphuli",
@@ -14,6 +16,10 @@ export const MUNICIPAL_CLUSTERS = [
       "West Bengal Professional Tax (P-Tax) Enrolment",
     ],
     transit: "2 mins from Baidyabati Railway Station (Howrah-Bandel Line) • Direct N.C. Banerjee Rd Access",
+    relatedPostSlugs: [
+      "2026-08-10-section-148-income-tax-notice-defense",
+      "west-bengal-panchayat-municipal-tax-online-payment",
+    ],
   },
   {
     id: "serampore-rishra",
@@ -30,6 +36,9 @@ export const MUNICIPAL_CLUSTERS = [
       "Partnership Deed Drafting & Firm Registration",
     ],
     transit: "Connected via GT Road & Serampore Town Station • 10 mins from Chambers",
+    relatedPostSlugs: [
+      "2026-09-01-faceless-appeal-cit-appeals-process",
+    ],
   },
   {
     id: "uttarpara-konnagar",
@@ -46,6 +55,10 @@ export const MUNICIPAL_CLUSTERS = [
       "Society / AOP Registration & PAN/TAN Allocation",
     ],
     transit: "Direct connectivity via Bally Bridge & Howrah Main Line",
+    relatedPostSlugs: [
+      "2026-08-24-west-bengal-municipal-trade-license-renewal",
+      "2026-09-01-faceless-appeal-cit-appeals-process",
+    ],
   },
   {
     id: "chandannagar-chinsurah",
@@ -62,6 +75,9 @@ export const MUNICIPAL_CLUSTERS = [
       "Factory Licence & WBPCB Pollution Advisory",
     ],
     transit: "Direct arterial access along Grand Trunk Road corridor",
+    relatedPostSlugs: [
+      "2026-09-02-west-bengal-ptax-statutory-enrolment",
+    ],
   },
   {
     id: "kolkata-metro",
@@ -78,6 +94,10 @@ export const MUNICIPAL_CLUSTERS = [
       "Startup India DPIIT Recognition & MSME Udyam",
     ],
     transit: "Seamless Remote Advisory Desk • 2-Hour Digital SLA via WhatsApp",
+    relatedPostSlugs: [
+      "2026-08-14-gstr-2b-input-tax-credit-reconciliation",
+      "2026-08-21-private-limited-company-incorporation-guide",
+    ],
   },
 ];
 

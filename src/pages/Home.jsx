@@ -14,7 +14,7 @@ function Home() {
     <div className="relative bg-surface-light dark:bg-surface-dark text-primary-light dark:text-primary-dark transition-colors duration-300 min-h-screen">
       <main className="relative w-full flex flex-col">
         <Hero />
-        <AngledTicker />
+        <AngledTicker preset="home" />
         <Stats />
         <HomePracticeSection />
         <PhilosophySection />

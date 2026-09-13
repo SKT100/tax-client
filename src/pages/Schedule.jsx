@@ -14,8 +14,7 @@ import TaxScheduler from "../components/sections/consultation/TaxScheduler";
 import ChamberMapCard from "../components/ui/ChamberMapCard";
 import FAQSection from "../components/sections/shared/FAQSection";
 import { SITE_CONFIG } from "../data/siteConfig";
-
-
+import { SCHEDULE_FAQS } from "../data/faqsData";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -56,29 +55,6 @@ const PRE_MEETING_CHECKLIST = [
   "Relevant bank statements or purchase ledgers",
 ];
 
-const SCHEDULING_FAQS = [
-  {
-    question: "How do virtual Google Meet consultations work?",
-    answer:
-      "Once you select a time slot, a Google Meet link and calendar invitation are immediately sent to your email. You can present documents on-screen for live verification.",
-  },
-  {
-    question: "Can I bring original paper notices to the Baidyabati chambers?",
-    answer:
-      "Yes. Select the 'In Person / Chambers' location during booking to meet at our Baidyabati Head Office on GT Road with your case files.",
-  },
-  {
-    question: "What if my statutory notice response deadline is within 48 hours?",
-    answer:
-      "For urgent DRC-01, Section 148, or appellate deadlines, bypass the regular scheduler and message the emergency WhatsApp desk directly for same-day triage.",
-  },
-  {
-    question: "Are case facts and client disclosures confidential?",
-    answer:
-      "All consultations, document reviews, and communications are strictly privileged and held in statutory confidence under professional practice standards.",
-  },
-];
-
 function WhatsAppIcon({ className = "w-3.5 h-3.5" }) {
   return (
     <svg
@@ -111,12 +87,8 @@ function Schedule() {
       <main className="relative z-10 w-full pt-8 sm:pt-12 md:pt-16 pb-16 sm:pb-24">
         <div className="max-w-container-max-width mx-auto px-margin-mobile md:px-margin-desktop space-y-16 sm:space-y-24">
 
-          {/* ========================================================= */}
-          {/*   1. HERO SECTION: BALANCED 2-COLUMN GRID                */}
-          {/* ========================================================= */}
+          {/* Section 1: Hero Header & Cal.com Scheduler */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-
-            {/* Left Column: Heading, Emergency WhatsApp & Pre-Meeting Checklist */}
             <motion.div
               className="lg:col-span-5 flex flex-col space-y-6 pt-1"
               initial="hidden"
@@ -140,7 +112,7 @@ function Schedule() {
                 </motion.p>
               </div>
 
-              {/* Emergency WhatsApp Notice Action Card (Valid <a> Tag Styling) */}
+              {/* Emergency WhatsApp Notice Action Card */}
               <motion.div
                 variants={fadeUp}
                 className="p-5 sm:p-6 rounded-2xl md:rounded-3xl border border-emerald-500/30 bg-emerald-500/[0.04] space-y-4"
@@ -176,7 +148,7 @@ function Schedule() {
                 </div>
               </motion.div>
 
-              {/* Document Preparation Checklist Box */}
+              {/* Document Preparation Checklist */}
               <motion.div
                 variants={fadeUp}
                 className="glass-card p-5 sm:p-6 rounded-2xl md:rounded-3xl border border-theme space-y-3"
@@ -196,6 +168,7 @@ function Schedule() {
                   ))}
                 </div>
               </motion.div>
+
               <motion.div
                 variants={fadeUp}
                 className="pt-2 flex flex-wrap items-center gap-3"
@@ -218,19 +191,15 @@ function Schedule() {
                   <span className="lowercase">{SITE_CONFIG?.contact?.email || "tcparthahalder1984@gmail.com"}</span>
                 </a>
               </motion.div>
-
             </motion.div>
 
-            {/* Right Column: Embedded Cal.com Scheduler */}
+            {/* Right Column: Clean Cal.com Embed */}
             <div className="lg:col-span-7">
               <TaxScheduler />
             </div>
-
           </div>
 
-          {/* ========================================================= */}
-          {/*   2. 3-STEP CONSULTATION WORKFLOW BLUEPRINT              */}
-          {/* ========================================================= */}
+          {/* Section 2: 3-Step Consultation Workflow Blueprint */}
           <div className="space-y-8 pt-10 border-t border-theme">
             <div className="text-center max-w-2xl mx-auto space-y-3">
               <span className="font-mono text-[10px] sm:text-xs font-bold tracking-[0.25em] uppercase text-secondary-light dark:text-secondary-dark block">
@@ -264,9 +233,7 @@ function Schedule() {
             </div>
           </div>
 
-          {/* ========================================================= */}
-          {/*   3. REGIONAL CHAMBERS & LOCATION MAP                    */}
-          {/* ========================================================= */}
+          {/* Section 3: Regional Chambers & Location Map */}
           <div className="space-y-8 pt-10 border-t border-theme">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-theme">
               <div>
@@ -285,14 +252,15 @@ function Schedule() {
             <ChamberMapCard />
           </div>
 
-          {/* ========================================================= */}
-          {/*   4. REUSABLE FAQ SECTION                                */}
-          {/* ========================================================= */}
+          {/* Section 4: Reusable FAQ Component */}
           <div className="pt-8 border-t border-theme">
             <FAQSection
+              id="schedule-faq"
+              badge="CONSULTATION DIRECTIVES"
               title="Consultation & Advisory Inquiries"
               subtitle="Everything you need to know about preparing for your session, confidentiality, and remote vs in-person meetings."
-              faqs={SCHEDULING_FAQS}
+              items={SCHEDULE_FAQS}
+              showCta={false}
             />
           </div>
 

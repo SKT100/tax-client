@@ -7,7 +7,7 @@ import PracticeScrollThread from "../components/sections/services/PracticeScroll
 import WhyChooseUs from "../components/sections/shared/WhyChooseUs";
 import RegionalReachMap from "../components/sections/contact/RegionalReachMap";
 import FAQSection from "../components/sections/shared/FAQSection";
-// import TestimonialsSection from "../components/sections/shared/TestimonialsSection";
+import { SERVICES_FAQS } from "../data/faqsData";
 
 function Services() {
   const containerRef = useRef(null);
@@ -25,11 +25,17 @@ function Services() {
         <ServiceDirectory />
         <div className="space-y-16 py-8">
           <WhyChooseUs />
-          {/* <TestimonialsSection /> */}
+
+          {/* Route-Specific Service FAQs */}
           <FAQSection
-            title="Frequently Asked Directives"
-            subtitle="Everything you need to know about retained tax compliance, bookkeeping schedules, and notice defense."
+            id="services-faq"
+            badge="SERVICE DIRECTIVES"
+            title="Service & Retainer Directives"
+            subtitle="Operational SLAs, document requirements, and retainer pricing structure for statutory practices."
+            items={SERVICES_FAQS}
+            showCta={true}
           />
+
           <RegionalReachMap />
         </div>
       </main>

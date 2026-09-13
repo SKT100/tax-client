@@ -15,10 +15,12 @@ import {
   Download
 } from "lucide-react";
 import { MUNICIPAL_CLUSTERS } from "../data/locationsData";
+import { BLOG_POSTS } from "../data/blogData";
 import { SITE_CONFIG } from "../data/siteConfig";
 import ChamberMapCard from "../components/ui/ChamberMapCard";
 import ScrollVelocityRibbon from "../components/ui/ribbon/ScrollVelocityRibbon";
 import PillButton from "../components/ui/PillButton";
+import BlogCard from "../components/sections/blog/BlogCard";
 import NotFound from "./NotFound";
 
 function LocationCity() {
@@ -36,6 +38,14 @@ function LocationCity() {
       return c.title.toLowerCase().includes(targetSlug);
     });
   }, [citySlug]);
+
+  // Resolves relatedPostSlugs into active blog post objects with fail-safe filtering
+  const relatedPosts = useMemo(() => {
+    if (!cluster?.relatedPostSlugs) return [];
+    return cluster.relatedPostSlugs
+      .map((slug) => BLOG_POSTS.find((p) => p.slug === slug))
+      .filter(Boolean);
+  }, [cluster]);
 
   if (!cluster) {
     return <NotFound />;
@@ -59,6 +69,10 @@ function LocationCity() {
     `*JURISDICTIONAL INQUIRY — ${cluster.title.toUpperCase()}*\n--------------------------------\n*PIN Code:* ${cluster.pinCodes.join(", ")}\n*Assessee Category:* ${cluster.targetAssessees}\n--------------------------------\n_Requesting tax advisory & GST filing representation in ${cluster.title}._`
   );
 
+  const isHq = cluster.id === "baidyabati-sheoraphuli";
+  const primaryPin = cluster.pinCodes[0] || "712222";
+  const primaryLocality = cluster.title.split("&")[0].split(",")[0].trim();
+
   const jsonLdSchema = {
     "@context": "https://schema.org",
     "@type": "TaxAdvisor",
@@ -69,10 +83,10 @@ function LocationCity() {
     "email": SITE_CONFIG?.contact?.email || "tcparthahalder1984@gmail.com",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "461, N.C. Banerjee Road",
-      "addressLocality": "Baidyabati",
+      ...(isHq && { "streetAddress": "461, N.C. Banerjee Road" }),
+      "addressLocality": isHq ? "Baidyabati" : primaryLocality,
       "addressRegion": "West Bengal",
-      "postalCode": "712222",
+      "postalCode": primaryPin,
       "addressCountry": "IN"
     },
     "areaServed": {
@@ -190,7 +204,7 @@ function LocationCity() {
           </div>
         </div>
 
-        {/* Bespoke Editorial Chamber Advisory Desk Section */}
+        {/* Editorial Chamber Advisory Desk Section */}
         <div className="glass-card rounded-3xl border border-theme p-8 sm:p-12 md:p-14 shadow-2xl relative overflow-hidden flex flex-col justify-between space-y-10">
           
           {/* Top Status Bar */}
@@ -205,7 +219,7 @@ function LocationCity() {
             </span>
           </div>
 
-          {/* Headline & Big Circular Action Button */}
+          {/* Headline & Action Button */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 py-2">
             <div className="max-w-xl space-y-4">
               <h2 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-light text-primary-light dark:text-primary-dark leading-[0.95] tracking-tight">
@@ -217,7 +231,6 @@ function LocationCity() {
               </p>
             </div>
 
-            {/* Circular Big Button leading to Schedule Page */}
             <Link
               to={`/schedule?location=${cluster.id}`}
               className="group relative w-20 h-20 sm:w-28 sm:h-28 rounded-full bg-primary-light text-surface-light dark:bg-primary-dark dark:text-surface-dark flex items-center justify-center shrink-0 transition-all duration-500 hover:scale-110 active:scale-95 shadow-2xl no-underline cursor-pointer self-start md:self-end"
@@ -231,7 +244,11 @@ function LocationCity() {
           <div className="pt-6 border-t border-theme/60 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs">
             <div className="flex items-center gap-2 text-secondary-light dark:text-secondary-dark text-[11px] uppercase tracking-wider">
               <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" />
-              <span>Chambers: 461 N.C. Banerjee Rd, Baidyabati</span>
+              <span>
+                {isHq
+                  ? "HQ Chambers: 461 N.C. Banerjee Rd, Baidyabati"
+                  : `Jurisdictional Desk: ${cluster.title} (${cluster.zone})`}
+              </span>
             </div>
 
             <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
@@ -265,6 +282,26 @@ function LocationCity() {
             </div>
           </div>
         </div>
+
+        {/* Reciprocal Internal Link Loop: Related Practice Guides */}
+        {relatedPosts.length > 0 && (
+          <div className="pt-10 border-t border-theme space-y-5">
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-[10px] sm:text-xs font-bold tracking-[0.25em] uppercase text-secondary-light dark:text-secondary-dark block">
+                RELATED PRACTICE GUIDES
+              </span>
+              <span className="font-mono text-[10px] text-emerald-500 uppercase tracking-wider font-bold">
+                {relatedPosts.length} Statutory {relatedPosts.length === 1 ? "Guide" : "Guides"}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {relatedPosts.map((post, idx) => (
+                <BlogCard key={post.slug} post={post} index={idx} forceLazy />
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Map Integration */}
         <div>

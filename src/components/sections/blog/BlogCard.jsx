@@ -6,7 +6,7 @@ import { ArrowUpRight } from "lucide-react";
 
 const DEFAULT_COVER = "/images/tax.webp";
 
-function BlogCard({ post, index }) {
+function BlogCard({ post, index, forceLazy = false }) {
   const formattedIndex = String(index + 1).padStart(2, "0");
   const postDate = post.date
     ? new Date(post.date).toLocaleDateString("en-IN", {
@@ -17,7 +17,7 @@ function BlogCard({ post, index }) {
     : "Active Circular";
 
   const coverImage = post.thumbnail || DEFAULT_COVER;
-  const isAboveFold = typeof index === "number" && index < 2;
+  const isAboveFold = !forceLazy && typeof index === "number" && index < 2;
 
   return (
     <Link
@@ -40,7 +40,7 @@ function BlogCard({ post, index }) {
               src={coverImage}
               alt={post.title}
               loading={isAboveFold ? "eager" : "lazy"}
-              fetchPriority={isAboveFold ? "high" : "auto"}
+              fetchPriority={isAboveFold ? "high" : "low"}
               decoding={isAboveFold ? "sync" : "async"}
               width={640}
               height={360}

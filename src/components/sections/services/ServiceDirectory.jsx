@@ -1,6 +1,7 @@
 // src/components/sections/services/ServiceDirectory.jsx
 
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Calculator,
@@ -11,6 +12,7 @@ import {
   Users2,
   Sparkles,
   Layers,
+  ArrowUpRight,
 } from "lucide-react";
 import { SERVICE_CATEGORIES } from "../../../data/servicesMenuData";
 import ServiceCard from "./ServicesCard";
@@ -19,11 +21,19 @@ import FilterDock from "../../ui/FilterDock";
 const CATEGORY_ICONS = {
   "accounts-audit": Calculator,
   gst: Receipt,
+  "gst-compliance": Receipt,
   "income-tax": FileText,
   "tds-payroll": Users2,
   "company-registration": Building2,
   "pf-esic": ShieldAlert,
   "licences-advisory": Layers,
+};
+
+// Helper to resolve route slugs cleanly
+const getCategorySlug = (catId) => {
+  if (catId === "gst") return "gst-compliance";
+  if (catId === "pf-esic") return "tds-payroll";
+  return catId;
 };
 
 export default function ServiceDirectory() {
@@ -81,6 +91,7 @@ export default function ServiceDirectory() {
           <AnimatePresence mode="popLayout">
             {filteredCategories.map((category) => {
               const IconComponent = CATEGORY_ICONS[category.id] || Sparkles;
+              const routeSlug = getCategorySlug(category.id);
 
               return (
                 <motion.div
@@ -92,27 +103,48 @@ export default function ServiceDirectory() {
                   className="space-y-6"
                 >
                   {/* Category Title Header */}
-                  <div className="flex items-center justify-between gap-4 pb-2">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-black/[0.04] dark:bg-white/[0.05] border border-theme flex items-center justify-center text-primary-light dark:text-primary-dark">
-                        <IconComponent className="w-4 h-4" />
+                  <div className="flex flex-wrap items-center justify-between gap-4 pb-3 border-b border-theme/60">
+                    <div className="flex items-center gap-3.5">
+                      <div className="w-10 h-10 rounded-xl bg-black/[0.04] dark:bg-white/[0.05] border border-theme flex items-center justify-center text-primary-light dark:text-primary-dark shadow-xs shrink-0">
+                        <IconComponent className="w-5 h-5" />
                       </div>
-                      <h3 className="font-serif text-2xl md:text-3xl font-light text-primary-light dark:text-primary-dark tracking-tight">
-                        {category.name}
-                      </h3>
+                      <Link
+                        to={`/services/${routeSlug}`}
+                        className="no-underline group/title flex items-center gap-2"
+                      >
+                        <h3 className="font-serif text-2xl md:text-3xl font-light text-primary-light dark:text-primary-dark tracking-tight group-hover/title:opacity-80 transition-opacity">
+                          {category.name}
+                        </h3>
+                      </Link>
                     </div>
 
-                    <div className="h-px flex-1 bg-gradient-to-r from-theme to-transparent hidden sm:block" />
+                    <div className="h-px flex-1 bg-gradient-to-r from-theme to-transparent hidden md:block" />
 
-                    <span className="font-mono text-[10px] uppercase tracking-widest text-secondary-light dark:text-secondary-dark">
-                      {category.items.length} Directives
-                    </span>
+                    <div className="flex items-center gap-3 shrink-0">
+                      <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-widest text-secondary-light dark:text-secondary-dark px-3 py-1.5 rounded-full border border-theme bg-black/[0.02] dark:bg-white/[0.02] hidden sm:inline-block">
+                        {category.items.length} Directives
+                      </span>
+
+                      {/* Prominent Category Action Button */}
+                      <Link
+                        to={`/services/${routeSlug}`}
+                        className="no-underline inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full border border-theme bg-black/[0.04] dark:bg-white/[0.06] hover:bg-black/10 dark:hover:bg-white/12 text-primary-light dark:text-primary-dark font-mono text-xs font-bold tracking-wider uppercase transition-all duration-300 shadow-sm hover:shadow-md group/btn"
+                      >
+                        <span>Explore Practice Desk</span>
+                        <ArrowUpRight className="w-4 h-4 shrink-0 transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                      </Link>
+                    </div>
                   </div>
 
                   {/* 3-Column Grid of Inverted Cards */}
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
                     {category.items.map((item, idx) => (
-                      <ServiceCard key={item.id} item={item} index={idx} />
+                      <ServiceCard
+                        key={item.id}
+                        item={item}
+                        index={idx}
+                        categorySlug={routeSlug}
+                      />
                     ))}
                   </div>
                 </motion.div>

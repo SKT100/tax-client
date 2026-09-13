@@ -117,16 +117,16 @@ function Footer() {
           </motion.div>
         </motion.div>
 
-        {/* 4-Column Navigation & Contact Grid */}
+        {/* 5-Column Navigation & Contact Grid */}
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 sm:gap-12 lg:gap-8 pt-10 pb-16 md:pb-24 border-t border-white/10"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 sm:gap-12 lg:gap-6 pt-10 pb-16 md:pb-24 border-t border-white/10"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: false, amount: 0.15 }}
           variants={staggerContainer}
         >
-          {/* Column 1: Brand & Principal (4 Cols) */}
-          <motion.div variants={staggerItem} className="lg:col-span-4 pr-2 space-y-4">
+          {/* Column 1: Brand & Principal (3 Cols) */}
+          <motion.div variants={staggerItem} className="lg:col-span-3 pr-2 space-y-4">
             <Link to="/" className="inline-block">
               <img
                 src="/images/Matrix-tax-logo.svg"
@@ -138,11 +138,10 @@ function Footer() {
                 className="h-10 sm:h-12 w-auto object-contain object-left opacity-95 hover:opacity-100 transition-opacity"
               />
             </Link>
-            <p className="text-white/70 text-xs sm:text-sm font-body font-light leading-relaxed">
+            <p className="text-white/70 text-xs font-body font-light leading-relaxed">
               {SITE_CONFIG.principal.name} • {SITE_CONFIG.principal.designation}. Providing trusted statutory income tax filings, GST lifecycle compliance, notice defense, and business licensing.
             </p>
 
-            {/* Persistent PDF Download Trigger */}
             <div className="pt-1">
               <PillButton
                 href="/docs/Matrix_Tax_Compliance_Brief.pdf"
@@ -163,9 +162,9 @@ function Footer() {
           {/* Column 2: Quick Links (2 Cols) */}
           <motion.div variants={staggerItem} className="lg:col-span-2">
             <h3 className="font-mono font-bold text-[10px] sm:text-xs uppercase tracking-[0.2em] text-white/60 mb-4 sm:mb-6">
-              Quick Links
+              Navigation
             </h3>
-            <ul className="flex flex-col gap-3 text-white/80 text-xs sm:text-sm font-body font-light">
+            <ul className="flex flex-col gap-2.5 text-white/80 text-xs font-body font-light">
               <li>
                 <Link to="/about" className="hover:text-white transition-colors">
                   About Us
@@ -173,7 +172,7 @@ function Footer() {
               </li>
               <li>
                 <Link to="/services" className="hover:text-white transition-colors">
-                  Tax Services
+                  All Services
                 </Link>
               </li>
               <li>
@@ -199,14 +198,53 @@ function Footer() {
             </ul>
           </motion.div>
 
-          {/* Column 3: Head Chambers & Hours (3 Cols) */}
+          {/* Column 3: Statutory Practices (3 Cols) */}
           <motion.div variants={staggerItem} className="lg:col-span-3">
             <h3 className="font-mono font-bold text-[10px] sm:text-xs uppercase tracking-[0.2em] text-white/60 mb-4 sm:mb-6">
-              Head Chambers
+              Statutory Practices
             </h3>
-            <div className="flex flex-col gap-3 text-white/80 text-xs sm:text-sm font-body font-light">
-              <div className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-white/60 shrink-0 mt-0.5" />
+            <ul className="flex flex-col gap-2.5 text-white/80 text-xs font-body font-light">
+              <li>
+                <Link to="/services/income-tax" className="hover:text-white transition-colors">
+                  Income Tax Advisory
+                </Link>
+              </li>
+              <li>
+                <Link to="/services/gst-compliance" className="hover:text-white transition-colors">
+                  GST Returns &amp; DRC-01
+                </Link>
+              </li>
+              <li>
+                <Link to="/services/tds-payroll" className="hover:text-white transition-colors">
+                  TDS, Payroll &amp; PF-ESIC
+                </Link>
+              </li>
+              <li>
+                <Link to="/services/company-registration" className="hover:text-white transition-colors">
+                  Company &amp; ROC Filing
+                </Link>
+              </li>
+              <li>
+                <Link to="/services/licences-advisory" className="hover:text-white transition-colors">
+                  Trade Licences &amp; DGFT
+                </Link>
+              </li>
+              <li>
+                <Link to="/services/accounts-audit" className="hover:text-white transition-colors">
+                  Accounts &amp; Tax Audit
+                </Link>
+              </li>
+            </ul>
+          </motion.div>
+
+          {/* Column 4: Head Chambers (2 Cols) */}
+          <motion.div variants={staggerItem} className="lg:col-span-2">
+            <h3 className="font-mono font-bold text-[10px] sm:text-xs uppercase tracking-[0.2em] text-white/60 mb-4 sm:mb-6">
+              Chambers
+            </h3>
+            <div className="flex flex-col gap-3 text-white/80 text-xs font-body font-light">
+              <div className="flex items-start gap-2">
+                <MapPin className="w-3.5 h-3.5 text-white/60 shrink-0 mt-0.5" />
                 <a
                   href="https://maps.app.goo.gl/fYv6thvva6ShzGMa6"
                   target="_blank"
@@ -214,44 +252,40 @@ function Footer() {
                   className="not-italic leading-relaxed text-white/80 hover:text-white transition-colors block group"
                   aria-label="View Matrix Tax Chambers on Google Maps"
                 >
-                  <span>461, N.C. Banerjee Road,</span><br />
-                  <span>Baidyabati, Hooghly,</span><br />
-                  <span>West Bengal — 712222</span>
-                  <span className="block font-mono text-[10px] text-emerald-400 mt-1 opacity-80 group-hover:opacity-100">
-                    Open in Google Maps ↗
+                  <span>461, N.C. Banerjee Rd</span><br />
+                  <span>Baidyabati, 712222</span>
+                  <span className="block font-mono text-[9px] text-emerald-400 mt-1 opacity-80 group-hover:opacity-100">
+                    Google Maps ↗
                   </span>
                 </a>
               </div>
 
-              <div className="flex items-start gap-2.5">
-                <Clock className="w-4 h-4 text-white/60 shrink-0 mt-0.5" />
-                <div className="leading-snug text-xs">
-                  <span className="font-mono text-[10px] text-white/50 uppercase tracking-wider block mb-0.5">
-                    Chamber Timings
-                  </span>
-                  <p className="text-white/80">
-                    Morning: 7:00 AM – 10:00 AM<br />
-                    Evening: 6:00 PM – 10:00 PM
+              <div className="flex items-start gap-2">
+                <Clock className="w-3.5 h-3.5 text-white/60 shrink-0 mt-0.5" />
+                <div className="leading-tight text-[11px]">
+                  <p className="text-white/70">
+                    Mon – Sun<br />
+                    7-10 AM | 6-10 PM
                   </p>
                 </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Column 4: Contact & Direct Connect (3 Cols) */}
-          <motion.div variants={staggerItem} className="lg:col-span-3">
+          {/* Column 5: Direct Contact (2 Cols) */}
+          <motion.div variants={staggerItem} className="lg:col-span-2">
             <h3 className="font-mono font-bold text-[10px] sm:text-xs uppercase tracking-[0.2em] text-white/60 mb-4 sm:mb-6">
-              Direct Contact
+              Contact
             </h3>
-            <ul className="flex flex-col gap-3.5 text-white/80 text-xs sm:text-sm font-body font-light">
+            <ul className="flex flex-col gap-3 text-white/80 text-xs font-body font-light">
               <li>
                 <a
                   href={`tel:${SITE_CONFIG.contact.phoneRaw}`}
                   aria-label={`Call Chambers at ${SITE_CONFIG.contact.phone}`}
                   className="hover:text-white transition-colors flex items-center gap-2"
                 >
-                  <Phone className="w-3.5 h-3.5 text-amber-500 shrink-0" />
-                  <span className="font-mono text-xs">{SITE_CONFIG.contact.phone}</span>
+                  <Phone className="w-3 h-3 text-amber-500 shrink-0" />
+                  <span className="font-mono text-[11px]">{SITE_CONFIG.contact.phone}</span>
                 </a>
               </li>
               <li>
@@ -260,11 +294,11 @@ function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Connect on WhatsApp Direct"
-                  className="hover:text-white transition-colors flex items-center gap-2 text-emerald-400"
+                  className="hover:text-white transition-colors flex items-center gap-1.5 text-emerald-400"
                 >
-                  <WhatsAppIcon className="w-3.5 h-3.5 shrink-0 fill-current" />
-                  <span>WhatsApp Desk</span>
-                  <ArrowUpRight size={13} className="opacity-60" />
+                  <WhatsAppIcon className="w-3 h-3 shrink-0 fill-current" />
+                  <span>WhatsApp</span>
+                  <ArrowUpRight size={12} className="opacity-60" />
                 </a>
               </li>
               <li>
@@ -273,8 +307,8 @@ function Footer() {
                   aria-label={`Email Chambers at ${SITE_CONFIG.contact.email}`}
                   className="hover:text-white transition-colors flex items-center gap-2"
                 >
-                  <Mail className="w-3.5 h-3.5 text-white/60 shrink-0" />
-                  <span className="truncate">{SITE_CONFIG.contact.email}</span>
+                  <Mail className="w-3 h-3 text-white/60 shrink-0" />
+                  <span className="truncate text-[11px]">{SITE_CONFIG.contact.email}</span>
                 </a>
               </li>
             </ul>

@@ -3,6 +3,8 @@
 import { memo } from "react";
 import ComplianceCalendar from "../components/sections/compliance/ComplianceCalendar";
 import ScrollVelocityRibbon from "../components/ui/ribbon/ScrollVelocityRibbon";
+import FAQSection from "../components/sections/shared/FAQSection";
+import { COMPLIANCE_FAQS } from "../data/faqsData";
 
 function Compliance() {
   return (
@@ -19,6 +21,18 @@ function Compliance() {
 
       {/* Main Statutory Due Date Engine */}
       <ComplianceCalendar />
+
+      {/* Route-Specific Compliance & Deadline FAQs */}
+      <div className="pb-16 sm:pb-24">
+        <FAQSection
+          id="compliance-faq"
+          badge="STATUTORY DEADLINES & PENALTIES"
+          title="Compliance & Penalty Directives"
+          subtitle="Clear guidelines on statutory cutoffs, Section 234 late fees, GST interest liabilities, and P-Tax schedules."
+          items={COMPLIANCE_FAQS}
+          showCta={true}
+        />
+      </div>
 
     </div>
   );

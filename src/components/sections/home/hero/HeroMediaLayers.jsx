@@ -8,6 +8,9 @@ function HeroMediaLayers({ index, nextIndex, lensClipPath, isMobile }) {
   const videoRefs = useRef({});
 
   useEffect(() => {
+    let cancelled = false;
+    const cleanupFns = [];
+
     [index, nextIndex].forEach((idx) => {
       const videoEl = videoRefs.current[idx];
       const slide = HERO_SLIDES[idx];
@@ -20,11 +23,12 @@ function HeroMediaLayers({ index, nextIndex, lensClipPath, isMobile }) {
       const playPromise = videoEl.play();
       if (playPromise !== undefined) {
         playPromise.catch(() => {
+          if (cancelled) return; // effect already cleaned up — don't attach a leak
           const forcePlay = () => {
-            videoEl.play().catch(() => {});
-            window.removeEventListener("pointerdown", forcePlay);
+            videoEl.play().catch(() => { });
           };
           window.addEventListener("pointerdown", forcePlay, { once: true });
+          cleanupFns.push(() => window.removeEventListener("pointerdown", forcePlay));
         });
       }
     });
@@ -35,8 +39,13 @@ function HeroMediaLayers({ index, nextIndex, lensClipPath, isMobile }) {
         videoRefs.current[numKey].pause();
       }
     });
-  }, [index, nextIndex]);
 
+    return () => {
+      cancelled = true;
+      cleanupFns.forEach((fn) => fn());
+    };
+  }, [index, nextIndex]);
+  
   // Mobile View: Clean, performant opacity crossfade without lens masks
   if (isMobile) {
     return (
@@ -75,7 +84,7 @@ function HeroMediaLayers({ index, nextIndex, lensClipPath, isMobile }) {
                     width="1920"
                     height="1080"
                     loading={slideIdx === 0 ? "eager" : "lazy"}
-                    fetchPriority={slideIdx === 0 ? "high" : "low"}
+                    fetchpriority={slideIdx === 0 ? "high" : "low"}
                     decoding={slideIdx === 0 ? "sync" : "async"}
                     className="w-full h-full object-cover filter grayscale brightness-90 contrast-125"
                   />
@@ -134,7 +143,7 @@ function HeroMediaLayers({ index, nextIndex, lensClipPath, isMobile }) {
                 width="1920"
                 height="1080"
                 loading={isCurrent ? "eager" : "lazy"}
-                fetchPriority={isCurrent ? "high" : "low"}
+                fetchpriority={isCurrent ? "high" : "low"}
                 decoding={isCurrent ? "sync" : "async"}
                 className="w-full h-full object-cover filter grayscale brightness-90 contrast-125"
               />

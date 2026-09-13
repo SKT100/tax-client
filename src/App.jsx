@@ -12,6 +12,7 @@ import LoadingScreen from './components/ui/LoadingScreen';
 const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
 const Services = lazy(() => import('./pages/Services'));
+const ServiceCategory = lazy(() => import('./pages/ServiceCategory'));
 const Compliance = lazy(() => import('./pages/Compliance'));
 const Locations = lazy(() => import('./pages/Locations'));
 const LocationCity = lazy(() => import('./pages/LocationCity'));
@@ -28,6 +29,25 @@ const COUNT_DURATION = 320;      // Fixed rAF fill duration
 const OPEN_PAUSE = 40;           // Brief beat before curtain starts opening
 const CURTAIN_DURATION = 500;    // Curtain animation duration
 const SAFETY_TIMEOUT = 900;      // Fallback timeout
+
+/**
+ * Signals Puppeteer DOM-capture script that React has finished mounting 
+ * and painting the lazy-loaded route chunk into the DOM.
+ */
+function PageReady() {
+  const location = useLocation();
+
+  useEffect(() => {
+    document.body.removeAttribute('data-prerender-ready');
+    const timer = requestAnimationFrame(() => {
+      document.body.setAttribute('data-prerender-ready', 'true');
+    });
+
+    return () => cancelAnimationFrame(timer);
+  }, [location.pathname]);
+
+  return null;
+}
 
 function AppContent() {
   const navigate = useNavigate();
@@ -145,10 +165,12 @@ function AppContent() {
         <Navbar />
         <main className="pt-20">
           <Suspense fallback={<div className="min-h-screen bg-surface-light dark:bg-surface-dark transition-colors duration-300" />}>
+            <PageReady />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/services" element={<Services />} />
+              <Route path="/services/:categorySlug" element={<ServiceCategory />} />
               <Route path="/practices" element={<Services />} />
               <Route path="/compliance" element={<Compliance />} />
               <Route path="/due-dates" element={<Compliance />} />

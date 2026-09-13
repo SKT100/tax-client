@@ -251,7 +251,7 @@ function Navbar() {
             width="160"
             height="40"
             loading="eager"
-            fetchPriority="high"
+            fetchpriority="high"
             decoding="sync"
             className={`h-8 sm:h-9 md:h-10 w-auto object-contain select-none transition-all duration-300 ${
               isSolid ? "invert dark:invert-0" : "invert-0"
